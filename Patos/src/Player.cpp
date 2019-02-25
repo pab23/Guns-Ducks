@@ -63,5 +63,20 @@ Vector2i Player::getDir()
     return dir;
 }
 
+RectangleShape Player::getBox()
+{
+    return *box;
+}
+void Player::setLife(int new_life)
+{
+    life = new_life;
+}
+
+int Player::getLife()
+{
+    return life;
+}
+
+
 
 

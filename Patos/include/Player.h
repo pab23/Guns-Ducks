@@ -16,6 +16,9 @@ class Player
         Sprite getSprite();
         Vector2f getPosition();
         Vector2i getDir();
+        RectangleShape getBox();
+        void setLife(int);
+        int getLife();
 
 
     protected:
@@ -25,6 +28,7 @@ class Player
         RectangleShape *box;
         float speed;
         Vector2i dir;
+        int life = 100;
 };
 
 #endif // PLAYER_H

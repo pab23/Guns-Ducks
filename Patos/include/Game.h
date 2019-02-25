@@ -20,6 +20,8 @@ class Game
         void loadTextures();
         void listenKeyboard();
         void draw();
+        void checkZonaVerde();
+
 
 
     protected:
@@ -34,6 +36,12 @@ class Game
         vector<Bullet> balas;
         Clock bullet_clock;
         Time bullet_cooldown;
+        Clock zona_clock;
+        Time zona_cooldown;
+        int * score;
+        //Zona verde
+        RectangleShape * verde;
+        RectangleShape * life_bar;
 
 
 };

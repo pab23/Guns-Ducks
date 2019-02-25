@@ -17,6 +17,15 @@ Game::Game(Vector2i win_dim)
         enemigos.push_back(aux);
     }
 
+    //Creamos la zona verde
+    verde = new RectangleShape({100,100});
+    verde->setFillColor(Color::Blue);
+    verde->setPosition(400, 300);
+    //Creamos sprite barra de vida
+    life_bar = new RectangleShape({200,10});
+    life_bar->setFillColor(Color::Green);
+    life_bar->setPosition(10, 550);
+
     gameLoop();
 
 }
@@ -26,7 +35,15 @@ void Game::gameLoop()
     while(win->isOpen())
     {
         bullet_cooldown = bullet_clock.getElapsedTime();
+        zona_cooldown = zona_clock.getElapsedTime();
+        if(zona_cooldown.asSeconds() >= 1)
+        {
+            checkZonaVerde();
+            zona_clock.restart();
+        }
         listenKeyboard();
+
+
 
         //colisiones();
 
@@ -73,14 +90,20 @@ void Game::draw()
 
     win->clear();
 
+    win->draw(*verde);
     win->draw(player->getSprite());
+    win->draw(*life_bar);
 
-    for(unsigned i = 0; i < enemigos.size(); i++)
-        win->draw(enemigos[i].getSprite());
-
-    for( unsigned j = 0; j < balas.size(); j++)
-        win->draw(balas[j].getSprite());
 
     win->display();
 }
 
+void Game::checkZonaVerde()
+{
+    if (player->getSprite().getGlobalBounds().intersects(verde->getGlobalBounds()))
+    {
+        player->setLife(player->getLife()-10);
+        life_bar->setSize({100, life_bar->getSize().y});//Me quedo aqui la barra no encoge bien
+        cout<<player->getLife() <<endl;
+    }
+}
