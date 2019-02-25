@@ -1,0 +1,20 @@
+# depslib dependency file v1.0
+1551095703 source:/home/fv/Escritorio/Guns-Ducks/main.cpp
+	<SFML/Graphics.hpp>
+	<iostream>
+	"Game.h"
+
+1551096393 /home/fv/Escritorio/Guns-Ducks/include/Game.h
+	<SFML/Graphics.hpp>
+	<iostream>
+	"Player.h"
+
+1551096470 /home/fv/Escritorio/Guns-Ducks/include/Player.h
+	<SFML/Graphics.hpp>
+
+1551096621 source:/home/fv/Escritorio/Guns-Ducks/src/Game.cpp
+	"Game.h"
+
+1551096548 source:/home/fv/Escritorio/Guns-Ducks/src/Player.cpp
+	"Player.h"
+
