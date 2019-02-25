@@ -2,6 +2,7 @@
 #define BULLET_H
 
 #include "SFML/Graphics.hpp"
+#include <iostream>
 
 using namespace sf;
 using namespace std;
@@ -15,6 +16,7 @@ class Bullet
 
         CircleShape getSprite();
         void move();
+        FloatRect getBounds();
 
     protected:
 

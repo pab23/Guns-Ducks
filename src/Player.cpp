@@ -11,7 +11,7 @@ Player::Player(Texture &tex)
         spr->setTextureRect(IntRect(1*75, 0*75, 75, 75));
         spr->setPosition(0,0);
 
-        speed = 5; dir = {1, 0};
+        speed = 2; dir = {1, 0};
 }
 
 
@@ -44,9 +44,11 @@ void Player::move(int x, int y)
             speedY = 0;
         break;
     }
+
+    dir = {(int)speedX/speed, (int)speedY/speed};
     spr->move(speedX, speedY);
 
-    dir = {speedX, speedY};
+
 }
 
 Sprite Player::getSprite()
@@ -62,6 +64,7 @@ Vector2i Player::getDir()
 {
     return dir;
 }
+
 
 
 

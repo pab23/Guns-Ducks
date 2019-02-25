@@ -20,6 +20,7 @@ class Game
         void loadTextures();
         void listenKeyboard();
         void draw();
+        void colisiones();
 
 
     protected:
@@ -34,6 +35,7 @@ class Game
         vector<Bullet> balas;
         Clock bullet_clock;
         Time bullet_cooldown;
+        Vector2i winDim;
 
 
 };

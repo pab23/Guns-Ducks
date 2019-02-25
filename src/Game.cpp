@@ -3,6 +3,7 @@
 
 Game::Game(Vector2i win_dim)
 {
+    winDim=win_dim;
     win = new RenderWindow(VideoMode(win_dim.x, win_dim.y), "Guns & Ducks");
     win->setFramerateLimit(60);
 
@@ -17,6 +18,8 @@ Game::Game(Vector2i win_dim)
         enemigos.push_back(aux);
     }
 
+
+
     gameLoop();
 
 }
@@ -28,7 +31,7 @@ void Game::gameLoop()
         bullet_cooldown = bullet_clock.getElapsedTime();
         listenKeyboard();
 
-        //colisiones();
+        colisiones();
 
         draw();
 
@@ -59,12 +62,17 @@ void Game::listenKeyboard()
     {
         x = 1;
     }
-    player->move(x, y);
+    if(x!=0 || y!=0)
+        player->move(x, y);
+
     if( Keyboard::isKeyPressed(Keyboard::Space) && bullet_cooldown.asSeconds() >= .2f)
     {
         bullet_clock.restart();
         balas.push_back(Bullet(player->getPosition(), player->getDir(), 5));//ultimo parametro radio a falta de implementar diferentes tipos de bala
     }
+
+    for(unsigned i=0; i<balas.size(); i++)
+        balas[i].move();
 
 }
 
@@ -78,9 +86,58 @@ void Game::draw()
     for(unsigned i = 0; i < enemigos.size(); i++)
         win->draw(enemigos[i].getSprite());
 
+
     for( unsigned j = 0; j < balas.size(); j++)
         win->draw(balas[j].getSprite());
 
+
+
+
     win->display();
+}
+
+void Game::colisiones()
+{
+    FloatRect barrier0x({0,-30}, {winDim.x,1});
+    FloatRect barrierxx({0,winDim.x+30}, {winDim.x,1});
+    FloatRect barrier0y({winDim.x+30,0}, {1,winDim.y});
+    FloatRect barrieryy({-30,0}, {1,winDim.y});
+
+    for(unsigned i=0; i<balas.size(); i++)
+    {
+
+        if(balas[i].getBounds().intersects(barrier0x))
+            balas.erase(balas.begin()+i);
+
+        if(balas[i].getBounds().intersects(barrier0y))
+            balas.erase(balas.begin()+i);
+
+        if(balas[i].getBounds().intersects(barrierxx))
+            balas.erase(balas.begin()+i);
+
+        if(balas[i].getBounds().intersects(barrieryy))
+            balas.erase(balas.begin()+i);
+
+
+    }
+
+     for(int i = 0; i < balas.size();i++)
+        {
+
+            for(int j = 0; j < enemigos.size();j++)
+            {
+                if(balas[i].getBounds().intersects(enemigos[j].getBounds()))
+                {
+                    balas.erase(balas.begin()+i);
+                    enemigos.erase(enemigos.begin()+j);
+                }
+            }
+
+        }
+
+
+
+
+
 }
 

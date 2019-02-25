@@ -1,4 +1,4 @@
-#include "Enemy.h"
+#include "../include/Enemy.h"
 
 Enemy::Enemy(Texture &tex)
 {
@@ -18,5 +18,9 @@ Enemy::~Enemy()
 Sprite Enemy::getSprite()
 {
     return *spr;
+}
+
+FloatRect Enemy::getBounds(){
+    return spr->getGlobalBounds();
 }
 
