@@ -1,6 +1,9 @@
 # Guns-Ducks
 
-para hacer commit a una rama:
+Crear una rama:
+>git checkout -b nombre_nueva_rama
+
+Para hacer commit a una rama:
 
 >git checkout nombre_rama
 
