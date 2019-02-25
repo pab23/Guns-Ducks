@@ -16,16 +16,20 @@ Vector2f getRandomPosition(Vector2f &ventana);
 
 Texture tex_player;
 Vector2f vec_windowSize(800,600);//Tamanio de la ventana
+
+
+
 const int c_ckp=1; //num de checkpoints
 int points[c_ckp][2];
 
 
 struct Player{
     float x,y,speed,angle;
+    int dir;
     Sprite spr_player;
 
     Player (Texture &tex){
-        speed=6;angle=0;
+        speed=6;angle=0; dir = 2;
         spr_player.setTexture(tex);
         spr_player.setOrigin(75/2,75/2);
         spr_player.setTextureRect(IntRect(1*75, 0*75, 75, 75));
@@ -41,8 +45,7 @@ struct Player{
         y = pos.y;
         spr_player.setPosition(x,y);
     }
-    void move(bool Left, bool Down, bool Right,bool Up)
-    {
+    void move(bool Left, bool Down, bool Right,bool Up){
 
         if(Up){
             y -= speed;
@@ -105,9 +108,88 @@ struct Enemigo{
     }
 
 };
+struct Bullet{
+    RectangleShape bullet;
+    int dir = 0;
+    Bullet(sf::Vector2f size, int direc){
+            bullet.setSize(size);
+            bullet.setFillColor(sf::Color::Blue);
+            dir = direc;
+        }
+
+    void fire(int speed){
+
+
+        switch(dir)
+        {
+            case 1: bullet.move(-speed,0);
+            break;
+            case 2: bullet.move(0,speed);
+                    bullet.setRotation(90);
+            break;
+            case 3: bullet.move(speed,0);
+            break;
+            case 4: bullet.move(0,-speed);
+                    bullet.setRotation(90);
+            break;
+            case 12:bullet.move(-speed,speed);
+                    bullet.setRotation(-45);
+            break;
+            case 23:bullet.move(speed,speed);
+                    bullet.setRotation(45);
+            break;
+            case 34:bullet.move(speed,-speed);
+                    bullet.setRotation(-45);
+            break;
+            case 14:bullet.move(-speed,-speed);
+                    bullet.setRotation(45);
+            break;
+
+
+
+        }
+
+
+
+    }
+
+    int getRight() {
+            return bullet.getPosition().x + bullet.getSize().x;
+
+        }
+
+    int getLeft() {
+            return bullet.getPosition().x;
+
+        }
+
+    int getTop(){
+        return bullet.getPosition().y;
+        }
+
+    int getBottom(){
+        return bullet.getPosition().y + bullet.getSize().y;
+        }
+
+    void draw(sf::RenderWindow &window)
+    {
+            window.draw(bullet);
+        }
+
+    void setPosition(sf::Vector2f newPos) {
+            bullet.setPosition(newPos);
+        }
+
+
+
+
+};
 
 int main()
 {
+
+    vector<Bullet> arrayBalas;
+
 
     loadTextures();
     srand(time(NULL));//Para el metodo RandomNumber
@@ -142,6 +224,7 @@ int main()
 
         }
 
+
         bool Up = 0, Right = 0, Down = 0, Left = 0;
 
             if (Keyboard::isKeyPressed(Keyboard::Up)){ Up=1;}
@@ -150,20 +233,54 @@ int main()
             if (Keyboard::isKeyPressed(Keyboard::Left)){ Left=1;}
 
 
-        player.move(Left,Down,Right,Up);
 
-        if(Up && Right)
-        cerr << "Tecla UP y Right" << endl;
-        else{
+            player.move(Left,Down,Right,Up);
+
             if(Up)
-            cerr << "Tecla up" << endl;
-            if(Right)
-            cerr << "Tecla right" << endl;
-            if(Left)
-            cerr << "Tecla left" << endl;
+                player.dir=4;
             if(Down)
-            cerr << "Tecla down" << endl;
+                player.dir=2;
+            if(Left)
+                player.dir=1;
+            if(Right)
+                player.dir=3;
+            if(Left && Down )
+                player.dir=12;
+            if(Down && Right)
+                player.dir=23;
+            if(Right && Up)
+                player.dir=34;
+            if(Up && Left)
+                player.dir=14;
+
+
+
+
+
+
+        // Array de balas, lo recorre y dibuja cada una
+        for(int i = 0; i < arrayBalas.size();i++)
+        {
+            bool colision = 0;
+            for(int j = 0; j < 10;j++)
+            {
+                if(arrayBalas[i].bullet.getGlobalBounds().intersects(array_enemigos[j].spr_enemigo.getGlobalBounds()) && !colision)
+                {
+                    colision = true;
+                    array_enemigos[j].setPosition(1500,1500);
+                }
+            }
+            if(!colision){
+                window.draw(arrayBalas[i].bullet);
+                arrayBalas[i].fire(60);
+            }
         }
+
+
+
+
+
+
 
         //Bucle de obtención de evento. Hasta que no se enciende el semaforo
         Event event;
@@ -184,9 +301,20 @@ int main()
                         case Keyboard::Q:
                             window.close();
                         break;
+
+                        case Keyboard::Space:
+                            Bullet newBullet(sf::Vector2f(50,5), player.dir);
+                            newBullet.setPosition(player.getPosition());
+                            newBullet.fire(1);
+                            arrayBalas.push_back(newBullet);
+
+
+
+                        break;
                     }
                     break;
             }
+
 
 
         }//END WHILE EVENT
@@ -197,6 +325,12 @@ int main()
     } //END WHILE WINDOW OPEN
 
     return 0;
+}
+string s(double n){
+
+    stringstream ss;
+    ss<<n;
+    return ss.str();
 }
 void loadTextures(){
 
