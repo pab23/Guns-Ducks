@@ -18,18 +18,18 @@
 1551096548 source:/home/fv/Escritorio/Guns-Ducks/src/Player.cpp
 	"Player.h"
 
-1551097762 source:/home/fv/Documentos/GIT/Guns-Ducks/main.cpp
+1551099355 source:/home/fv/Documentos/GIT/Guns-Ducks/main.cpp
 	<SFML/Graphics.hpp>
 	<iostream>
-	"Game.h"
+	"include/Game.h"
 
-1551098949 source:/home/fv/Documentos/GIT/Guns-Ducks/src/Game.cpp
+1551099025 source:/home/fv/Documentos/GIT/Guns-Ducks/src/Game.cpp
 	"../include/Game.h"
 
 1551097762 source:/home/fv/Documentos/GIT/Guns-Ducks/src/Player.cpp
 	"Player.h"
 
-1551098951 /home/fv/Documentos/GIT/Guns-Ducks/include/Game.h
+1551099387 /home/fv/Documentos/GIT/Guns-Ducks/include/Game.h
 	<SFML/Graphics.hpp>
 	<iostream>
 	"Player.h"
