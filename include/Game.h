@@ -27,7 +27,7 @@ class Game
         RenderWindow *win;
         Texture *tex_player;
         Player *player;
-        Event *e;
+        Event e;
 
 
 };

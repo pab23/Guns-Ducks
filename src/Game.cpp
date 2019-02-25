@@ -1,5 +1,4 @@
-#include "Game.h"
-
+#include "../include/Game.h"
 
 
 Game::Game(Vector2i win_dim)
@@ -19,20 +18,24 @@ void Game::gameLoop()
     {
         listenKeyboard();
         draw();
+
     }
 }
 
 void Game::listenKeyboard()
 {
-    while(win->pollEvent(*e))
+
+    while(win->pollEvent(e))
     {
-        if(e->type == Event::Closed)
+        if(e.type == Event::Closed)
             win->close();
     }
+
 }
 
 void Game::draw()
 {
+
     win->clear();
 
     win->draw(player->getSprite());
