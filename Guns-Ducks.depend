@@ -37,3 +37,29 @@
 1551097762 /home/fv/Documentos/GIT/Guns-Ducks/include/Player.h
 	<SFML/Graphics.hpp>
 
+1551113648 source:/home/fv/Guns-Ducks/main.cpp
+	<SFML/Graphics.hpp>
+	<iostream>
+	"include/Game.h"
+
+1551117434 /home/fv/Guns-Ducks/include/Game.h
+	<SFML/Graphics.hpp>
+	<iostream>
+	"Player.h"
+	"Enemy.h"
+
+1551119101 /home/fv/Guns-Ducks/include/Player.h
+	<SFML/Graphics.hpp>
+
+1551119020 source:/home/fv/Guns-Ducks/src/Game.cpp
+	"../include/Game.h"
+
+1551118705 source:/home/fv/Guns-Ducks/src/Player.cpp
+	"../include/Player.h"
+
+1551117954 /home/fv/Guns-Ducks/include/Enemy.h
+	"SFML/Graphics.hpp"
+
+1551117982 source:/home/fv/Guns-Ducks/src/Enemy.cpp
+	"Enemy.h"
+

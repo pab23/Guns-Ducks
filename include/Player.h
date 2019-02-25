@@ -12,14 +12,17 @@ class Player
         Player(Texture&);
 
         Sprite getSprite();
+        Vector2f getPosition();
+        void move(int, int);
 
 
     protected:
 
     private:
         Sprite *spr;
-        RectangleShape box;
+        RectangleShape *box;
         float speed;
+        Vector2i dir;
 };
 
 #endif // PLAYER_H

@@ -5,6 +5,7 @@
 #include <iostream>
 
 #include "Player.h"
+#include "Enemy.h"
 
 using namespace sf;
 using namespace std;
@@ -28,6 +29,7 @@ class Game
         Texture *tex_player;
         Player *player;
         Event e;
+        vector<Enemy> enemigos;
 
 
 };
