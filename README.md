@@ -13,4 +13,8 @@ Para hacer commit a una rama:
 
 >git push
 
+Antes de crear cambios debeís hacer un PULL para tener la ultima versión del codigo:
+
+>git pull
+
 
