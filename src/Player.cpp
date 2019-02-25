@@ -14,15 +14,6 @@ Player::Player(Texture &tex)
         speed = 5; dir = {1, 0};
 }
 
-Sprite Player::getSprite()
-{
-    return *spr;
-}
-
-Vector2f Player::getPosition()
-{
-    return spr->getPosition();
-}
 
 void Player::move(int x, int y)
 {
@@ -56,6 +47,20 @@ void Player::move(int x, int y)
     spr->move(speedX, speedY);
 
     dir = {speedX, speedY};
+}
+
+Sprite Player::getSprite()
+{
+    return *spr;
+}
+
+Vector2f Player::getPosition()
+{
+    return spr->getPosition();
+}
+Vector2i Player::getDir()
+{
+    return dir;
 }
 
 

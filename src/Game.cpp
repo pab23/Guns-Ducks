@@ -25,10 +25,10 @@ void Game::gameLoop()
 {
     while(win->isOpen())
     {
-
+        bullet_cooldown = bullet_clock.getElapsedTime();
         listenKeyboard();
 
-
+        //colisiones();
 
         draw();
 
@@ -60,6 +60,12 @@ void Game::listenKeyboard()
         x = 1;
     }
     player->move(x, y);
+    if( Keyboard::isKeyPressed(Keyboard::Space) && bullet_cooldown.asSeconds() >= .2f)
+    {
+        bullet_clock.restart();
+        balas.push_back(Bullet(player->getPosition(), player->getDir(), 5));//ultimo parametro radio a falta de implementar diferentes tipos de bala
+    }
+
 }
 
 void Game::draw()
@@ -68,8 +74,12 @@ void Game::draw()
     win->clear();
 
     win->draw(player->getSprite());
+
     for(unsigned i = 0; i < enemigos.size(); i++)
         win->draw(enemigos[i].getSprite());
+
+    for( unsigned j = 0; j < balas.size(); j++)
+        win->draw(balas[j].getSprite());
 
     win->display();
 }

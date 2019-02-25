@@ -11,9 +11,11 @@ class Player
         Player(){}
         Player(Texture&);
 
+        void move(int, int);
+
         Sprite getSprite();
         Vector2f getPosition();
-        void move(int, int);
+        Vector2i getDir();
 
 
     protected:

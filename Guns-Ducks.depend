@@ -42,19 +42,20 @@
 	<iostream>
 	"include/Game.h"
 
-1551117434 /home/fv/Guns-Ducks/include/Game.h
+1551120413 /home/fv/Guns-Ducks/include/Game.h
 	<SFML/Graphics.hpp>
 	<iostream>
 	"Player.h"
 	"Enemy.h"
+	"Bullet.h"
 
-1551119101 /home/fv/Guns-Ducks/include/Player.h
+1551119862 /home/fv/Guns-Ducks/include/Player.h
 	<SFML/Graphics.hpp>
 
-1551119020 source:/home/fv/Guns-Ducks/src/Game.cpp
+1551120056 source:/home/fv/Guns-Ducks/src/Game.cpp
 	"../include/Game.h"
 
-1551118705 source:/home/fv/Guns-Ducks/src/Player.cpp
+1551119912 source:/home/fv/Guns-Ducks/src/Player.cpp
 	"../include/Player.h"
 
 1551117954 /home/fv/Guns-Ducks/include/Enemy.h
@@ -62,4 +63,10 @@
 
 1551117982 source:/home/fv/Guns-Ducks/src/Enemy.cpp
 	"Enemy.h"
+
+1551120674 /home/fv/Guns-Ducks/include/Bullet.h
+	"SFML/Graphics.hpp"
+
+1551120308 source:/home/fv/Guns-Ducks/src/Bullet.cpp
+	"Bullet.h"
 

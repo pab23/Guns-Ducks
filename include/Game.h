@@ -6,6 +6,7 @@
 
 #include "Player.h"
 #include "Enemy.h"
+#include "Bullet.h"
 
 using namespace sf;
 using namespace std;
@@ -30,6 +31,9 @@ class Game
         Player *player;
         Event e;
         vector<Enemy> enemigos;
+        vector<Bullet> balas;
+        Clock bullet_clock;
+        Time bullet_cooldown;
 
 
 };
