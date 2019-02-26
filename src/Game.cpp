@@ -43,27 +43,32 @@ void Game::listenKeyboard()
     int x = 0, y = 0;
     while(win->pollEvent(e))
     {
-        if(e.type == Event::Closed)
+        if(e.type == Event::Closed || (e.type == Event::KeyPressed && (e.key.code == Keyboard::Escape)))
+        {
             win->close();
+            cout<<"Bala: "<<balas.size()<<endl;
+        }
+
     }
     if( Keyboard::isKeyPressed(Keyboard::W))
     {
-        y = -1;
+        if(player->getPosition().y > 0)y = -1;
     }
     else if( Keyboard::isKeyPressed(Keyboard::S))
     {
-        y = 1;
+        if(player->getPosition().y < winDim.y)y = 1;
     }
     if( Keyboard::isKeyPressed(Keyboard::A))
     {
-        x = -1;
+        if(player->getPosition().x > 0)x = -1;
     }
     else if( Keyboard::isKeyPressed(Keyboard::D))
     {
-        x = 1;
+        if(player->getPosition().x < winDim.x)x = 1;
     }
     if(x!=0 || y!=0)
         player->move(x, y);
+
 
     if( Keyboard::isKeyPressed(Keyboard::Space) && bullet_cooldown.asSeconds() >= .2f)
     {
@@ -99,9 +104,9 @@ void Game::draw()
 void Game::colisiones()
 {
     FloatRect barrier0x({0,-30}, {winDim.x,1});
-    FloatRect barrierxx({0,winDim.x+30}, {winDim.x,1});
-    FloatRect barrier0y({winDim.x+30,0}, {1,winDim.y});
-    FloatRect barrieryy({-30,0}, {1,winDim.y});
+    FloatRect barrierxx({0,winDim.y+30}, {winDim.x,1});
+    FloatRect barrieryy({winDim.x+30,0}, {1,winDim.y});
+    FloatRect barrier0y({-30,0}, {1,winDim.y});
 
     for(unsigned i=0; i<balas.size(); i++)
     {

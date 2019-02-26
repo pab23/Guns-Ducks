@@ -43,7 +43,7 @@ void Bullet::move()
             speedY = 0;
         break;
     }
-    cout<<"Bullet: "<<speedX<<","<<speedY<<endl;
+    //cout<<"Bullet: "<<speedX<<","<<speedY<<endl;
     box->move(speedX, speedY);
 
 }

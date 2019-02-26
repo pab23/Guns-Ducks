@@ -1,22 +1,25 @@
 # depslib dependency file v1.0
-1551095703 source:/home/fv/Escritorio/Guns-Ducks/main.cpp
+1551171228 source:/home/fv/Escritorio/Guns-Ducks/main.cpp
 	<SFML/Graphics.hpp>
 	<iostream>
-	"Game.h"
+	"include/Game.h"
 
-1551096393 /home/fv/Escritorio/Guns-Ducks/include/Game.h
+1551171228 /home/fv/Escritorio/Guns-Ducks/include/Game.h
 	<SFML/Graphics.hpp>
 	<iostream>
 	"Player.h"
+	"Enemy.h"
+	"Bullet.h"
 
-1551096470 /home/fv/Escritorio/Guns-Ducks/include/Player.h
+1551171228 /home/fv/Escritorio/Guns-Ducks/include/Player.h
+	<iostream>
 	<SFML/Graphics.hpp>
 
-1551096621 source:/home/fv/Escritorio/Guns-Ducks/src/Game.cpp
-	"Game.h"
+1551177086 source:/home/fv/Escritorio/Guns-Ducks/src/Game.cpp
+	"../include/Game.h"
 
-1551096548 source:/home/fv/Escritorio/Guns-Ducks/src/Player.cpp
-	"Player.h"
+1551171228 source:/home/fv/Escritorio/Guns-Ducks/src/Player.cpp
+	"../include/Player.h"
 
 1551099355 source:/home/fv/Documentos/GIT/Guns-Ducks/main.cpp
 	<SFML/Graphics.hpp>
@@ -103,5 +106,18 @@
 	"../include/Bullet.h"
 
 1551125035 source:/home/javifv/Escritorio/Guns-Ducks-Shots/src/Enemy.cpp
+	"../include/Enemy.h"
+
+1551171228 /home/fv/Escritorio/Guns-Ducks/include/Enemy.h
+	"SFML/Graphics.hpp"
+
+1551171228 /home/fv/Escritorio/Guns-Ducks/include/Bullet.h
+	"SFML/Graphics.hpp"
+	<iostream>
+
+1551175782 source:/home/fv/Escritorio/Guns-Ducks/src/Bullet.cpp
+	"../include/Bullet.h"
+
+1551171228 source:/home/fv/Escritorio/Guns-Ducks/src/Enemy.cpp
 	"../include/Enemy.h"
 
