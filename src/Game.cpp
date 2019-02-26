@@ -1,6 +1,18 @@
 #include "../include/Game.h"
 
 
+/** CLASE PLAYER
+    *@desc Clase principal en la que se ejecuta el juego, en ella se crea la ventana y se inicializan todas las variables necesarias para el funcionamiento del juego.
+    * gameLoop() flujo principal de ejecucion del bucle del juego.
+    * listenKeyboard() se tratan las pulsaciones de las teclas y se realizan las acciones aisgnadas a cada una de ellas.
+    * draw() Se limpia la pantalla y posteriormente se dibujan todos los elementos que deben aparecer.
+    * colisiones() Se tratan las colisiones con enemigos y paredes.
+
+
+    *@author Pablo Amoros Becerra Javier Ramirez de la Cal
+
+*/
+
 Game::Game(Vector2i win_dim)
 {
     winDim=win_dim;

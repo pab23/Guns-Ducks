@@ -1,7 +1,15 @@
 #include "../include/Player.h"
 
 
+/** CLASE PLAYER
+    *@desc Esta clase implementa el objeto Jugador que se inicializa en los valores por defecto y pasandole por parametro la referencia a la textura del jugador.
+    * move(int, int) Mueve el jugador en la direccion indicada por parametro.
+    * getters y setters necesarios
 
+
+    *@author Pablo Amoros Becerra Javier Ramirez de la Cal
+
+*/
 Player::Player(Texture &tex)
 {
         spr = new Sprite(tex);
@@ -9,7 +17,7 @@ Player::Player(Texture &tex)
         box->setSize({50, 20});
         spr->setOrigin(75/2,75/2);
         spr->setTextureRect(IntRect(1*75, 0*75, 75, 75));
-        spr->setPosition(0,0);
+        spr->setPosition(400,300);
 
         speed = 2; dir = {1, 0};
 }
@@ -45,7 +53,7 @@ void Player::move(int x, int y)
         break;
     }
 
-    dir = {(int)speedX/speed, (int)speedY/speed};
+    dir = {x, y};
     spr->move(speedX, speedY);
 
 
