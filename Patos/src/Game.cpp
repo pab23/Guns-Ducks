@@ -1,8 +1,21 @@
 #include "../include/Game.h"
 
 
+/** CLASE PLAYER
+    *@desc Clase principal en la que se ejecuta el juego, en ella se crea la ventana y se inicializan todas las variables necesarias para el funcionamiento del juego.
+    * gameLoop() flujo principal de ejecucion del bucle del juego.
+    * listenKeyboard() se tratan las pulsaciones de las teclas y se realizan las acciones aisgnadas a cada una de ellas.
+    * draw() Se limpia la pantalla y posteriormente se dibujan todos los elementos que deben aparecer.
+    * colisiones() Se tratan las colisiones con enemigos y paredes.
+
+
+    *@author Pablo Amoros Becerra Javier Ramirez de la Cal
+
+*/
+
 Game::Game(Vector2i win_dim)
 {
+    winDim=win_dim;
     win = new RenderWindow(VideoMode(win_dim.x, win_dim.y), "Guns & Ducks");
     win->setFramerateLimit(60);
 
@@ -17,14 +30,10 @@ Game::Game(Vector2i win_dim)
         enemigos.push_back(aux);
     }
 
-    //Creamos la zona verde
-    verde = new RectangleShape({100,100});
-    verde->setFillColor(Color::Blue);
-    verde->setPosition(400, 300);
-    //Creamos sprite barra de vida
-    life_bar = new RectangleShape({200,10});
-    life_bar->setFillColor(Color::Green);
-    life_bar->setPosition(10, 550);
+    font = new Font();
+    font->loadFromFile("letra_pixel.ttf");
+    txt_time = new Text("0",*font);
+    txt_time->setPosition(10,10);
 
     gameLoop();
 
@@ -34,18 +43,11 @@ void Game::gameLoop()
 {
     while(win->isOpen())
     {
+
         bullet_cooldown = bullet_clock.getElapsedTime();
-        zona_cooldown = zona_clock.getElapsedTime();
-        if(zona_cooldown.asSeconds() >= 1)
-        {
-            checkZonaVerde();
-            zona_clock.restart();
-        }
         listenKeyboard();
 
-
-
-        //colisiones();
+        colisiones();
 
         draw();
 
@@ -57,31 +59,41 @@ void Game::listenKeyboard()
     int x = 0, y = 0;
     while(win->pollEvent(e))
     {
-        if(e.type == Event::Closed)
+        if(e.type == Event::Closed || (e.type == Event::KeyPressed && (e.key.code == Keyboard::Escape)))
+        {
             win->close();
+            cout<<"Bala: "<<balas.size()<<endl;
+        }
+
     }
     if( Keyboard::isKeyPressed(Keyboard::W))
     {
-        y = -1;
+        if(player->getPosition().y > 0)y = -1;
     }
     else if( Keyboard::isKeyPressed(Keyboard::S))
     {
-        y = 1;
+        if(player->getPosition().y < winDim.y)y = 1;
     }
     if( Keyboard::isKeyPressed(Keyboard::A))
     {
-        x = -1;
+        if(player->getPosition().x > 0)x = -1;
     }
     else if( Keyboard::isKeyPressed(Keyboard::D))
     {
-        x = 1;
+        if(player->getPosition().x < winDim.x)x = 1;
     }
-    player->move(x, y);
+    if(x!=0 || y!=0)
+        player->move(x, y);
+
+
     if( Keyboard::isKeyPressed(Keyboard::Space) && bullet_cooldown.asSeconds() >= .2f)
     {
         bullet_clock.restart();
         balas.push_back(Bullet(player->getPosition(), player->getDir(), 5));//ultimo parametro radio a falta de implementar diferentes tipos de bala
     }
+
+    for(unsigned i=0; i<balas.size(); i++)
+        balas[i].move();
 
 }
 
@@ -90,20 +102,75 @@ void Game::draw()
 
     win->clear();
 
-    win->draw(*verde);
     win->draw(player->getSprite());
-    win->draw(*life_bar);
+
+    for(unsigned i = 0; i < enemigos.size(); i++)
+        win->draw(enemigos[i].getSprite());
+
+
+    for( unsigned j = 0; j < balas.size(); j++)
+        win->draw(balas[j].getSprite());
+
+
+    timeToString();
+    win->draw(*txt_time);
+    win->draw(player->getScoreTxt());
 
 
     win->display();
 }
 
-void Game::checkZonaVerde()
+void Game::colisiones()
 {
-    if (player->getSprite().getGlobalBounds().intersects(verde->getGlobalBounds()))
+    FloatRect barrier0x({0,-30}, {winDim.x,1});
+    FloatRect barrierxx({0,winDim.y+30}, {winDim.x,1});
+    FloatRect barrieryy({winDim.x+30,0}, {1,winDim.y});
+    FloatRect barrier0y({-30,0}, {1,winDim.y});
+
+    for(unsigned i=0; i<balas.size(); i++)
     {
-        player->setLife(player->getLife()-10);
-        life_bar->setSize({100, life_bar->getSize().y});//Me quedo aqui la barra no encoge bien
-        cout<<player->getLife() <<endl;
+
+        if(balas[i].getBounds().intersects(barrier0x))
+            balas.erase(balas.begin()+i);
+
+        if(balas[i].getBounds().intersects(barrier0y))
+            balas.erase(balas.begin()+i);
+
+        if(balas[i].getBounds().intersects(barrierxx))
+            balas.erase(balas.begin()+i);
+
+        if(balas[i].getBounds().intersects(barrieryy))
+            balas.erase(balas.begin()+i);
+
+
     }
+
+     for(unsigned i = 0; i < balas.size();i++)
+        {
+
+            for(unsigned j = 0; j < enemigos.size();j++)
+            {
+                if(balas[i].getBounds().intersects(enemigos[j].getBounds()))
+                {
+                    balas.erase(balas.begin()+i);
+                    enemigos.erase(enemigos.begin()+j);
+                    player->setScore(player->getScore()+kEnemy_reward);
+                }
+            }
+
+        }
+
 }
+
+void Game::timeToString()
+{
+    float val = general_clock.getElapsedTime().asSeconds();
+
+    stringstream ss;
+    ss << val;
+
+    txt_time->setString(ss.str());
+}
+
+
+

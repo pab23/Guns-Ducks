@@ -12,6 +12,7 @@ class Enemy
         Enemy(Texture &);
         ~Enemy();
         Sprite getSprite();
+        FloatRect getBounds();
 
     protected:
 

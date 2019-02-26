@@ -8,6 +8,8 @@
 #include "Enemy.h"
 #include "Bullet.h"
 
+#define kEnemy_reward 10
+
 using namespace sf;
 using namespace std;
 
@@ -20,7 +22,8 @@ class Game
         void loadTextures();
         void listenKeyboard();
         void draw();
-        void checkZonaVerde();
+        void colisiones();
+        void timeToString();
 
 
 
@@ -34,14 +37,13 @@ class Game
         Event e;
         vector<Enemy> enemigos;
         vector<Bullet> balas;
-        Clock bullet_clock;
-        Time bullet_cooldown;
-        Clock zona_clock;
-        Time zona_cooldown;
-        int * score;
-        //Zona verde
-        RectangleShape * verde;
-        RectangleShape * life_bar;
+        Clock bullet_clock, general_clock;
+        Time bullet_cooldown, general_timer;
+        Vector2i winDim;
+        Text *txt_time;
+        Font *font;
+
+
 
 
 };

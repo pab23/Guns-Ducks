@@ -1,4 +1,5 @@
-#include "Bullet.h"
+#include "../include/Bullet.h"
+
 
 Bullet::Bullet(Vector2f pos, Vector2i p_dir, float radius)
 {
@@ -42,6 +43,7 @@ void Bullet::move()
             speedY = 0;
         break;
     }
+    //cout<<"Bullet: "<<speedX<<","<<speedY<<endl;
     box->move(speedX, speedY);
 
 }
@@ -51,5 +53,9 @@ CircleShape Bullet::getSprite()
 {
 
     return *box;
+}
+
+FloatRect Bullet::getBounds(){
+    return box->getGlobalBounds();
 }
 

@@ -1,7 +1,15 @@
 #include "../include/Player.h"
 
 
+/** CLASE PLAYER
+    *@desc Esta clase implementa el objeto Jugador que se inicializa en los valores por defecto y pasandole por parametro la referencia a la textura del jugador.
+    * move(int, int) Mueve el jugador en la direccion indicada por parametro.
+    * getters y setters necesarios
 
+
+    *@author Pablo Amoros Becerra Javier Ramirez de la Cal
+
+*/
 Player::Player(Texture &tex)
 {
         spr = new Sprite(tex);
@@ -9,9 +17,14 @@ Player::Player(Texture &tex)
         box->setSize({50, 20});
         spr->setOrigin(75/2,75/2);
         spr->setTextureRect(IntRect(1*75, 0*75, 75, 75));
-        spr->setPosition(0,0);
+        spr->setPosition(400,300);
 
-        speed = 5; dir = {1, 0};
+        font_txt = new Font();
+        font_txt->loadFromFile("letra_pixel.ttf");
+        txt_score = new Text("0",*font_txt);
+        txt_score->setPosition(10, 40);
+        txt_score->setColor(Color::Yellow);
+        speed = 2; dir = {1, 0};
 }
 
 
@@ -44,9 +57,11 @@ void Player::move(int x, int y)
             speedY = 0;
         break;
     }
+
+    dir = {x, y};
     spr->move(speedX, speedY);
 
-    dir = {speedX, speedY};
+
 }
 
 Sprite Player::getSprite()
@@ -63,19 +78,23 @@ Vector2i Player::getDir()
     return dir;
 }
 
-RectangleShape Player::getBox()
+int Player::getScore()
 {
-    return *box;
+    return score;
 }
-void Player::setLife(int new_life)
+Text Player::getScoreTxt()
 {
-    life = new_life;
+    return *txt_score;
+}
+void Player::setScore(int x)
+{
+    score = x;
+    std::stringstream ss;
+    ss << x;
+    txt_score->setString(ss.str());
 }
 
-int Player::getLife()
-{
-    return life;
-}
+
 
 
 

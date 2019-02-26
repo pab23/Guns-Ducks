@@ -1,9 +1,12 @@
 #ifndef PLAYER_H
 #define PLAYER_H
-
+#include <iostream>
+#include <string>
+#include <sstream>
 #include <SFML/Graphics.hpp>
 
 using namespace sf;
+using namespace std;
 
 class Player
 {
@@ -16,9 +19,10 @@ class Player
         Sprite getSprite();
         Vector2f getPosition();
         Vector2i getDir();
-        RectangleShape getBox();
-        void setLife(int);
-        int getLife();
+        int getScore();
+        Text getScoreTxt();
+        void setScore(int);
+
 
 
     protected:
@@ -28,7 +32,9 @@ class Player
         RectangleShape *box;
         float speed;
         Vector2i dir;
-        int life = 100;
+        int score = 0;
+        Text * txt_score;
+        Font * font_txt;
 };
 
 #endif // PLAYER_H
