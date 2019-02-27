@@ -24,7 +24,7 @@ Game::Game(Vector2i win_dim)
     player = new Player(*tex_player);
 
 
-    for( unsigned i = 0; i < 10; i++)
+    for( unsigned i = 0; i < 2; i++)
     {
         Enemy aux(*tex_player);
         enemigos.push_back(aux);
@@ -42,9 +42,8 @@ void Game::gameLoop()
     {
         bullet_cooldown = bullet_clock.getElapsedTime();
         listenKeyboard();
-
+        moverEnemigos();
         colisiones();
-
         draw();
 
     }
@@ -100,10 +99,9 @@ void Game::draw()
 
     win->draw(player->getSprite());
 
-    for(unsigned i = 0; i < enemigos.size(); i++){
-        enemigos[i].move(player->getPosition());//Necesita la pos del player para moverse hacia el
+    for(unsigned i = 0; i < enemigos.size(); i++)
         win->draw(enemigos[i].getSprite());
-        }
+
 
 
     for( unsigned j = 0; j < balas.size(); j++)
@@ -113,6 +111,12 @@ void Game::draw()
 
 
     win->display();
+}
+
+void Game::moverEnemigos(){
+    for(unsigned i = 0; i < enemigos.size(); i++)
+        enemigos[i].move(player->getPosition());//Necesita la pos del player para moverse hacia el
+
 }
 
 void Game::colisiones()

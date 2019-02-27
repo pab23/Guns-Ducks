@@ -26,7 +26,6 @@ class Enemy
     private:
         Sprite *spr;
         float speed;
-
         Vector2f direction;
         Vector2f normalizedDir;
 

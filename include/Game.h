@@ -21,6 +21,7 @@ class Game
         void listenKeyboard();
         void draw();
         void colisiones();
+        void moverEnemigos();
 
 
     protected:

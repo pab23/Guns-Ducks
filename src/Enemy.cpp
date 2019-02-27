@@ -39,5 +39,9 @@ void Enemy::move(Vector2f playerPosition){
     Vector2f currentSpeed = normalizedDir * speed;
 
     spr->move(currentSpeed);
+
+
+
+
 }
 
