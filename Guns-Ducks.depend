@@ -158,3 +158,40 @@
 1551199083 source:/home/sergio/Documentos/GIT_ZENOTAFIO/Guns-Ducks/src/Player.cpp
 	"../include/Player.h"
 
+1551257072 source:/home/javi/Escritorio/github/Guns-Ducks/src/Bullet.cpp
+	"../include/Bullet.h"
+
+1551257072 /home/javi/Escritorio/github/Guns-Ducks/include/Bullet.h
+	"SFML/Graphics.hpp"
+	<iostream>
+
+1551260914 source:/home/javi/Escritorio/github/Guns-Ducks/src/Enemy.cpp
+	"../include/Enemy.h"
+
+1551260626 /home/javi/Escritorio/github/Guns-Ducks/include/Enemy.h
+	"SFML/Graphics.hpp"
+	<iostream>
+	<math.h>
+
+1551260878 source:/home/javi/Escritorio/github/Guns-Ducks/src/Game.cpp
+	"../include/Game.h"
+
+1551257072 /home/javi/Escritorio/github/Guns-Ducks/include/Game.h
+	<SFML/Graphics.hpp>
+	<iostream>
+	"Player.h"
+	"Enemy.h"
+	"Bullet.h"
+
+1551258842 /home/javi/Escritorio/github/Guns-Ducks/include/Player.h
+	<iostream>
+	<SFML/Graphics.hpp>
+
+1551260995 source:/home/javi/Escritorio/github/Guns-Ducks/src/Player.cpp
+	"../include/Player.h"
+
+1551257415 source:/home/javi/Escritorio/github/Guns-Ducks/main.cpp
+	<SFML/Graphics.hpp>
+	<iostream>
+	"include/Game.h"
+

@@ -100,8 +100,10 @@ void Game::draw()
 
     win->draw(player->getSprite());
 
-    for(unsigned i = 0; i < enemigos.size(); i++)
+    for(unsigned i = 0; i < enemigos.size(); i++){
+        enemigos[i].move(player->getPosition());//Necesita la pos del player para moverse hacia el
         win->draw(enemigos[i].getSprite());
+        }
 
 
     for( unsigned j = 0; j < balas.size(); j++)

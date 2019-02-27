@@ -19,7 +19,7 @@ Player::Player(Texture &tex)
         spr->setTextureRect(IntRect(1*75, 0*75, 75, 75));
         spr->setPosition(400,300);
 
-        speed = 2; dir = {1, 0};
+        speed = 4; dir = {1, 0};
 }
 
 
