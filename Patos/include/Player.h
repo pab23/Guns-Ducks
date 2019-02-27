@@ -22,6 +22,10 @@ class Player
         int getScore();
         Text getScoreTxt();
         void setScore(int);
+        RectangleShape getLifeBox();
+        int getLife();
+        void setLife(int);
+        Text getLifeTxt();
 
 
 
@@ -35,6 +39,11 @@ class Player
         int score = 0;
         Text * txt_score;
         Font * font_txt;
+        //Life
+        int life;
+        RectangleShape *life_box;
+        Text *txt_life;
+
 };
 
 #endif // PLAYER_H

@@ -19,11 +19,24 @@ Player::Player(Texture &tex)
         spr->setTextureRect(IntRect(1*75, 0*75, 75, 75));
         spr->setPosition(400,300);
 
+        //Score
         font_txt = new Font();
         font_txt->loadFromFile("letra_pixel.ttf");
         txt_score = new Text("0",*font_txt);
         txt_score->setPosition(10, 40);
         txt_score->setColor(Color::Yellow);
+
+        //Life
+        life = 100;
+        life_box = new RectangleShape({200, 10});
+        life_box->setPosition(0, 590);
+        life_box->setFillColor(Color::Green);
+        txt_life = new Text("100", *font_txt, 10);
+        txt_life->setPosition(life_box->getSize().x/2,590);
+        txt_life->setColor(Color::Black);
+
+
+        //Velocidad
         speed = 2; dir = {1, 0};
 }
 
@@ -92,6 +105,44 @@ void Player::setScore(int x)
     std::stringstream ss;
     ss << x;
     txt_score->setString(ss.str());
+}
+
+int Player::getLife()
+{
+    return life;
+}
+RectangleShape Player::getLifeBox()
+{
+    return *life_box;
+}
+
+void Player::setLife(int x)
+{
+    if((life-x) > 0)
+    {
+        life -= x;
+        Vector2f nuevo({life_box->getSize().x-x, life_box->getSize().y});
+        life_box->setSize(nuevo);
+
+        std::stringstream ss;
+        ss << life;
+        txt_life->setString(ss.str());
+        txt_life->setPosition(life_box->getSize().x/2,txt_life->getPosition().y);
+    }else
+    {
+        life = 0;
+        Vector2f nuevo({30, life_box->getSize().y});
+        life_box->setSize(nuevo);
+        txt_life->setString("0");
+        txt_life->setPosition(life_box->getSize().x/2,txt_life->getPosition().y);
+
+    }
+
+
+}
+Text Player::getLifeTxt()
+{
+    return *txt_life;
 }
 
 

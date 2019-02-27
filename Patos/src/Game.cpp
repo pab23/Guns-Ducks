@@ -19,6 +19,7 @@ Game::Game(Vector2i win_dim)
     win = new RenderWindow(VideoMode(win_dim.x, win_dim.y), "Guns & Ducks");
     win->setFramerateLimit(60);
 
+
     tex_player = new Texture();
     tex_player->loadFromFile("resources/sprites.png");
     player = new Player(*tex_player);
@@ -115,6 +116,8 @@ void Game::draw()
     timeToString();
     win->draw(*txt_time);
     win->draw(player->getScoreTxt());
+    win->draw(player->getLifeBox());
+    win->draw(player->getLifeTxt());
 
 
     win->display();
@@ -155,6 +158,7 @@ void Game::colisiones()
                     balas.erase(balas.begin()+i);
                     enemigos.erase(enemigos.begin()+j);
                     player->setScore(player->getScore()+kEnemy_reward);
+                    player->setLife(10);
                 }
             }
 
