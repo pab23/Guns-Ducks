@@ -30,7 +30,7 @@ Game::Game(Vector2i win_dim)
         enemigos.push_back(aux);
     }
 
-
+    primer = true;
 
     gameLoop();
 
@@ -98,15 +98,24 @@ void Game::draw()
 
     win->clear();
 
-    win->draw(player->getSprite());
 
-    for(unsigned i = 0; i < enemigos.size(); i++)
+    /*for(unsigned i = 0; i < enemigos.size(); i++)
+    {
         win->draw(enemigos[i].getSprite());
+        win->draw(enemigos[i].getRect());
+    }
+
+    win->draw(player->getSprite());
+    win->draw(player->getRect());*/
+
+
+
 
 
     for( unsigned j = 0; j < balas.size(); j++)
         win->draw(balas[j].getSprite());
 
+    colisionBox();
 
 
 
@@ -115,10 +124,10 @@ void Game::draw()
 
 void Game::colisiones()
 {
-    FloatRect barrier0x({0,-30}, {winDim.x,1});
-    FloatRect barrierxx({0,winDim.y+30}, {winDim.x,1});
-    FloatRect barrieryy({winDim.x+30,0}, {1,winDim.y});
-    FloatRect barrier0y({-30,0}, {1,winDim.y});
+    FloatRect barrier0x({0,-30}, {winDim.x , 1});
+    FloatRect barrierxx({0 , winDim.y+30}, {winDim.x , 1});
+    FloatRect barrieryy({winDim.x+30 , 0}, {1 , winDim.y});
+    FloatRect barrier0y({-30 , 0}, {1 , winDim.y});
 
     for(unsigned i=0; i<balas.size(); i++)
     {
@@ -138,10 +147,10 @@ void Game::colisiones()
 
     }
 
-     for(int i = 0; i < balas.size();i++)
+     for(unsigned i = 0; i < balas.size();i++)
         {
 
-            for(int j = 0; j < enemigos.size();j++)
+            for(unsigned j = 0; j < enemigos.size();j++)
             {
                 if(balas[i].getBounds().intersects(enemigos[j].getBounds()))
                 {
@@ -156,5 +165,48 @@ void Game::colisiones()
 
 
 
+}
+
+void Game::colisionBox()
+{
+        for(unsigned i = 0; i < enemigos.size(); i++)
+        {
+                    win->draw(enemigos[i].getSprite());
+                    win->draw(enemigos[i].getRect());
+        }
+
+    win->draw(player->getSprite());
+    win->draw(player->getRect());
+
+    for(unsigned i=0; i<enemigos.size(); i++)
+    {
+
+        if(player->getBounds().intersects(enemigos[i].getBounds()))
+        //{
+            if(player->getPosition().y-enemigos[i].getPosition().y < 0) //El player esta por encima por lo tanto se antes que el enemigo.
+            {
+                win->draw(player->getSprite());
+                win->draw(player->getRect());
+
+
+                for(unsigned i = 0; i < enemigos.size(); i++)
+        {
+                    win->draw(enemigos[i].getSprite());
+                    win->draw(enemigos[i].getRect());
+        }
+
+            }
+
+            else //El player esta por debajo por lo tanto se dibuja despues que el enemigo.
+            {
+
+            }
+        //}
+
+
+
+
+
+    }
 }
 

@@ -16,8 +16,12 @@ class Player
         void move(int, int);
 
         Sprite getSprite();
+        RectangleShape getRect();
         Vector2f getPosition();
         Vector2i getDir();
+        FloatRect getBounds();
+        FloatRect getBoundsBox();
+
 
 
     protected:
