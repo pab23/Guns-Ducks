@@ -6,6 +6,7 @@ Enemy::Enemy(Texture &tex)
     spr = new Sprite(tex);
     spr->setOrigin(84/2,76/2);
     spr->setTextureRect(IntRect(1*84, 1*76, 84, 76));
+
     int randx = rand()%801;
     int randy = rand()%601;
     spr->setPosition(randx, randy);
@@ -44,5 +45,12 @@ FloatRect Enemy::getBounds(){
 
 FloatRect Enemy::getBoundsBox(){
     return box->getGlobalBounds();
+}
+void Enemy::setColor(int color)
+{
+    if(color == 0)
+    box->setFillColor(Color::Green);
+    else
+    box->setFillColor(Color::Red);
 }
 

@@ -22,7 +22,7 @@ Game::Game(Vector2i win_dim)
     tex_player = new Texture();
     tex_player->loadFromFile("resources/sprites.png");
     player = new Player(*tex_player);
-
+    info = false;
 
     for( unsigned i = 0; i < 10; i++)
     {
@@ -59,6 +59,12 @@ void Game::listenKeyboard()
         {
             win->close();
             cout<<"Bala: "<<balas.size()<<endl;
+            for( unsigned i = 0; i < balas.size(); i++)
+                cout<<balas[i].getSprite().getPosition().x<<" "<<balas[i].getSprite().getPosition().y<<endl;
+        }
+        if(e.type == Event::KeyPressed && e.key.code == Keyboard::I)
+        {
+            info = !info;
         }
 
     }
@@ -88,6 +94,7 @@ void Game::listenKeyboard()
         balas.push_back(Bullet(player->getPosition(), player->getDir(), 5));//ultimo parametro radio a falta de implementar diferentes tipos de bala
     }
 
+
     for(unsigned i=0; i<balas.size(); i++)
         balas[i].move();
 
@@ -98,15 +105,6 @@ void Game::draw()
 
     win->clear();
 
-
-    /*for(unsigned i = 0; i < enemigos.size(); i++)
-    {
-        win->draw(enemigos[i].getSprite());
-        win->draw(enemigos[i].getRect());
-    }
-
-    win->draw(player->getSprite());
-    win->draw(player->getRect());*/
 
 
 
@@ -124,10 +122,10 @@ void Game::draw()
 
 void Game::colisiones()
 {
-    FloatRect barrier0x({0,-30}, {winDim.x , 1});
-    FloatRect barrierxx({0 , winDim.y+30}, {winDim.x , 1});
-    FloatRect barrieryy({winDim.x+30 , 0}, {1 , winDim.y});
-    FloatRect barrier0y({-30 , 0}, {1 , winDim.y});
+    FloatRect barrier0x({-30,-30}, {winDim.x+60 , 1});
+    FloatRect barrierxx({-30 , winDim.y+30}, {winDim.x+60 , 1});
+    FloatRect barrieryy({winDim.x+30 , -30}, {1 , winDim.y+60});
+    FloatRect barrier0y({-30 , -30}, {1 , winDim.y+60});
 
     for(unsigned i=0; i<balas.size(); i++)
     {
@@ -169,44 +167,41 @@ void Game::colisiones()
 
 void Game::colisionBox()
 {
-        for(unsigned i = 0; i < enemigos.size(); i++)
-        {
-                    win->draw(enemigos[i].getSprite());
-                    win->draw(enemigos[i].getRect());
-        }
 
-    win->draw(player->getSprite());
-    win->draw(player->getRect());
 
+    if(enemigos.size() == 0)
+    {
+        win->draw(player->getSprite());
+        if(info)
+            win->draw(player->getRect());
+    }
     for(unsigned i=0; i<enemigos.size(); i++)
     {
 
-        if(player->getBounds().intersects(enemigos[i].getBounds()))
-        //{
-            if(player->getPosition().y-enemigos[i].getPosition().y < 0) //El player esta por encima por lo tanto se antes que el enemigo.
-            {
-                win->draw(player->getSprite());
-                win->draw(player->getRect());
 
+        if(player->getPosition().y-enemigos[i].getPosition().y < 0) //Cuando el player esta por encima del enemigo las box enemigas son rojas
+            enemigos[i].setColor(0);
+        else
+            enemigos[i].setColor(1); //Cuando el player esta por debajo las box son verdes
 
-                for(unsigned i = 0; i < enemigos.size(); i++)
+        win->draw(enemigos[i].getSprite());
+        win->draw(player->getSprite());
+        if(info)
         {
-                    win->draw(enemigos[i].getSprite());
-                    win->draw(enemigos[i].getRect());
+            win->draw(enemigos[i].getRect());
+            win->draw(player->getRect());
         }
 
-            }
+    }
 
-            else //El player esta por debajo por lo tanto se dibuja despues que el enemigo.
-            {
-
-            }
-        //}
-
-
-
-
-
+    for(unsigned i=0; i<enemigos.size(); i++)
+    {
+        if(player->getPosition().y-enemigos[i].getPosition().y < 0)
+        {
+            win->draw(enemigos[i].getSprite());
+            if(info)
+                win->draw(enemigos[i].getRect());
+        }
     }
 }
 

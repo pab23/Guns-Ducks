@@ -1,6 +1,9 @@
 #ifndef ENEMY_H
 #define ENEMY_H
 
+#include <iostream>
+#include <ctime>
+
 #include "SFML/Graphics.hpp"
 
 using namespace std;
@@ -16,6 +19,7 @@ class Enemy
         Vector2f getPosition();
         FloatRect getBounds();
         FloatRect getBoundsBox();
+        void setColor(int);
 
     protected:
 
@@ -23,6 +27,7 @@ class Enemy
         Sprite *spr;
         RectangleShape *box;
         float speed;
+
 
 };
 

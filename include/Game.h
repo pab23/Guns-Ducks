@@ -37,7 +37,7 @@ class Game
         Clock bullet_clock;
         Time bullet_cooldown;
         Vector2i winDim;
-        bool primer;
+        bool primer, info;
 
 
 };

@@ -23,7 +23,7 @@ Player::Player(Texture &tex)
         box->setPosition(400,305+(75/4));*/
 
         box = new RectangleShape({84,76/4});
-        box->setFillColor(Color::Red);
+        box->setFillColor(Color::Blue);
         box->setOrigin(84/2,76/2);
         box->setPosition(400,300+76/1.8);
 
