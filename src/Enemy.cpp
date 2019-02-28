@@ -1,8 +1,8 @@
 #include "../include/Enemy.h"
 
-Enemy::Enemy(Texture &tex)
+Enemy::Enemy(Texture &tex, float vel)
 {
-    speed = 2;
+    speed = vel;
     spr = new Sprite(tex);
     spr->setOrigin(75/2,75/2);
     spr->setTextureRect(IntRect(0*75, 0*75, 75, 75));
@@ -29,6 +29,9 @@ FloatRect Enemy::getBounds(){
 
 Vector2f Enemy::getPosition(){
     return spr->getPosition();
+}
+void Enemy::setPosition(float x, float y){
+    spr->setPosition(x,y);
 }
 void Enemy::move(Vector2f playerPosition){
 

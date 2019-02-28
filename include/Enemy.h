@@ -11,11 +11,13 @@ using namespace sf;
 class Enemy
 {
     public:
-        Enemy(Texture &);
+
+        Enemy(Texture &, float vel);
         ~Enemy();
         Sprite getSprite();
         FloatRect getBounds();
         Vector2f getPosition();
+        void setPosition(float x, float y);
         void move(Vector2f playerPosition);
 
 
