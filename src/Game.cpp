@@ -24,10 +24,10 @@ Game::Game(Vector2i win_dim)
     player = new Player(*tex_player);
 
 
-    for( unsigned i = 0; i < 10; i++)
+    for( unsigned i = 0; i < 15; i++)
     {
 
-        Enemy aux(*tex_player, 1 + i*.2);
+        Enemy aux(*tex_player,rand()%2+1);
         enemigos.push_back(aux);
     }
 
@@ -123,6 +123,7 @@ void Game::moverEnemigos(){
     for(int i=0;i<enemigos.size();i++)
     for(int j=0;j<enemigos.size();j++)
     {
+
         if(enemigos[i].getBounds().intersects(enemigos[j].getBounds()) && enemigos[i].getPosition() != enemigos[j].getPosition())
         {
             float ix = enemigos[i].getPosition().x;
@@ -130,8 +131,22 @@ void Game::moverEnemigos(){
             float jx = enemigos[j].getPosition().x;
             float jy = enemigos[j].getPosition().y;
 
-            enemigos[i].setPosition(ix+2,iy+2);
-            enemigos[j].setPosition(jx-2,jy -2);
+            if(ix > jx){
+            enemigos[i].setPosition(ix+1,iy);
+            enemigos[j].setPosition(jx-1,jy);
+            }else if(ix < jx){
+            enemigos[i].setPosition(ix-1,iy);
+            enemigos[j].setPosition(jx+1,jy);
+            }
+
+            if(iy > jy){
+            enemigos[i].setPosition(ix,iy+1);
+            enemigos[j].setPosition(jx,jy-1);
+            }else if(iy < jy){
+            enemigos[i].setPosition(ix,iy-1);
+            enemigos[j].setPosition(jx,jy+1);
+            }
+
             //cout << "chocamos" <<endl;
         }
     }

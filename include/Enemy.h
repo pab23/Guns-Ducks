@@ -17,6 +17,7 @@ class Enemy
         Sprite getSprite();
         FloatRect getBounds();
         Vector2f getPosition();
+        Vector2i getDir();
         void setPosition(float x, float y);
         void move(Vector2f playerPosition);
 
@@ -28,6 +29,7 @@ class Enemy
     private:
         Sprite *spr;
         float speed;
+        Vector2i dir;
         Vector2f direction;
         Vector2f normalizedDir;
 
