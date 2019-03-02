@@ -158,38 +158,45 @@
 1551199083 source:/home/sergio/Documentos/GIT_ZENOTAFIO/Guns-Ducks/src/Player.cpp
 	"../include/Player.h"
 
-1551290349 source:/home/elhectordesp/Escritorio/FV/Guns-Ducks/main.cpp
+1551257176 source:/home/mmt/git/Guns-Ducks/main.cpp
 	<SFML/Graphics.hpp>
 	<iostream>
 	"include/Game.h"
 
-1551290349 /home/elhectordesp/Escritorio/FV/Guns-Ducks/include/Game.h
+1551526351 /home/mmt/git/Guns-Ducks/include/Game.h
 	<SFML/Graphics.hpp>
 	<iostream>
 	"Player.h"
 	"Enemy.h"
 	"Bullet.h"
+	"Object.h"
 
-1551290349 /home/elhectordesp/Escritorio/FV/Guns-Ducks/include/Player.h
+1551527215 /home/mmt/git/Guns-Ducks/include/Player.h
 	<iostream>
 	<SFML/Graphics.hpp>
 
-1551290349 /home/elhectordesp/Escritorio/FV/Guns-Ducks/include/Enemy.h
+1551257176 /home/mmt/git/Guns-Ducks/include/Enemy.h
 	"SFML/Graphics.hpp"
 
-1551290349 /home/elhectordesp/Escritorio/FV/Guns-Ducks/include/Bullet.h
+1551257176 /home/mmt/git/Guns-Ducks/include/Bullet.h
 	"SFML/Graphics.hpp"
 	<iostream>
 
-1551290349 source:/home/elhectordesp/Escritorio/FV/Guns-Ducks/src/Bullet.cpp
+1551257176 source:/home/mmt/git/Guns-Ducks/src/Bullet.cpp
 	"../include/Bullet.h"
 
-1551290349 source:/home/elhectordesp/Escritorio/FV/Guns-Ducks/src/Enemy.cpp
+1551523014 source:/home/mmt/git/Guns-Ducks/src/Enemy.cpp
 	"../include/Enemy.h"
 
-1551290349 source:/home/elhectordesp/Escritorio/FV/Guns-Ducks/src/Game.cpp
+1551526509 source:/home/mmt/git/Guns-Ducks/src/Game.cpp
 	"../include/Game.h"
 
-1551290349 source:/home/elhectordesp/Escritorio/FV/Guns-Ducks/src/Player.cpp
+1551527468 source:/home/mmt/git/Guns-Ducks/src/Player.cpp
 	"../include/Player.h"
+
+1551525807 /home/mmt/git/Guns-Ducks/include/Object.h
+	"SFML/Graphics.hpp"
+
+1551526824 source:/home/mmt/git/Guns-Ducks/src/Object.cpp
+	"../include/Object.h"
 

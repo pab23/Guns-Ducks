@@ -73,6 +73,11 @@ Vector2i Player::getDir()
     return dir;
 }
 
+FloatRect Player::getBounds()
+{
+    return spr->getGlobalBounds();
+}
+
 
 
 

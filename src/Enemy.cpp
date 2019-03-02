@@ -20,7 +20,8 @@ Sprite Enemy::getSprite()
     return *spr;
 }
 
-FloatRect Enemy::getBounds(){
+FloatRect Enemy::getBounds()
+{
     return spr->getGlobalBounds();
 }
 

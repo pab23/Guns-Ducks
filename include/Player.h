@@ -18,7 +18,7 @@ class Player
         Sprite getSprite();
         Vector2f getPosition();
         Vector2i getDir();
-
+        FloatRect getBounds();
 
     protected:
 

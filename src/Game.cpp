@@ -30,7 +30,11 @@ Game::Game(Vector2i win_dim)
         enemigos.push_back(aux);
     }
 
-
+    for( unsigned i = 0; i < 4; i++)
+    {
+        Object aux(*tex_player);
+        objetos.push_back(aux);
+    }
 
     gameLoop();
 
@@ -107,7 +111,8 @@ void Game::draw()
     for( unsigned j = 0; j < balas.size(); j++)
         win->draw(balas[j].getSprite());
 
-
+    for( unsigned k = 0; k < objetos.size(); k++)
+        win->draw(objetos[k].getSprite());
 
 
     win->display();
@@ -138,7 +143,7 @@ void Game::colisiones()
 
     }
 
-     for(int i = 0; i < balas.size();i++)
+    for(int i = 0; i < balas.size();i++)
         {
 
             for(int j = 0; j < enemigos.size();j++)
@@ -152,6 +157,13 @@ void Game::colisiones()
 
         }
 
+    for(int i = 0; i < objetos.size(); i++)
+    {
+        if(objetos[i].getBounds().intersects(player->getBounds()))
+        {
+            objetos.erase(objetos.begin()+i);
+        }
+    }
 
 
 

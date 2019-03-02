@@ -7,6 +7,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Bullet.h"
+#include "Object.h"
 
 using namespace sf;
 using namespace std;
@@ -33,6 +34,7 @@ class Game
         Event e;
         vector<Enemy> enemigos;
         vector<Bullet> balas;
+        vector<Object> objetos;
         Clock bullet_clock;
         Time bullet_cooldown;
         Vector2i winDim;
