@@ -19,7 +19,10 @@ class Enemy
         Vector2f getPosition();
         Vector2i getDir();
         void setPosition(float x, float y);
+        void setPosition(Vector2f vec);
         void move(Vector2f playerPosition);
+        Vector2f getRandomPosition(Vector2i ventana);
+        int RandomNumber( int inicio, int fin );
 
 
 

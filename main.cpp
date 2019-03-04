@@ -13,6 +13,7 @@ const Vector2i winDim (800, 600);
 
 int main()
 {
+    srand(time(NULL));//Semilla para random.No tocar
     Game juego(winDim);
     return EXIT_SUCCESS;
 }

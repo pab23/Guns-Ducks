@@ -22,6 +22,8 @@ class Game
         void draw();
         void colisiones();
         void moverEnemigos();
+        void crearEnemy();
+
 
 
     protected:
@@ -34,9 +36,10 @@ class Game
         Event e;
         vector<Enemy> enemigos;
         vector<Bullet> balas;
-        Clock bullet_clock;
-        Time bullet_cooldown;
+        Clock bullet_clock, enemy_clock;
+        Time bullet_cooldown, enemy_timer;
         Vector2i winDim;
+
 
 
 };

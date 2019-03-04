@@ -165,18 +165,18 @@
 	"SFML/Graphics.hpp"
 	<iostream>
 
-1551462493 source:/home/javi/Escritorio/github/Guns-Ducks/src/Enemy.cpp
+1551702908 source:/home/javi/Escritorio/github/Guns-Ducks/src/Enemy.cpp
 	"../include/Enemy.h"
 
-1551458637 /home/javi/Escritorio/github/Guns-Ducks/include/Enemy.h
+1551700690 /home/javi/Escritorio/github/Guns-Ducks/include/Enemy.h
 	"SFML/Graphics.hpp"
 	<iostream>
 	<math.h>
 
-1551461275 source:/home/javi/Escritorio/github/Guns-Ducks/src/Game.cpp
+1551702949 source:/home/javi/Escritorio/github/Guns-Ducks/src/Game.cpp
 	"../include/Game.h"
 
-1551263218 /home/javi/Escritorio/github/Guns-Ducks/include/Game.h
+1551699686 /home/javi/Escritorio/github/Guns-Ducks/include/Game.h
 	<SFML/Graphics.hpp>
 	<iostream>
 	"Player.h"
@@ -187,10 +187,10 @@
 	<iostream>
 	<SFML/Graphics.hpp>
 
-1551260995 source:/home/javi/Escritorio/github/Guns-Ducks/src/Player.cpp
+1551702860 source:/home/javi/Escritorio/github/Guns-Ducks/src/Player.cpp
 	"../include/Player.h"
 
-1551461271 source:/home/javi/Escritorio/github/Guns-Ducks/main.cpp
+1551701631 source:/home/javi/Escritorio/github/Guns-Ducks/main.cpp
 	<SFML/Graphics.hpp>
 	<iostream>
 	"include/Game.h"

@@ -23,13 +23,10 @@ Game::Game(Vector2i win_dim)
     tex_player->loadFromFile("resources/sprites.png");
     player = new Player(*tex_player);
 
+    enemy_clock.restart();
 
-    for( unsigned i = 0; i < 15; i++)
-    {
 
-        Enemy aux(*tex_player,rand()%2+1);
-        enemigos.push_back(aux);
-    }
+
 
 
 
@@ -39,13 +36,22 @@ Game::Game(Vector2i win_dim)
 
 void Game::gameLoop()
 {
+
     while(win->isOpen())
     {
+        enemy_timer = enemy_clock.getElapsedTime();
+
         bullet_cooldown = bullet_clock.getElapsedTime();
         listenKeyboard();
         moverEnemigos();
         colisiones();
         draw();
+
+        if(enemy_timer.asSeconds() > 5.0 ){
+
+            crearEnemy();
+            enemy_clock.restart();
+            }
 
     }
 }
@@ -189,6 +195,7 @@ void Game::colisiones()
                 {
                     balas.erase(balas.begin()+i);
                     enemigos.erase(enemigos.begin()+j);
+                    break;
                 }
             }
 
@@ -196,6 +203,18 @@ void Game::colisiones()
 
 
 
+
+
+}
+
+void Game::crearEnemy(){
+
+ for( unsigned i = 0; i < 5; i++)
+    {
+
+        Enemy aux(*tex_player,.5);
+        enemigos.push_back(aux);
+    }
 
 
 }

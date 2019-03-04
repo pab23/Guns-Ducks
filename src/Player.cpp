@@ -18,6 +18,7 @@ Player::Player(Texture &tex)
         spr->setOrigin(75/2,75/2);
         spr->setTextureRect(IntRect(1*75, 0*75, 75, 75));
         spr->setPosition(400,300);
+        spr->scale(.5,.5);
 
         speed = 4; dir = {1, 0};
 }
