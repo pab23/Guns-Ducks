@@ -1,0 +1,25 @@
+# depslib dependency file v1.0
+1551702086 source:/home/fv/Escritorio/Animacion/main.cpp
+	<SFML/Graphics.hpp>
+	"AnimatedSprite.h"
+	<iostream>
+
+1551257750 /home/fv/Escritorio/Animacion/include/AnimatedSprite.h
+	<SFML/Graphics/RenderTarget.hpp>
+	<SFML/System/Time.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/Graphics/Transformable.hpp>
+	<SFML/System/Vector2.hpp>
+	"Animation.h"
+
+1551257750 /home/fv/Escritorio/Animacion/include/Animation.h
+	<vector>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/Texture.hpp>
+
+1551257750 source:/home/fv/Escritorio/Animacion/src/AnimatedSprite.cpp
+	"AnimatedSprite.h"
+
+1551257750 source:/home/fv/Escritorio/Animacion/src/Animation.cpp
+	"Animation.h"
+
