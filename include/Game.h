@@ -22,6 +22,7 @@ class Game
         void listenKeyboard();
         void draw();
         void colisiones();
+        void colisionBox();
 
 
     protected:
@@ -38,6 +39,7 @@ class Game
         Clock bullet_clock;
         Time bullet_cooldown;
         Vector2i winDim;
+        bool primer, info;
 
 
 };

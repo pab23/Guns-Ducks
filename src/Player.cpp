@@ -13,11 +13,19 @@
 Player::Player(Texture &tex)
 {
         spr = new Sprite(tex);
-        box = new RectangleShape();
-        box->setSize({50, 20});
-        spr->setOrigin(75/2,75/2);
-        spr->setTextureRect(IntRect(1*75, 0*75, 75, 75));
+        spr->setOrigin(84/2,76/2);
+        spr->setTextureRect(IntRect(0*84, 0*76, 84, 76));
         spr->setPosition(400,300);
+
+        /*box = new RectangleShape({75,75/4});
+        box->setFillColor(Color::Red);
+        box->setOrigin(75/2,75/8);
+        box->setPosition(400,305+(75/4));*/
+
+        box = new RectangleShape({84,76/4});
+        box->setFillColor(Color::Blue);
+        box->setOrigin(84/2,76/2);
+        box->setPosition(400,300+76/1.8);
 
         speed = 2; dir = {1, 0};
 }
@@ -55,15 +63,20 @@ void Player::move(int x, int y)
 
     dir = {x, y};
     spr->move(speedX, speedY);
+    box->move(speedX, speedY);
 
 
 }
+
 
 Sprite Player::getSprite()
 {
     return *spr;
 }
-
+RectangleShape Player::getRect()
+{
+    return *box;
+}
 Vector2f Player::getPosition()
 {
     return spr->getPosition();
@@ -73,11 +86,13 @@ Vector2i Player::getDir()
     return dir;
 }
 
-FloatRect Player::getBounds()
-{
+FloatRect Player::getBounds(){
     return spr->getGlobalBounds();
 }
 
+FloatRect Player::getBoundsBox(){
+    return box->getGlobalBounds();
+}
 
 
 
