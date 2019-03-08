@@ -6,8 +6,12 @@
     * move(int, int) Mueve el jugador en la direccion indicada por parametro.
     * getters y setters necesarios
 
+    *Se han intrudicido tanto la barra de vida como las zonas de curación.
 
-    *@author Pablo Amoros Becerra Javier Ramirez de la Cal
+
+    *@author Sergio Bañuls Martinez
+
+
 
 */
 Player::Player(Texture &tex)
@@ -118,10 +122,13 @@ RectangleShape Player::getLifeBox()
 
 void Player::setLife(int x)
 {
-    if((life-x) > 0)
+
+    if(x < 0)
     {
-        life -= x;
-        Vector2f nuevo({life_box->getSize().x-x, life_box->getSize().y});
+        if((life+x) > 0)
+    {
+        life += x;
+        Vector2f nuevo({life_box->getSize().x+x, life_box->getSize().y});
         life_box->setSize(nuevo);
 
         std::stringstream ss;
@@ -137,6 +144,21 @@ void Player::setLife(int x)
         txt_life->setPosition(life_box->getSize().x/2,txt_life->getPosition().y);
 
     }
+    }else
+    {
+        if(life + x <= 100)
+        {
+            life += x;
+            Vector2f nuevo({life_box->getSize().x+x, life_box->getSize().y});
+            life_box->setSize(nuevo);
+
+            std::stringstream ss;
+            ss << life;
+            txt_life->setString(ss.str());
+            txt_life->setPosition(life_box->getSize().x/2,txt_life->getPosition().y);
+        }
+    }
+
 
     if (life >= 50)
     {
@@ -155,6 +177,7 @@ Text Player::getLifeTxt()
 {
     return *txt_life;
 }
+
 
 
 

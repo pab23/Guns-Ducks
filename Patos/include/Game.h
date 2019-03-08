@@ -24,6 +24,7 @@ class Game
         void draw();
         void colisiones();
         void timeToString();
+        void inZona();
 
 
 
@@ -37,11 +38,14 @@ class Game
         Event e;
         vector<Enemy> enemigos;
         vector<Bullet> balas;
-        Clock bullet_clock, general_clock;
-        Time bullet_cooldown, general_timer;
+        Clock bullet_clock, general_clock, zone_clock;
+        Time bullet_cooldown, general_timer, zone_timer;
         Vector2i winDim;
         Text *txt_time;
         Font *font;
+        //Zonas
+        RectangleShape *life_zone;
+
 
 
 

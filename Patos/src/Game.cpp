@@ -8,8 +8,9 @@
     * draw() Se limpia la pantalla y posteriormente se dibujan todos los elementos que deben aparecer.
     * colisiones() Se tratan las colisiones con enemigos y paredes.
 
+    *Añadidos las zonas de curación y la barra de vida (al disparar enemigos te baja la vida, y las zonas curan cada 1s)
 
-    *@author Pablo Amoros Becerra Javier Ramirez de la Cal
+    *@author Sergio Bañuls Martínez
 
 */
 
@@ -36,6 +37,11 @@ Game::Game(Vector2i win_dim)
     txt_time = new Text("0",*font);
     txt_time->setPosition(10,10);
 
+    //zona
+    life_zone = new RectangleShape({100,100});
+    life_zone->setFillColor(Color::Green);
+    life_zone->setPosition({100, 300});
+
     gameLoop();
 
 }
@@ -49,6 +55,12 @@ void Game::gameLoop()
         listenKeyboard();
 
         colisiones();
+        zone_timer = zone_clock.getElapsedTime();
+        if(zone_timer.asSeconds() >= 1)
+        {
+            inZona();
+            zone_clock.restart();
+        }
 
         draw();
 
@@ -103,6 +115,7 @@ void Game::draw()
 
     win->clear();
 
+    win->draw(*life_zone);
     win->draw(player->getSprite());
 
     for(unsigned i = 0; i < enemigos.size(); i++)
@@ -158,7 +171,7 @@ void Game::colisiones()
                     balas.erase(balas.begin()+i);
                     enemigos.erase(enemigos.begin()+j);
                     player->setScore(player->getScore()+kEnemy_reward);
-                    player->setLife(10);
+                    player->setLife(-10);
                 }
             }
 
@@ -174,6 +187,16 @@ void Game::timeToString()
     ss << val;
 
     txt_time->setString(ss.str());
+}
+
+void Game::inZona()
+{
+
+    if(player->getSprite().getGlobalBounds().intersects(life_zone->getGlobalBounds()))
+    {
+        player->setLife(10);
+        cout<<player->getLife()<<endl;
+    }
 }
 
 
