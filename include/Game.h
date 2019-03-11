@@ -19,7 +19,7 @@ class Game
         void gameLoop();
         void loadTextures();
         void listenKeyboard();
-        void draw(Vector2i);
+        void draw();
         void colisiones();
 
 
@@ -36,9 +36,8 @@ class Game
         vector<Bullet> balas;
         Clock bullet_clock;
         Time bullet_cooldown;
-        Vector2i winDim;
-        sf::View view;
-        sf::Vector2f position;
+        View view;
+
 
 
 };

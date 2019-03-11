@@ -15,20 +15,19 @@
 
 Game::Game(Vector2i win_dim)
 {
-    winDim=win_dim;
+
     win = new RenderWindow(VideoMode(win_dim.x, win_dim.y), "Guns & Ducks");
     win->setFramerateLimit(60);
 
 
     //aqui marcamos el zoom que queremos general
- view.reset(sf::FloatRect(0,0,win_dim.x, win_dim.y));
+    view.reset(sf::FloatRect(0,0,win_dim.x, win_dim.y));
 
 
 
-//marcamos posicion de empiece
-Vector2f position(0, 0);
+
 //Vector2f position(win_dim.x/2, win_dim.y/2);
-  textura1 = new Texture;
+    textura1 = new Texture;
     sprite1 = new Sprite;
 
     textura1->loadFromFile("resources/mapaAlfa.png");
@@ -63,7 +62,7 @@ void Game::gameLoop()
         colisiones();
 
         //pasamos ahora por parametro las dimensiones
-        draw(winDim);
+        draw();
 
     }
 }
@@ -115,10 +114,15 @@ void Game::listenKeyboard()
 
 }
 
-void Game::draw(Vector2i win_dim)
+void Game::draw()
 {
 
     win->clear();
+
+    //Camara al centro
+    view.setCenter(player->getPosition());
+    win->setView(view);
+    cout<<"x: "<<player->getPosition().x<<" y: "<<player->getPosition().y<<endl;
 
     win->draw(player->getSprite());
 
@@ -130,33 +134,18 @@ void Game::draw(Vector2i win_dim)
         win->draw(balas[j].getSprite());
 
 
-if(position.x=player->getPosition().x +10 - (220/2)){
-    position.x=player->getPosition().x +10;
-}else{
-    position.x=win_dim.x/2;
-}
-if(position.y=player->getPosition().y +10 - (200/2)){
-    position.y=player->getPosition().y +10;
-}else{
-position.y=win_dim.y/2;
-}
-   // view.reset(sf::FloatRect(player->getPosition().x,player->getPosition().y,win_dim.x,win_dim.y));
-view.setCenter(position);
-  //  win->draw(*sprite1);
-
-     win->setView(view);
 
     win->display();
 }
 
 void Game::colisiones()
 {
-    FloatRect barrier0x({0,-30}, {winDim.x,1});
-    FloatRect barrierxx({0,winDim.y+30}, {winDim.x,1});
-    FloatRect barrieryy({winDim.x+30,0}, {1,winDim.y});
-    FloatRect barrier0y({-30,0}, {1,winDim.y});
+    FloatRect barrier0x({0,-30}, {win->getSize().x,1});
+    FloatRect barrierxx({0,win->getSize().y+30}, {win->getSize().x,1});
+    FloatRect barrieryy({win->getSize().x+30,0}, {1,win->getSize().y});
+    FloatRect barrier0y({-30,0}, {1,win->getSize().y});
 
-    for(unsigned i=0; i<balas.size(); i++)
+    /*for(unsigned i=0; i<balas.size(); i++)
     {
 
         if(balas[i].getBounds().intersects(barrier0x))
@@ -172,7 +161,7 @@ void Game::colisiones()
             balas.erase(balas.begin()+i);
 
 
-    }
+    }*/
 
      for(int i = 0; i < balas.size();i++)
         {
