@@ -1,29 +1,25 @@
-#ifndef PLAYER_H
-#define PLAYER_H
+#ifndef ENEMY_H
+#define ENEMY_H
+
 #include <iostream>
+#include <ctime>
 
-#include <SFML/Graphics.hpp>
+#include "SFML/Graphics.hpp"
 
-using namespace sf;
 using namespace std;
+using namespace sf;
 
-class Player
+class Enemy
 {
     public:
-        Player(){}
-        Player(Texture&);
-
-        void move(int, int);
-
+        Enemy(Texture &);
+        ~Enemy();
         Sprite getSprite();
         RectangleShape getRect();
         Vector2f getPosition();
-        Vector2i getDir();
         FloatRect getBounds();
         FloatRect getBoundsBox();
-        void setPosition(Vector2f);
-
-
+        void setColor(int);
 
     protected:
 
@@ -31,7 +27,8 @@ class Player
         Sprite *spr;
         RectangleShape *box;
         float speed;
-        Vector2i dir;
+
+
 };
 
-#endif // PLAYER_H
+#endif // ENEMY_H

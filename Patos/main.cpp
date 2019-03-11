@@ -199,13 +199,15 @@ int main()
     Vector2f playerPos = Vector2f(400,300);
     player.setPosition(playerPos);
 
-    Enemigo array_enemigos[10](tex_player);
+    //Enemigo array_enemigos[10](tex_player);
+
+    vector<Enemigo> array_enemigos = new vector<Enemigo>();
 
 
     RenderWindow window(VideoMode(vec_windowSize.x, vec_windowSize.y), "Patos");
     window.setFramerateLimit(60);
 
-    for(int i = 0;i<10;i++){array_enemigos[i].setPosition(getRandomPosition(vec_windowSize));}
+    for(int i = 0;i<array_enemigos.size();i++){array_enemigos[i].setPosition(getRandomPosition(vec_windowSize));}
 
 
     while (window.isOpen())
@@ -215,7 +217,7 @@ int main()
         playerPos = player.getPosition();
         points[0][0] = (playerPos.x,playerPos.y);
 
-        for(int i = 0;i<10;i++){
+        for(int i = 0;i<array_enemigos.size();i++){
             window.draw(array_enemigos[i].spr_enemigo);
             if(!array_enemigos[i].spr_enemigo.getGlobalBounds().intersects(player.spr_player.getGlobalBounds())){
                 array_enemigos[i].move();
@@ -262,12 +264,12 @@ int main()
         for(int i = 0; i < arrayBalas.size();i++)
         {
             bool colision = 0;
-            for(int j = 0; j < 10;j++)
+            for(int j = 0; j < array_enemigos.size();j++)
             {
                 if(arrayBalas[i].bullet.getGlobalBounds().intersects(array_enemigos[j].spr_enemigo.getGlobalBounds()) && !colision)
                 {
                     colision = true;
-                    array_enemigos[j].setPosition(1500,1500);
+                    array_enemigos.erase(array_enemigos.begin()+j);
                 }
             }
             if(!colision){
