@@ -19,9 +19,26 @@ Game::Game(Vector2i win_dim)
     win = new RenderWindow(VideoMode(win_dim.x, win_dim.y), "Guns & Ducks");
     win->setFramerateLimit(60);
 
+
+    //aqui marcamos el zoom que queremos general
+ view.reset(sf::FloatRect(0,0,win_dim.x, win_dim.y));
+
+
+
+//marcamos posicion de empiece
+Vector2f position(0, 0);
+//Vector2f position(win_dim.x/2, win_dim.y/2);
+  textura1 = new Texture;
+    sprite1 = new Sprite;
+
+    textura1->loadFromFile("resources/mapaAlfa.png");
+
+
     tex_player = new Texture();
     tex_player->loadFromFile("resources/sprites.png");
     player = new Player(*tex_player);
+
+
 
 
     for( unsigned i = 0; i < 10; i++)
@@ -45,7 +62,8 @@ void Game::gameLoop()
 
         colisiones();
 
-        draw();
+        //pasamos ahora por parametro las dimensiones
+        draw(winDim);
 
     }
 }
@@ -64,19 +82,23 @@ void Game::listenKeyboard()
     }
     if( Keyboard::isKeyPressed(Keyboard::W))
     {
-        if(player->getPosition().y > 0)y = -1;
+        //if(player->getPosition().y > 0)
+            y = -1;
     }
     else if( Keyboard::isKeyPressed(Keyboard::S))
     {
-        if(player->getPosition().y < winDim.y)y = 1;
+        //if(player->getPosition().y < winDim.y)
+            y = 1;
     }
     if( Keyboard::isKeyPressed(Keyboard::A))
     {
-        if(player->getPosition().x > 0)x = -1;
+        //if(player->getPosition().x > 0)
+            x = -1;
     }
     else if( Keyboard::isKeyPressed(Keyboard::D))
     {
-        if(player->getPosition().x < winDim.x)x = 1;
+        //if(player->getPosition().x < winDim.x)
+        x = 1;
     }
     if(x!=0 || y!=0)
         player->move(x, y);
@@ -93,7 +115,7 @@ void Game::listenKeyboard()
 
 }
 
-void Game::draw()
+void Game::draw(Vector2i win_dim)
 {
 
     win->clear();
@@ -108,7 +130,21 @@ void Game::draw()
         win->draw(balas[j].getSprite());
 
 
+if(position.x=player->getPosition().x +10 - (220/2)){
+    position.x=player->getPosition().x +10;
+}else{
+    position.x=win_dim.x/2;
+}
+if(position.y=player->getPosition().y +10 - (200/2)){
+    position.y=player->getPosition().y +10;
+}else{
+position.y=win_dim.y/2;
+}
+   // view.reset(sf::FloatRect(player->getPosition().x,player->getPosition().y,win_dim.x,win_dim.y));
+view.setCenter(position);
+  //  win->draw(*sprite1);
 
+     win->setView(view);
 
     win->display();
 }

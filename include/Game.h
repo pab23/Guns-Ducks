@@ -19,7 +19,7 @@ class Game
         void gameLoop();
         void loadTextures();
         void listenKeyboard();
-        void draw();
+        void draw(Vector2i);
         void colisiones();
 
 
@@ -28,14 +28,17 @@ class Game
     private:
 
         RenderWindow *win;
-        Texture *tex_player;
+        Texture *tex_player,*textura1;;
         Player *player;
+        Sprite *sprite1;
         Event e;
         vector<Enemy> enemigos;
         vector<Bullet> balas;
         Clock bullet_clock;
         Time bullet_cooldown;
         Vector2i winDim;
+        sf::View view;
+        sf::Vector2f position;
 
 
 };
