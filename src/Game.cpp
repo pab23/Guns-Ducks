@@ -32,7 +32,7 @@ Game::Game(Vector2i win_dim)
 
     for( unsigned i = 0; i < 4; i++)
     {
-        Object aux(*tex_player);
+        Botijola aux(*tex_player);
         objetos.push_back(aux);
     }
 

@@ -28,4 +28,14 @@ class Object
         RectangleShape *box;
 };
 
+class Botijola : public Object
+{
+    public:
+        Botijola(Texture& tx):Object(tx){};
+        virtual ~Botijola();
+    private:
+};
+
+
+
 #endif // OBJECT_H

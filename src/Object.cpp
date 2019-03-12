@@ -52,3 +52,21 @@ void Object::setColor(int color)
     else
     box->setFillColor(Color::Red);
 }
+
+
+
+
+//BOTIJOLA
+
+
+Botijola::~Botijola()
+{
+    //dtor
+}
+
+
+
+
+
+//PLANCHADITO
+

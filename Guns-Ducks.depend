@@ -241,3 +241,49 @@
 	<ctime>
 	"SFML/Graphics.hpp"
 
+1552407366 source:/home/fv/Escritorio/mau/Guns-ducks/main.cpp
+	<SFML/Graphics.hpp>
+	<iostream>
+	"include/Game.h"
+
+1552407598 /home/fv/Escritorio/mau/Guns-ducks/include/Game.h
+	<SFML/Graphics.hpp>
+	<iostream>
+	"Player.h"
+	"Enemy.h"
+	"Bullet.h"
+	"Object.h"
+
+1552407366 /home/fv/Escritorio/mau/Guns-ducks/include/Player.h
+	<iostream>
+	<SFML/Graphics.hpp>
+
+1552407366 /home/fv/Escritorio/mau/Guns-ducks/include/Enemy.h
+	<iostream>
+	<ctime>
+	"SFML/Graphics.hpp"
+
+1552407366 /home/fv/Escritorio/mau/Guns-ducks/include/Bullet.h
+	"SFML/Graphics.hpp"
+	<iostream>
+
+1552407745 /home/fv/Escritorio/mau/Guns-ducks/include/Object.h
+	<iostream>
+	<ctime>
+	"SFML/Graphics.hpp"
+
+1552407366 source:/home/fv/Escritorio/mau/Guns-ducks/src/Bullet.cpp
+	"../include/Bullet.h"
+
+1552407366 source:/home/fv/Escritorio/mau/Guns-ducks/src/Enemy.cpp
+	"../include/Enemy.h"
+
+1552407607 source:/home/fv/Escritorio/mau/Guns-ducks/src/Game.cpp
+	"../include/Game.h"
+
+1552407646 source:/home/fv/Escritorio/mau/Guns-ducks/src/Object.cpp
+	"../include/Object.h"
+
+1552407366 source:/home/fv/Escritorio/mau/Guns-ducks/src/Player.cpp
+	"../include/Player.h"
+
