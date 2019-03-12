@@ -17,8 +17,12 @@ Antes de crear cambios debeís hacer un PULL para tener la ultima versión del c
 
 >git pull
 
-##Changelog de la rama Shots
+## Changelog de la rama Shots
 
 Iniciada rama
 
+
+## Webs Interesantes
+
+>https://github.com/SFML/SFML/wiki/Tutorial:-Basic-Game-Engine
 
