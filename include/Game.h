@@ -9,6 +9,8 @@
 #include "Bullet.h"
 #include "Object.h"
 
+#define kEnemy_reward 10
+
 using namespace sf;
 using namespace std;
 
@@ -22,7 +24,9 @@ class Game
         void listenKeyboard();
         void draw();
         void colisiones();
-        void colisionBox();
+        void timeToString();
+        void inZona();
+
 
 
     protected:
@@ -36,10 +40,16 @@ class Game
         vector<Enemy> enemigos;
         vector<Bullet> balas;
         vector<Object> objetos;
-        Clock bullet_clock;
-        Time bullet_cooldown;
+        Clock bullet_clock, general_clock, zone_clock;
+        Time bullet_cooldown, general_timer, zone_timer;
         Vector2i winDim;
-        bool primer, info;
+        Text *txt_time;
+        Font *font;
+        //Zonas
+        RectangleShape *life_zone;
+
+
+
 
 
 };

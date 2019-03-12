@@ -1,7 +1,8 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 #include <iostream>
-
+#include <string>
+#include <sstream>
 #include <SFML/Graphics.hpp>
 
 using namespace sf;
@@ -16,11 +17,21 @@ class Player
         void move(int, int);
 
         Sprite getSprite();
-        RectangleShape getRect();
         Vector2f getPosition();
         Vector2i getDir();
-        FloatRect getBounds();
-        FloatRect getBoundsBox();
+        int getScore();
+        Text getScoreTxt();
+        void setScore(int);
+        RectangleShape getLifeBox();
+        RectangleShape getShieldBox();
+        int getLife();
+        int getShield();
+        void setLife(int);
+        void setShield(int);
+        Text getLifeTxt();
+        Text getShieldTxt();
+        void gestionaVida(int);
+
 
 
 
@@ -28,9 +39,16 @@ class Player
 
     private:
         Sprite *spr;
-        RectangleShape *box;
+        RectangleShape *box, *life_box, *shield_box;
         float speed;
         Vector2i dir;
+        int score = 0;
+        Text * txt_score;
+        Font * font_txt;
+        //Life
+        int life, shield;
+        Text *txt_life, *txt_shield;
+
 };
 
 #endif // PLAYER_H
