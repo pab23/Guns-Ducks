@@ -248,20 +248,6 @@ void Player::setShield(int x)
             txt_shield->setPosition(shield_box->getSize().x/2,txt_shield->getPosition().y);
         }
     }
-
-
-    if (life >= 50)
-    {
-        life_box->setFillColor(Color::Green);
-    }else if (life < 50 && life >= 20)
-    {
-        life_box->setFillColor(Color(255, 102, 0));
-    }else
-    {
-        life_box->setFillColor(Color::Red);
-    }
-
-
 }
 
 

@@ -26,6 +26,7 @@ class Game
         void colisiones();
         void timeToString();
         void inZona();
+        void inBad();
 
 
 
@@ -46,7 +47,7 @@ class Game
         Text *txt_time;
         Font *font;
         //Zonas
-        RectangleShape *life_zone;
+        RectangleShape *life_zone, *bad_zone;
 
 
 

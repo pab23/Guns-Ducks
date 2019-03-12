@@ -42,6 +42,10 @@ Game::Game(Vector2i win_dim)
     life_zone->setFillColor(Color::Green);
     life_zone->setPosition({100, 300});
 
+    //zona
+    bad_zone = new RectangleShape({100,100});
+    bad_zone->setFillColor(Color::Red);
+    bad_zone->setPosition({500, 300});
 
     //OBJETOS
     for(unsigned i = 0; i < 4; i++)
@@ -67,6 +71,7 @@ void Game::gameLoop()
         if(zone_timer.asSeconds() >= 1)
         {
             inZona();
+            inBad();
             zone_clock.restart();
         }
 
@@ -124,6 +129,7 @@ void Game::draw()
     win->clear();
 
     win->draw(*life_zone);
+    win->draw(*bad_zone);
     win->draw(player->getSprite());
 
     for(unsigned i = 0; i < enemigos.size(); i++)
@@ -215,6 +221,15 @@ void Game::inZona()
     if(player->getSprite().getGlobalBounds().intersects(life_zone->getGlobalBounds()))
     {
         player->setLife(10);
+        cout<<player->getLife()<<endl;
+    }
+}
+void Game::inBad()
+{
+
+    if(player->getSprite().getGlobalBounds().intersects(bad_zone->getGlobalBounds()))
+    {
+        player->setLife(-10);
         cout<<player->getLife()<<endl;
     }
 }
