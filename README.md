@@ -23,6 +23,8 @@ Iniciada rama
 
 
 ## Webs Interesantes
-
+### Game Engine
 >https://github.com/SFML/SFML/wiki/Tutorial:-Basic-Game-Engine
+### Patrón Singleton
+>https://en.sfml-dev.org/forums/index.php?topic=19393.0
 
