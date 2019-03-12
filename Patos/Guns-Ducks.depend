@@ -269,3 +269,40 @@
 1552151410 source:/home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/Patos/src/Player.cpp
 	"../include/Player.h"
 
+1552385647 source:/home/fv/Escritorio/bañuls/Guns-Ducks/Patos/main.cpp
+	<SFML/Graphics.hpp>
+	<iostream>
+	"include/Game.h"
+
+1552385647 /home/fv/Escritorio/bañuls/Guns-Ducks/Patos/include/Game.h
+	<SFML/Graphics.hpp>
+	<iostream>
+	"Player.h"
+	"Enemy.h"
+	"Bullet.h"
+
+1552387037 /home/fv/Escritorio/bañuls/Guns-Ducks/Patos/include/Player.h
+	<iostream>
+	<string>
+	<sstream>
+	<SFML/Graphics.hpp>
+
+1552385647 /home/fv/Escritorio/bañuls/Guns-Ducks/Patos/include/Enemy.h
+	"SFML/Graphics.hpp"
+
+1552385647 /home/fv/Escritorio/bañuls/Guns-Ducks/Patos/include/Bullet.h
+	"SFML/Graphics.hpp"
+	<iostream>
+
+1552385647 source:/home/fv/Escritorio/bañuls/Guns-Ducks/Patos/src/Bullet.cpp
+	"../include/Bullet.h"
+
+1552385647 source:/home/fv/Escritorio/bañuls/Guns-Ducks/Patos/src/Enemy.cpp
+	"../include/Enemy.h"
+
+1552387336 source:/home/fv/Escritorio/bañuls/Guns-Ducks/Patos/src/Game.cpp
+	"../include/Game.h"
+
+1552387494 source:/home/fv/Escritorio/bañuls/Guns-Ducks/Patos/src/Player.cpp
+	"../include/Player.h"
+

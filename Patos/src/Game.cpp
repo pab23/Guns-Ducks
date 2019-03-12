@@ -26,7 +26,7 @@ Game::Game(Vector2i win_dim)
     player = new Player(*tex_player);
 
 
-    for( unsigned i = 0; i < 10; i++)
+    for( unsigned i = 0; i < 12; i++)
     {
         Enemy aux(*tex_player);
         enemigos.push_back(aux);
@@ -131,6 +131,8 @@ void Game::draw()
     win->draw(player->getScoreTxt());
     win->draw(player->getLifeBox());
     win->draw(player->getLifeTxt());
+    win->draw(player->getShieldBox());
+    win->draw(player->getShieldTxt());
 
 
     win->display();
@@ -171,7 +173,7 @@ void Game::colisiones()
                     balas.erase(balas.begin()+i);
                     enemigos.erase(enemigos.begin()+j);
                     player->setScore(player->getScore()+kEnemy_reward);
-                    player->setLife(-10);
+                    player->gestionaVida(-10);
                 }
             }
 

@@ -23,9 +23,14 @@ class Player
         Text getScoreTxt();
         void setScore(int);
         RectangleShape getLifeBox();
+        RectangleShape getShieldBox();
         int getLife();
+        int getShield();
         void setLife(int);
+        void setShield(int);
         Text getLifeTxt();
+        Text getShieldTxt();
+        void gestionaVida(int);
 
 
 
@@ -34,16 +39,15 @@ class Player
 
     private:
         Sprite *spr;
-        RectangleShape *box;
+        RectangleShape *box, *life_box, *shield_box;
         float speed;
         Vector2i dir;
         int score = 0;
         Text * txt_score;
         Font * font_txt;
         //Life
-        int life;
-        RectangleShape *life_box;
-        Text *txt_life;
+        int life, shield;
+        Text *txt_life, *txt_shield;
 
 };
 
