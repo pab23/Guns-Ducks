@@ -7,6 +7,8 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Bullet.h"
+#include "AnimatedSprite.h"
+#include "Animation.h"
 
 using namespace sf;
 using namespace std;
@@ -20,9 +22,11 @@ class Game
         void loadTextures();
         void listenKeyboard();
         void draw();
-        void colisiones();
         void moverEnemigos();
         void crearEnemy();
+        void crearAnimaciones();
+        void colisiones();
+        void colisionBox();
 
 
 
@@ -31,14 +35,15 @@ class Game
     private:
 
         RenderWindow *win;
-        Texture *tex_player;
+        Texture *tex_player, *tex_enemy;
         Player *player;
         Event e;
         vector<Enemy> enemigos;
         vector<Bullet> balas;
-        Clock bullet_clock, enemy_clock;
+        Clock bullet_clock, enemy_clock,frame_clock;
         Time bullet_cooldown, enemy_timer;
         Vector2i winDim;
+        bool primer, info;
 
 
 

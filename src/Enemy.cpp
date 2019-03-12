@@ -1,5 +1,5 @@
 #include "../include/Enemy.h"
-
+#include <math.h>
 Enemy::Enemy(Texture &tex, float vel)
 {
 
@@ -7,11 +7,16 @@ Enemy::Enemy(Texture &tex, float vel)
     Vector2f pos = this->getRandomPosition(ventana);
     speed = vel;
     spr = new Sprite(tex);
-    spr->setOrigin(75/2,75/2);
-    spr->setTextureRect(IntRect(0*75, 0*75, 75, 75));
+    spr->setOrigin(24/2,24/2);
+    spr->setTextureRect(IntRect(0*75, 0*75, 24, 24));
     spr->setPosition(pos);
-    spr->scale(.5,.5);
+    spr->scale(1.5,1.5);
     dir ={0,1};
+
+    box = new RectangleShape({spr->getTextureRect().width,spr->getTextureRect().height/4});
+    box->setFillColor(Color::Red);
+    box->setOrigin(box->getSize().x/2,box->getSize().y/2);
+    box->setPosition(getPosition().x,getPosition().y+spr->getTextureRect().height/3);
 
     //direction = {0,0};
 
@@ -32,32 +37,69 @@ Sprite Enemy::getSprite()
 FloatRect Enemy::getBounds(){
     return spr->getGlobalBounds();
 }
-
+FloatRect Enemy::getBoundsBox(){
+    return box->getGlobalBounds();
+}
 Vector2f Enemy::getPosition(){
     return spr->getPosition();
+}
+void Enemy::setColor(int color)
+{
+    if(color == 0)
+    box->setFillColor(Color::Green);
+    else
+    box->setFillColor(Color::Red);
 }
 
 Vector2i Enemy::getDir()
 {
     return dir;
 }
-
+RectangleShape Enemy::getRect()
+{
+    return *box;
+}
 void Enemy::setPosition(float x, float y){
     spr->setPosition(x,y);
+    box->setPosition(x,y+spr->getTextureRect().height/3);
 }
 void Enemy::setPosition(Vector2f vec){
     spr->setPosition(vec.x,vec.y);
+    box->setPosition(vec.x,vec.y+spr->getTextureRect().height/3);
 }
-void Enemy::move(Vector2f playerPosition){
+void Enemy::move(Vector2f playerPosition, bool collision){
 
     direction = playerPosition - getPosition();
     normalizedDir.x = direction.x / (sqrt(pow(direction.x, 2) + pow(direction.y, 2)));
     normalizedDir.y = direction.y / (sqrt(pow(direction.x, 2) + pow(direction.y, 2)));
-    Vector2f currentSpeed = normalizedDir * speed;
+    Vector2f currentSpeed = normalizedDir * speed;//distancia por velocidad
+
+
+
+    //Creamos un vector auxiliar
+    Vector2f aux_direction,aux_normalizedDir, aux_currentSpeed;
+
+    aux_direction= Vector2f(playerPosition.x  + RandomNumber(5,100), playerPosition.y + RandomNumber(5,100)) - getPosition();
+    aux_normalizedDir.x = aux_direction.x / (sqrt(pow(aux_direction.x, 2) + pow(aux_direction.y, 2)));
+    aux_normalizedDir.y = aux_direction.y / (sqrt(pow(aux_direction.x, 2) + pow(aux_direction.y, 2)));
+    aux_currentSpeed = aux_normalizedDir * speed;//distancia por velocidad
+
+    if(collision)
+        spr->move(aux_currentSpeed);
+    else
     spr->move(currentSpeed);
+
+    box->move(currentSpeed);
+
+    float phi= atan((playerPosition.y - getPosition().y)/(playerPosition.x - getPosition().x));
+
+    if(playerPosition.x - getPosition().x < 0 && playerPosition.x - getPosition().y<0)
+        phi= phi + M_PI;
+    //cout << phi <<endl;
 
     if(direction.x < 0)
         dir.x = -1;
+
     else if(direction.x < 1.0)
         dir.x = 0;
     else dir.x = 1;
@@ -69,7 +111,7 @@ void Enemy::move(Vector2f playerPosition){
     else dir.y = 1;
 
 
-    //cout << dir.x << "   " << dir.y << endl;
+    //cout << normalizedDir.x << "   " << normalizedDir.y << endl;
      //cout << direction.x << "   " << direction.y << endl;
 
 

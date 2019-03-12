@@ -165,33 +165,58 @@
 	"SFML/Graphics.hpp"
 	<iostream>
 
-1551702908 source:/home/javi/Escritorio/github/Guns-Ducks/src/Enemy.cpp
+1552306752 source:/home/javi/Escritorio/github/Guns-Ducks/src/Enemy.cpp
 	"../include/Enemy.h"
+	<math.h>
 
-1551700690 /home/javi/Escritorio/github/Guns-Ducks/include/Enemy.h
+1552305169 /home/javi/Escritorio/github/Guns-Ducks/include/Enemy.h
 	"SFML/Graphics.hpp"
 	<iostream>
 	<math.h>
 
-1551702949 source:/home/javi/Escritorio/github/Guns-Ducks/src/Game.cpp
+1552306881 source:/home/javi/Escritorio/github/Guns-Ducks/src/Game.cpp
 	"../include/Game.h"
 
-1551699686 /home/javi/Escritorio/github/Guns-Ducks/include/Game.h
+1552304616 /home/javi/Escritorio/github/Guns-Ducks/include/Game.h
 	<SFML/Graphics.hpp>
 	<iostream>
 	"Player.h"
 	"Enemy.h"
 	"Bullet.h"
+	"AnimatedSprite.h"
+	"Animation.h"
 
-1551258842 /home/javi/Escritorio/github/Guns-Ducks/include/Player.h
+1552304840 /home/javi/Escritorio/github/Guns-Ducks/include/Player.h
 	<iostream>
 	<SFML/Graphics.hpp>
 
-1551702860 source:/home/javi/Escritorio/github/Guns-Ducks/src/Player.cpp
+1552307418 source:/home/javi/Escritorio/github/Guns-Ducks/src/Player.cpp
 	"../include/Player.h"
 
 1551701631 source:/home/javi/Escritorio/github/Guns-Ducks/main.cpp
 	<SFML/Graphics.hpp>
 	<iostream>
 	"include/Game.h"
+
+1551863426 source:/home/javi/Escritorio/github/Guns-Ducks/src/AnimatedSPrite.cpp
+	"../include/AnimatedSprite.h"
+
+1551863300 /home/javi/Escritorio/github/Guns-Ducks/include/AnimatedSprite.h
+	<SFML/Graphics/RenderTarget.hpp>
+	<SFML/System/Time.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/Graphics/Transformable.hpp>
+	<SFML/System/Vector2.hpp>
+	"Animation.h"
+
+1551863191 /home/javi/Escritorio/github/Guns-Ducks/include/Animation.h
+	<vector>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/Texture.hpp>
+
+1551863241 source:/home/javi/Escritorio/github/Guns-Ducks/src/Animation.cpp
+	"../include/Animation.h"
+
+1551864441 source:/home/javi/Escritorio/github/Guns-Ducks/src/AnimatedSprite.cpp
+	"../include/AnimatedSprite.h"
 

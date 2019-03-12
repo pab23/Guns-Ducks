@@ -20,9 +20,12 @@ class Enemy
         Vector2i getDir();
         void setPosition(float x, float y);
         void setPosition(Vector2f vec);
-        void move(Vector2f playerPosition);
+        void move(Vector2f playerPosition, bool collision);
         Vector2f getRandomPosition(Vector2i ventana);
         int RandomNumber( int inicio, int fin );
+        void setColor(int color);
+        FloatRect getBoundsBox();
+        RectangleShape getRect();
 
 
 
@@ -32,9 +35,11 @@ class Enemy
     private:
         Sprite *spr;
         float speed;
-        Vector2i dir;
-        Vector2f direction;
-        Vector2f normalizedDir;
+        RectangleShape *box;
+        Vector2f direction;//Vector de posicion entre el player y el enemigo.Indica la direccion que toma el enemigo para seguir al player.
+        Vector2f normalizedDir;//Vector "direction" normalizado.
+        Vector2i dir; //Representa el vector direction (hacia donde mira el enemigo) pero en forma de 1,-1 o 0
+        Vector2f auxDir;//Vector auxiliar que utilizamos para desviar ligeramente la dirección del enemigo cuando este colisiona con otros enemigos.
 
 
 };

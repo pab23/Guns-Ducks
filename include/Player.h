@@ -18,6 +18,12 @@ class Player
         Sprite getSprite();
         Vector2f getPosition();
         Vector2i getDir();
+        CircleShape getCircle();
+        FloatRect getBounds();
+        FloatRect getBoundsBox();
+        void setPosition(Vector2f vec);
+        RectangleShape getRect();
+        //void cambiarAnimacion();
 
 
     protected:
@@ -25,6 +31,7 @@ class Player
     private:
         Sprite *spr;
         RectangleShape *box;
+        CircleShape *circle;//para que enemigos rodeen al player
         float speed;
         Vector2i dir;
 };
