@@ -31,7 +31,15 @@ Game::Game(Vector2i win_dim)
     primer = true;
     info = false;
 
+    font = new Font();
+    font->loadFromFile("letra_pixel.ttf");
+    txt_time = new Text("0",*font);
+    txt_time->setPosition(10,10);
 
+    //zona
+    life_zone = new RectangleShape({100,100});
+    life_zone->setFillColor(Color::Green);
+    life_zone->setPosition({100, 300});
 
 
     gameLoop();
@@ -48,6 +56,13 @@ void Game::gameLoop()
         listenKeyboard();
         moverEnemigos();
         colisiones();
+        zone_timer = zone_clock.getElapsedTime();
+        if(zone_timer.asSeconds() >= 1)
+        {
+            inZona();
+            zone_clock.restart();
+        }
+
         draw();
 
         if(enemy_timer.asSeconds() > 5.0 ){
@@ -115,6 +130,8 @@ void Game::draw()
 
     win->draw(player->getSprite());
      win->draw(player->getCircle());
+      win->draw(*life_zone);
+    win->draw(player->getSprite());
 
     for(unsigned i = 0; i < enemigos.size(); i++)
         win->draw(enemigos[i].getSprite());
@@ -125,6 +142,13 @@ void Game::draw()
         win->draw(balas[j].getSprite());
 
     colisionBox();
+     timeToString();
+    win->draw(*txt_time);
+    win->draw(player->getScoreTxt());
+    win->draw(player->getLifeBox());
+    win->draw(player->getLifeTxt());
+    win->draw(player->getShieldBox());
+    win->draw(player->getShieldTxt());
 
 
     win->display();
@@ -208,6 +232,8 @@ void Game::colisiones()
                 {
                     balas.erase(balas.begin()+i);
                     enemigos.erase(enemigos.begin()+j);
+                    player->setScore(player->getScore()+kEnemy_reward);
+                    player->gestionaVida(-10);
                     break;
                 }
 
@@ -293,7 +319,25 @@ void Game::colisionBox()
         }
     }*/
 }
+void Game::timeToString()
+{
+    float val = general_clock.getElapsedTime().asSeconds();
 
+    stringstream ss;
+    ss << val;
+
+    txt_time->setString(ss.str());
+}
+
+void Game::inZona()
+{
+
+    if(player->getSprite().getGlobalBounds().intersects(life_zone->getGlobalBounds()))
+    {
+        player->setLife(10);
+        cout<<player->getLife()<<endl;
+    }
+}
 
 void Game::crearEnemy(){
 
