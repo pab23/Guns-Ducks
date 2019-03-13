@@ -4,40 +4,45 @@
 	<iostream>
 	"include/Game.h"
 
-1551264581 /home/fv/Escritorio/Guns-Ducks/include/Game.h
+1551171228 /home/fv/Escritorio/Guns-Ducks/include/Game.h
 	<SFML/Graphics.hpp>
 	<iostream>
 	"Player.h"
 	"Enemy.h"
 	"Bullet.h"
 
-1552301174 /home/fv/Escritorio/Guns-Ducks/include/Player.h
+1551171228 /home/fv/Escritorio/Guns-Ducks/include/Player.h
 	<iostream>
 	<SFML/Graphics.hpp>
 
-1552303919 source:/home/fv/Escritorio/Guns-Ducks/src/Game.cpp
+1551177086 source:/home/fv/Escritorio/Guns-Ducks/src/Game.cpp
 	"../include/Game.h"
 
-1552303695 source:/home/fv/Escritorio/Guns-Ducks/src/Player.cpp
+1551171228 source:/home/fv/Escritorio/Guns-Ducks/src/Player.cpp
 	"../include/Player.h"
 
-1551099355 source:/home/fv/Documentos/GIT/Guns-Ducks/main.cpp
+1552465806 source:/home/fv/Documentos/GIT/Guns-Ducks/main.cpp
 	<SFML/Graphics.hpp>
 	<iostream>
 	"include/Game.h"
 
-1551099025 source:/home/fv/Documentos/GIT/Guns-Ducks/src/Game.cpp
+1552465806 source:/home/fv/Documentos/GIT/Guns-Ducks/src/Game.cpp
 	"../include/Game.h"
 
-1551097762 source:/home/fv/Documentos/GIT/Guns-Ducks/src/Player.cpp
-	"Player.h"
+1552466837 source:/home/fv/Documentos/GIT/Guns-Ducks/src/Player.cpp
+	"../include/Player.h"
 
-1551099387 /home/fv/Documentos/GIT/Guns-Ducks/include/Game.h
+1552465806 /home/fv/Documentos/GIT/Guns-Ducks/include/Game.h
 	<SFML/Graphics.hpp>
 	<iostream>
 	"Player.h"
+	"Enemy.h"
+	"Bullet.h"
+	"AnimatedSprite.h"
+	"Animation.h"
 
-1551097762 /home/fv/Documentos/GIT/Guns-Ducks/include/Player.h
+1552465806 /home/fv/Documentos/GIT/Guns-Ducks/include/Player.h
+	<iostream>
 	<SFML/Graphics.hpp>
 
 1551113648 source:/home/fv/Guns-Ducks/main.cpp
@@ -110,9 +115,7 @@
 1551125035 source:/home/javifv/Escritorio/Guns-Ducks-Shots/src/Enemy.cpp
 	"../include/Enemy.h"
 
-1551265371 /home/fv/Escritorio/Guns-Ducks/include/Enemy.h
-	<iostream>
-	<ctime>
+1551171228 /home/fv/Escritorio/Guns-Ducks/include/Enemy.h
 	"SFML/Graphics.hpp"
 
 1551171228 /home/fv/Escritorio/Guns-Ducks/include/Bullet.h
@@ -122,7 +125,7 @@
 1551175782 source:/home/fv/Escritorio/Guns-Ducks/src/Bullet.cpp
 	"../include/Bullet.h"
 
-1552303713 source:/home/fv/Escritorio/Guns-Ducks/src/Enemy.cpp
+1551171228 source:/home/fv/Escritorio/Guns-Ducks/src/Enemy.cpp
 	"../include/Enemy.h"
 
 1551199083 source:/home/sergio/Documentos/GIT_ZENOTAFIO/Guns-Ducks/main.cpp
@@ -160,38 +163,161 @@
 1551199083 source:/home/sergio/Documentos/GIT_ZENOTAFIO/Guns-Ducks/src/Player.cpp
 	"../include/Player.h"
 
-1551255286 source:/home/pab23/Guns-Ducks/main.cpp
-	<SFML/Graphics.hpp>
-	<iostream>
-	"include/Game.h"
+1551257072 source:/home/javi/Escritorio/github/Guns-Ducks/src/Bullet.cpp
+	"../include/Bullet.h"
 
-1551260061 /home/pab23/Guns-Ducks/include/Game.h
+1551257072 /home/javi/Escritorio/github/Guns-Ducks/include/Bullet.h
+	"SFML/Graphics.hpp"
+	<iostream>
+
+1552306752 source:/home/javi/Escritorio/github/Guns-Ducks/src/Enemy.cpp
+	"../include/Enemy.h"
+	<math.h>
+
+1552305169 /home/javi/Escritorio/github/Guns-Ducks/include/Enemy.h
+	"SFML/Graphics.hpp"
+	<iostream>
+	<math.h>
+
+1552306881 source:/home/javi/Escritorio/github/Guns-Ducks/src/Game.cpp
+	"../include/Game.h"
+
+1552304616 /home/javi/Escritorio/github/Guns-Ducks/include/Game.h
 	<SFML/Graphics.hpp>
 	<iostream>
 	"Player.h"
 	"Enemy.h"
 	"Bullet.h"
+	"AnimatedSprite.h"
+	"Animation.h"
 
-1551259078 /home/pab23/Guns-Ducks/include/Player.h
+1552304840 /home/javi/Escritorio/github/Guns-Ducks/include/Player.h
 	<iostream>
 	<SFML/Graphics.hpp>
 
-1551259689 /home/pab23/Guns-Ducks/include/Enemy.h
-	"SFML/Graphics.hpp"
+1552307418 source:/home/javi/Escritorio/github/Guns-Ducks/src/Player.cpp
+	"../include/Player.h"
 
-1551255286 /home/pab23/Guns-Ducks/include/Bullet.h
+1551701631 source:/home/javi/Escritorio/github/Guns-Ducks/main.cpp
+	<SFML/Graphics.hpp>
+	<iostream>
+	"include/Game.h"
+
+1551863426 source:/home/javi/Escritorio/github/Guns-Ducks/src/AnimatedSPrite.cpp
+	"../include/AnimatedSprite.h"
+
+1551863300 /home/javi/Escritorio/github/Guns-Ducks/include/AnimatedSprite.h
+	<SFML/Graphics/RenderTarget.hpp>
+	<SFML/System/Time.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/Graphics/Transformable.hpp>
+	<SFML/System/Vector2.hpp>
+	"Animation.h"
+
+1551863191 /home/javi/Escritorio/github/Guns-Ducks/include/Animation.h
+	<vector>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/Texture.hpp>
+
+1551863241 source:/home/javi/Escritorio/github/Guns-Ducks/src/Animation.cpp
+	"../include/Animation.h"
+
+1551864441 source:/home/javi/Escritorio/github/Guns-Ducks/src/AnimatedSprite.cpp
+	"../include/AnimatedSprite.h"
+
+1552465806 /home/fv/Documentos/GIT/Guns-Ducks/include/Enemy.h
+	"SFML/Graphics.hpp"
+	<iostream>
+	<math.h>
+
+1552465616 /home/fv/Documentos/GIT/Guns-Ducks/include/Bullet.h
 	"SFML/Graphics.hpp"
 	<iostream>
 
-1551255286 source:/home/pab23/Guns-Ducks/src/Bullet.cpp
+1552465806 /home/fv/Documentos/GIT/Guns-Ducks/include/AnimatedSprite.h
+	<SFML/Graphics/RenderTarget.hpp>
+	<SFML/System/Time.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/Graphics/Transformable.hpp>
+	<SFML/System/Vector2.hpp>
+	"Animation.h"
+
+1552465806 /home/fv/Documentos/GIT/Guns-Ducks/include/Animation.h
+	<vector>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/Texture.hpp>
+
+1552465806 source:/home/fv/Documentos/GIT/Guns-Ducks/src/AnimatedSprite.cpp
+	"../include/AnimatedSprite.h"
+
+1552465806 source:/home/fv/Documentos/GIT/Guns-Ducks/src/Animation.cpp
+	"../include/Animation.h"
+
+1552465616 source:/home/fv/Documentos/GIT/Guns-Ducks/src/Bullet.cpp
 	"../include/Bullet.h"
 
-1551259799 source:/home/pab23/Guns-Ducks/src/Enemy.cpp
+1552465806 source:/home/fv/Documentos/GIT/Guns-Ducks/src/Enemy.cpp
 	"../include/Enemy.h"
+	<math.h>
 
-1551260760 source:/home/pab23/Guns-Ducks/src/Game.cpp
+1552465806 source:/home/fv/Documentos/GIT/Guns-Ducks/Patos/main.cpp
+	<SFML/Graphics.hpp>
+	<iostream>
+	"include/Game.h"
+
+1552467980 /home/fv/Documentos/GIT/Guns-Ducks/Patos/include/Game.h
+	<SFML/Graphics.hpp>
+	<iostream>
+	<sstream>
+	"Player.h"
+	"Enemy.h"
+	"Bullet.h"
+	"AnimatedSprite.h"
+	"Animation.h"
+
+1552468087 /home/fv/Documentos/GIT/Guns-Ducks/Patos/include/Player.h
+	<iostream>
+	<sstream>
+	<SFML/Graphics.hpp>
+
+1552465806 /home/fv/Documentos/GIT/Guns-Ducks/Patos/include/Enemy.h
+	"SFML/Graphics.hpp"
+	<iostream>
+	<math.h>
+
+1552465616 /home/fv/Documentos/GIT/Guns-Ducks/Patos/include/Bullet.h
+	"SFML/Graphics.hpp"
+	<iostream>
+
+1552465806 /home/fv/Documentos/GIT/Guns-Ducks/Patos/include/AnimatedSprite.h
+	<SFML/Graphics/RenderTarget.hpp>
+	<SFML/System/Time.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/Graphics/Transformable.hpp>
+	<SFML/System/Vector2.hpp>
+	"Animation.h"
+
+1552465806 /home/fv/Documentos/GIT/Guns-Ducks/Patos/include/Animation.h
+	<vector>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/Texture.hpp>
+
+1552465806 source:/home/fv/Documentos/GIT/Guns-Ducks/Patos/src/AnimatedSprite.cpp
+	"../include/AnimatedSprite.h"
+
+1552465806 source:/home/fv/Documentos/GIT/Guns-Ducks/Patos/src/Animation.cpp
+	"../include/Animation.h"
+
+1552465616 source:/home/fv/Documentos/GIT/Guns-Ducks/Patos/src/Bullet.cpp
+	"../include/Bullet.h"
+
+1552465806 source:/home/fv/Documentos/GIT/Guns-Ducks/Patos/src/Enemy.cpp
+	"../include/Enemy.h"
+	<math.h>
+
+1552467718 source:/home/fv/Documentos/GIT/Guns-Ducks/Patos/src/Game.cpp
 	"../include/Game.h"
 
-1551259127 source:/home/pab23/Guns-Ducks/src/Player.cpp
+1552468067 source:/home/fv/Documentos/GIT/Guns-Ducks/Patos/src/Player.cpp
 	"../include/Player.h"
 

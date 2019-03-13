@@ -17,14 +17,8 @@ Antes de crear cambios debeís hacer un PULL para tener la ultima versión del c
 
 >git pull
 
-## Changelog de la rama Shots
+##Changelog de la rama Shots
 
 Iniciada rama
 
-
-## Webs Interesantes
-### Game Engine
->https://github.com/SFML/SFML/wiki/Tutorial:-Basic-Game-Engine
-### Patrón Singleton
->https://en.sfml-dev.org/forums/index.php?topic=19393.0
 
