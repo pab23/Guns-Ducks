@@ -21,23 +21,28 @@
 1551171228 source:/home/fv/Escritorio/Guns-Ducks/src/Player.cpp
 	"../include/Player.h"
 
-1551099355 source:/home/fv/Documentos/GIT/Guns-Ducks/main.cpp
+1552465806 source:/home/fv/Documentos/GIT/Guns-Ducks/main.cpp
 	<SFML/Graphics.hpp>
 	<iostream>
 	"include/Game.h"
 
-1551099025 source:/home/fv/Documentos/GIT/Guns-Ducks/src/Game.cpp
+1552465806 source:/home/fv/Documentos/GIT/Guns-Ducks/src/Game.cpp
 	"../include/Game.h"
 
-1551097762 source:/home/fv/Documentos/GIT/Guns-Ducks/src/Player.cpp
-	"Player.h"
+1552466837 source:/home/fv/Documentos/GIT/Guns-Ducks/src/Player.cpp
+	"../include/Player.h"
 
-1551099387 /home/fv/Documentos/GIT/Guns-Ducks/include/Game.h
+1552465806 /home/fv/Documentos/GIT/Guns-Ducks/include/Game.h
 	<SFML/Graphics.hpp>
 	<iostream>
 	"Player.h"
+	"Enemy.h"
+	"Bullet.h"
+	"AnimatedSprite.h"
+	"Animation.h"
 
-1551097762 /home/fv/Documentos/GIT/Guns-Ducks/include/Player.h
+1552465806 /home/fv/Documentos/GIT/Guns-Ducks/include/Player.h
+	<iostream>
 	<SFML/Graphics.hpp>
 
 1551113648 source:/home/fv/Guns-Ducks/main.cpp
@@ -219,4 +224,39 @@
 
 1551864441 source:/home/javi/Escritorio/github/Guns-Ducks/src/AnimatedSprite.cpp
 	"../include/AnimatedSprite.h"
+
+1552465806 /home/fv/Documentos/GIT/Guns-Ducks/include/Enemy.h
+	"SFML/Graphics.hpp"
+	<iostream>
+	<math.h>
+
+1552465616 /home/fv/Documentos/GIT/Guns-Ducks/include/Bullet.h
+	"SFML/Graphics.hpp"
+	<iostream>
+
+1552465806 /home/fv/Documentos/GIT/Guns-Ducks/include/AnimatedSprite.h
+	<SFML/Graphics/RenderTarget.hpp>
+	<SFML/System/Time.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/Graphics/Transformable.hpp>
+	<SFML/System/Vector2.hpp>
+	"Animation.h"
+
+1552465806 /home/fv/Documentos/GIT/Guns-Ducks/include/Animation.h
+	<vector>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/Texture.hpp>
+
+1552465806 source:/home/fv/Documentos/GIT/Guns-Ducks/src/AnimatedSprite.cpp
+	"../include/AnimatedSprite.h"
+
+1552465806 source:/home/fv/Documentos/GIT/Guns-Ducks/src/Animation.cpp
+	"../include/Animation.h"
+
+1552465616 source:/home/fv/Documentos/GIT/Guns-Ducks/src/Bullet.cpp
+	"../include/Bullet.h"
+
+1552465806 source:/home/fv/Documentos/GIT/Guns-Ducks/src/Enemy.cpp
+	"../include/Enemy.h"
+	<math.h>
 

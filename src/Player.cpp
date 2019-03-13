@@ -13,19 +13,23 @@
 Player::Player(Texture &tex)
 {
         spr = new Sprite(tex);
-        box = new RectangleShape({spr->getTextureRect().width,spr->getTextureRect().height/4});
-        box->setFillColor(Color::Blue);
-        box->setOrigin(box->getSize().x/2,box->getSize().y/2);
-        box->setPosition(getPosition().x,getPosition().y+spr->getTextureRect().height/3);
-        circle = new CircleShape();
-        circle->setOrigin(50,50);
-        circle->setPosition(400,300);
-        circle->setRadius(50);
-        circle->setFillColor(Color(255,0,0,120));
+
+
         spr->setOrigin(75/2,75/2);
         spr->setTextureRect(IntRect(1*75, 0*75, 75, 75));
         spr->setPosition(400,300);
         spr->scale(.5,.5);
+
+        box = new RectangleShape({spr->getScale().x*spr->getTextureRect().width,spr->getScale().y*spr->getTextureRect().height/4});
+        box->setFillColor(Color::Blue);
+        box->setOrigin(box->getSize().x/2,box->getSize().y/2);
+        box->setPosition(getPosition().x+3,getPosition().y+spr->getTextureRect().height/3);
+
+        circle = new CircleShape();
+        circle->setOrigin(50,50);
+        circle->setPosition(spr->getPosition().x+2,spr->getPosition().y );
+        circle->setRadius(50);
+        circle->setFillColor(Color(255,0,0,120));
 
         speed = 4; dir = {1, 0};
 }
