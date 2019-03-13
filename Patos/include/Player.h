@@ -1,7 +1,6 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 #include <iostream>
-#include <string>
 #include <sstream>
 #include <SFML/Graphics.hpp>
 
@@ -19,6 +18,12 @@ class Player
         Sprite getSprite();
         Vector2f getPosition();
         Vector2i getDir();
+        CircleShape getCircle();
+        FloatRect getBounds();
+        FloatRect getBoundsBox();
+        void setPosition(Vector2f vec);
+        RectangleShape getRect();
+        //void cambiarAnimacion();
         int getScore();
         Text getScoreTxt();
         void setScore(int);
@@ -33,13 +38,12 @@ class Player
         void gestionaVida(int);
 
 
-
-
     protected:
 
     private:
         Sprite *spr;
         RectangleShape *box, *life_box, *shield_box;
+        CircleShape *circle;//para que enemigos rodeen al player
         float speed;
         Vector2i dir;
         int score = 0;
