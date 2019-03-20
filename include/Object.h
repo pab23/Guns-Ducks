@@ -12,7 +12,8 @@ using namespace sf;
 class Object
 {
     public:
-        Object(Texture &);
+        Object(string type, Texture &);
+        string getTipo();
         virtual ~Object();
         Sprite getSprite();
         RectangleShape getRect();
@@ -21,20 +22,15 @@ class Object
         FloatRect getBoundsBox();
         void setColor(int);
 
+
     protected:
 
     private:
+        string tipo;
         Sprite *spr;
         RectangleShape *box;
 };
 
-class Botijola : public Object
-{
-    public:
-        Botijola(Texture& tx):Object(tx){};
-        virtual ~Botijola();
-    private:
-};
 
 
 

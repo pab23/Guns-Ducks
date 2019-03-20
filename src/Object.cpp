@@ -1,10 +1,40 @@
 #include "../include/Object.h"
 
-Object::Object(Texture &tex)
+using namespace std;
+
+Object::Object(string type, Texture &tex)
 {
-    spr = new Sprite(tex);
-    spr->setOrigin(95/2,75/2);
-    spr->setTextureRect(IntRect(3.5*75, 0*75, 75, 75));
+    if(type=="botijola")
+    {
+        tipo="b";
+        spr = new Sprite(tex);
+        spr->setOrigin(32,32);
+        spr->setTextureRect(IntRect(64, 64, 64, 64));
+
+    }
+    else if(type=="planchadito")
+    {
+        tipo="p";
+        spr = new Sprite(tex);
+        spr->setOrigin(32,32);
+        spr->setTextureRect(IntRect(0, 0, 64, 64));
+    }
+    else if(type=="ducknamyte")
+    {
+        tipo="d";
+        spr = new Sprite(tex);
+        spr->setOrigin(32,32);
+        spr->setTextureRect(IntRect(64,0, 64, 64));
+    }
+    else if(type=="pato")
+    {
+        tipo="m";
+        spr = new Sprite(tex);
+        spr->setOrigin(32,32);
+        spr->setTextureRect(IntRect(0, 64, 64, 64));
+    }
+
+
 
     int randx = rand()%801;
     int randy = rand()%601;
@@ -53,20 +83,13 @@ void Object::setColor(int color)
     box->setFillColor(Color::Red);
 }
 
-
-
-
-//BOTIJOLA
-
-
-Botijola::~Botijola()
+/*int Object::actua()
 {
-    //dtor
+    return -1;
+}*/
+string Object::getTipo()
+{
+    return tipo;
 }
 
-
-
-
-
-//PLANCHADITO
 

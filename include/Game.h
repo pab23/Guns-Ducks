@@ -36,11 +36,12 @@ class Game
 
         RenderWindow *win;
         Texture *tex_player;
+        Texture *tex_object;
         Player *player;
         Event e;
         vector<Enemy> enemigos;
         vector<Bullet> balas;
-        vector<Object> objetos;
+        vector<Object*> objetos;
         Clock bullet_clock, general_clock, zone_clock;
         Time bullet_cooldown, general_timer, zone_timer;
         Vector2i winDim;

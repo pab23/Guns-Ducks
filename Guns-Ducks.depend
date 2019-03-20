@@ -398,3 +398,51 @@
 1552409528 source:/home/fv/Escritorio/mau/Guns-Ducks/src/Player.cpp
 	"../include/Player.h"
 
+1552465672 source:/home/mmt/git/Guns-Ducks/main.cpp
+	<SFML/Graphics.hpp>
+	<iostream>
+	"include/Game.h"
+
+1553077268 /home/mmt/git/Guns-Ducks/include/Game.h
+	<SFML/Graphics.hpp>
+	<iostream>
+	"Player.h"
+	"Enemy.h"
+	"Bullet.h"
+	"Object.h"
+
+1552465672 /home/mmt/git/Guns-Ducks/include/Player.h
+	<iostream>
+	<string>
+	<sstream>
+	<SFML/Graphics.hpp>
+
+1552465672 /home/mmt/git/Guns-Ducks/include/Enemy.h
+	"SFML/Graphics.hpp"
+
+1552465672 /home/mmt/git/Guns-Ducks/include/Bullet.h
+	"SFML/Graphics.hpp"
+	<iostream>
+
+1553080521 /home/mmt/git/Guns-Ducks/include/Object.h
+	<iostream>
+	<ctime>
+	"SFML/Graphics.hpp"
+
+1552465672 source:/home/mmt/git/Guns-Ducks/src/Bullet.cpp
+	"../include/Bullet.h"
+
+1552465672 source:/home/mmt/git/Guns-Ducks/src/Enemy.cpp
+	"../include/Enemy.h"
+
+1553080687 source:/home/mmt/git/Guns-Ducks/src/Game.cpp
+	"../include/Game.h"
+	<typeinfo>
+	<iostream>
+
+1553080509 source:/home/mmt/git/Guns-Ducks/src/Object.cpp
+	"../include/Object.h"
+
+1552465672 source:/home/mmt/git/Guns-Ducks/src/Player.cpp
+	"../include/Player.h"
+

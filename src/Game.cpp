@@ -1,4 +1,6 @@
 #include "../include/Game.h"
+#include <typeinfo>
+#include<iostream>
 
 
 /** CLASE PLAYER
@@ -26,6 +28,8 @@ Game::Game(Vector2i win_dim)
     player = new Player(*tex_player);
 
 
+
+
     for( unsigned i = 0; i < 12; i++)
     {
         Enemy aux(*tex_player);
@@ -48,9 +52,25 @@ Game::Game(Vector2i win_dim)
     bad_zone->setPosition({500, 300});
 
     //OBJETOS
+    tex_object = new Texture();
+    tex_object->loadFromFile("resources/objetos.png");
     for(unsigned i = 0; i < 4; i++)
     {
-        Botijola aux(*tex_player);
+        string type="botijola";
+        string type2="ducknamyte";
+        string type3="planchadito";
+        string type4="pato";
+
+        Object* aux4 = new Object(type4, *tex_object);
+        objetos.push_back(aux4);
+
+        Object* aux3 = new Object(type3, *tex_object);
+        objetos.push_back(aux3);
+
+        Object* aux2 = new Object(type2, *tex_object);
+        objetos.push_back(aux2);
+
+        Object* aux = new Object(type, *tex_object);
         objetos.push_back(aux);
     }
 
@@ -140,7 +160,7 @@ void Game::draw()
         win->draw(balas[j].getSprite());
 
     for( unsigned j = 0; j < objetos.size(); j++)
-        win->draw(objetos[j].getSprite());
+        win->draw(objetos[j]->getSprite());
 
 
     timeToString();
@@ -197,9 +217,32 @@ void Game::colisiones()
     }
     for(int i = 0; i < objetos.size(); i++)
     {
-        if(objetos[i].getBounds().intersects(player->getSprite().getGlobalBounds()))
+        if(objetos[i]->getBounds().intersects(player->getSprite().getGlobalBounds()))
         {
+
+
+            if(objetos[i]->getTipo()=="b")
+            {
+                cout<<"Botijola: recuperamos todo el escudo"<<endl;
+                player->setShield(100-player->getShield());
+            }
+            else if(objetos[i]->getTipo()=="d")
+            {
+                cout<<"Ducknamyte: elimina a todos los enemigos"<<endl;
+                player->setShield(30);
+            }
+            else if(objetos[i]->getTipo()=="p")
+            {
+                cout<<"Planchadito: Recuperamos toda la vida"<<endl;
+                player->setLife(100-player->getLife());
+            }
+            else if(objetos[i]->getTipo()=="m")
+            {
+                cout<<"Modo PaTo: matas a todos de un tiro"<<endl;
+                player->setShield(20);
+            }
             objetos.erase(objetos.begin()+i);
+
         }
     }
 
