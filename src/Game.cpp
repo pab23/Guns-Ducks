@@ -229,7 +229,10 @@ void Game::colisiones()
             else if(objetos[i]->getTipo()=="d")
             {
                 cout<<"Ducknamyte: elimina a todos los enemigos"<<endl;
-                player->setShield(30);
+                for(unsigned i = 0; i < enemigos.size(); i++)
+                {
+                    enemigos.erase(enemigos.begin(), enemigos.begin()+enemigos.size());
+                }
             }
             else if(objetos[i]->getTipo()=="p")
             {
@@ -239,7 +242,7 @@ void Game::colisiones()
             else if(objetos[i]->getTipo()=="m")
             {
                 cout<<"Modo PaTo: matas a todos de un tiro"<<endl;
-                player->setShield(20);
+                //player->getSprite().setColor(Color::Red);
             }
             objetos.erase(objetos.begin()+i);
 
