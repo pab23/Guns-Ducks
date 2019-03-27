@@ -28,6 +28,7 @@ Game::Game(Vector2i win_dim)
 
     enemy_clock.restart();
 
+    frame_clock.restart();
     primer = true;
     info = false;
 
@@ -61,18 +62,12 @@ void Game::gameLoop()
 
     while(win->isOpen())
     {
-        enemy_timer = enemy_clock.getElapsedTime();
-        bullet_cooldown = bullet_clock.getElapsedTime();
-        listenKeyboard();
-        moverEnemigos();
-        colisiones();
-        zone_timer = zone_clock.getElapsedTime();
-        if(zone_timer.asSeconds() >= 1)
-        {
-            inZona();
-            zone_clock.restart();
-        }
 
+        if(frame_clock.getElapsedTime().asMilliseconds() > UPDATE_TICK_TIME)
+        {
+            update();
+            frame_timer = frame_clock.restart();
+        }
         draw();
 
         if(enemy_timer.asSeconds() > 5.0 ){
@@ -81,6 +76,22 @@ void Game::gameLoop()
             enemy_clock.restart();
             }
 
+    }
+}
+
+
+void Game::update()
+{
+    enemy_timer = enemy_clock.getElapsedTime();
+    bullet_cooldown = bullet_clock.getElapsedTime();
+    listenKeyboard();
+    moverEnemigos();
+    colisiones();
+    zone_timer = zone_clock.getElapsedTime();
+    if(zone_timer.asSeconds() >= 1)
+    {
+        inZona();
+        zone_clock.restart();
     }
 }
 

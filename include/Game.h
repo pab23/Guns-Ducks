@@ -10,7 +10,9 @@
 #include "AnimatedSprite.h"
 #include "Animation.h"
 #include "Object.h"
+
 #define kEnemy_reward 10
+#define UPDATE_TICK_TIME 1000/15
 
 using namespace sf;
 using namespace std;
@@ -31,6 +33,7 @@ class Game
         void colisionBox();
         void timeToString();
         void inZona();
+        void update();
 
 
 
@@ -45,8 +48,8 @@ class Game
         vector<Enemy> enemigos;
         vector<Bullet> balas;
         vector<Object> objetos;
-        Clock bullet_clock, general_clock, zone_clock,  enemy_clock,frame_clock;
-        Time bullet_cooldown, enemy_timer, general_timer, zone_timer;
+        Clock bullet_clock, general_clock, zone_clock,  enemy_clock, frame_clock;
+        Time bullet_cooldown, enemy_timer, general_timer, zone_timer, frame_timer;
         Vector2i winDim;
         bool primer, info;
         Text *txt_time;

@@ -4,7 +4,7 @@
 	<iostream>
 	"include/Game.h"
 
-1553676711 /home/fv/Escritorio/Guns-Ducks/include/Game.h
+1553677696 /home/fv/Escritorio/Guns-Ducks/include/Game.h
 	<SFML/Graphics.hpp>
 	<iostream>
 	<sstream>
