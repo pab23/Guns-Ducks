@@ -41,6 +41,16 @@ Game::Game(Vector2i win_dim)
     life_zone->setFillColor(Color::Green);
     life_zone->setPosition({100, 300});
 
+    tex_object = new Texture;
+    tex_object->loadFromFile("resources/objetos.png");
+
+    for(unsigned i = 0; i < 4; i++)
+    {
+        objetos.push_back(Object("botijola", *tex_object));
+        objetos.push_back(Object("ducknamyte", *tex_object));
+        objetos.push_back(Object("planchadito", *tex_object));
+        objetos.push_back(Object("pato", *tex_object));
+    }
 
     gameLoop();
 
@@ -140,6 +150,8 @@ void Game::draw()
 
     for( unsigned j = 0; j < balas.size(); j++)
         win->draw(balas[j].getSprite());
+    for( unsigned j = 0; j < objetos.size(); j++)
+        win->draw(objetos[j].getSprite());
 
     colisionBox();
      timeToString();
@@ -224,27 +236,52 @@ void Game::colisiones()
     }
 
      for(unsigned i = 0; i < balas.size();i++)
+    {
+        for(unsigned j = 0; j < enemigos.size();j++)
+        {
+            if(balas[i].getBounds().intersects(enemigos[j].getBounds()))
+            {
+                balas.erase(balas.begin()+i);
+                enemigos.erase(enemigos.begin()+j);
+                player->setScore(player->getScore()+kEnemy_reward);
+                player->gestionaVida(-10);
+                break;
+            }
+        }
+    }
+    for(int i = 0; i < objetos.size(); i++)
+    {
+        if(objetos[i].getBounds().intersects(player->getSprite().getGlobalBounds()))
         {
 
-            for(unsigned j = 0; j < enemigos.size();j++)
-            {
-                if(balas[i].getBounds().intersects(enemigos[j].getBounds()))
-                {
-                    balas.erase(balas.begin()+i);
-                    enemigos.erase(enemigos.begin()+j);
-                    player->setScore(player->getScore()+kEnemy_reward);
-                    player->gestionaVida(-10);
-                    break;
-                }
 
+            if(objetos[i].getTipo()=="b")
+            {
+                cout<<"Botijola: recuperamos todo el escudo"<<endl;
+                player->setShield(100-player->getShield());
             }
+            else if(objetos[i].getTipo()=="d")
+            {
+                cout<<"Ducknamyte: elimina a todos los enemigos"<<endl;
+                for(unsigned i = 0; i < enemigos.size(); i++)
+                {
+                    enemigos.erase(enemigos.begin(), enemigos.begin()+enemigos.size());
+                }
+            }
+            else if(objetos[i].getTipo()=="p")
+            {
+                cout<<"Planchadito: Recuperamos toda la vida"<<endl;
+                player->setLife(100-player->getLife());
+            }
+            else if(objetos[i].getTipo()=="m")
+            {
+                cout<<"Modo PaTo: matas a todos de un tiro"<<endl;
+                //player->getSprite().setColor(Color::Red);
+            }
+            objetos.erase(objetos.begin()+i);
 
         }
-
-
-
-
-
+    }
 }
 
 void Game::colisionBox()

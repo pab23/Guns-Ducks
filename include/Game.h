@@ -9,6 +9,7 @@
 #include "Bullet.h"
 #include "AnimatedSprite.h"
 #include "Animation.h"
+#include "Object.h"
 #define kEnemy_reward 10
 
 using namespace sf;
@@ -38,11 +39,12 @@ class Game
     private:
 
         RenderWindow *win;
-        Texture *tex_player, *tex_enemy;
+        Texture *tex_player, *tex_enemy, *tex_object;
         Player *player;
         Event e;
         vector<Enemy> enemigos;
         vector<Bullet> balas;
+        vector<Object> objetos;
         Clock bullet_clock, general_clock, zone_clock,  enemy_clock,frame_clock;
         Time bullet_cooldown, enemy_timer, general_timer, zone_timer;
         Vector2i winDim;
@@ -50,6 +52,7 @@ class Game
         Text *txt_time;
         Font *font;
         RectangleShape *life_zone;
+
 
 
 
