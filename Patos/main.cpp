@@ -12,7 +12,7 @@ int main()
 
     // load texture (spritesheet)
     sf::Texture texture;
-     if (!texture.loadFromFile("patos.png"))
+     if (!texture.loadFromFile("resources/patos.png"))
     {
         std::cout << "Failed to load player spritesheet!" << std::endl;
         return 1;
