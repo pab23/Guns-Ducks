@@ -18,15 +18,17 @@ Game::Game(Vector2i win_dim)
     winDim=win_dim;
     win = new RenderWindow(VideoMode(win_dim.x, win_dim.y), "Guns & Ducks");
     win->setFramerateLimit(60);
+    loadTextures();//Cargamos texturas
 
-    tex_player = new Texture();
-    tex_player->loadFromFile("resources/sprites.png");
+    //player
     player = new Player(*tex_player);
 
-    tex_enemy = new Texture();
-    tex_enemy->loadFromFile("resources/patos.png");
-
+    //enemy
     enemy_clock.restart();
+    enemyRespawn = 0;//contador de oleadas
+
+
+
 
     primer = true;
     info = false;
@@ -42,10 +44,32 @@ Game::Game(Vector2i win_dim)
     life_zone->setPosition({100, 300});
 
 
+
+
+
     gameLoop();
 
 }
 
+void Game::loadTextures(){
+    //player
+    tex_player = new Texture();
+    tex_player->loadFromFile("resources/sprites.png");
+
+
+    //enemy
+    tex_enemy = new Texture();
+    tex_enemy->loadFromFile("resources/patos.png");
+
+
+    //blood
+
+    tex_bloods = new Texture();
+    tex_bloods->loadFromFile("resources/bloods-tex.png");
+
+
+
+}
 void Game::gameLoop()
 {
 
@@ -63,13 +87,22 @@ void Game::gameLoop()
             zone_clock.restart();
         }
 
-        draw();
+        /**
+            T_OLEADAS, N_OLEADAS y N_ENEMIES_OLEADA se definen en game.h
+            Nº ENEMIES A CREAR = valor por defecto (5) + nº de oleadas que se han creado hasta el momento
+            Ejemplo: Oleada 1 = 5 + 0; Oleada 2 = 5 + 1; Oleada 3 = 5 + 2; Oleada 4 = 5 + 3;
 
-        if(enemy_timer.asSeconds() > 5.0 ){
+                                                                                                    **/
 
-            crearEnemy();
+        if(enemy_timer.asSeconds() > T_OLEADAS && getEnemyRespawn() < N_OLEADAS ){
+
+            int n = N_ENEMIES_OLEADA + getEnemyRespawn();
+            crearEnemy(n);//crea x enemigos y hace enemyRespawn++
             enemy_clock.restart();
             }
+
+
+        draw();
 
     }
 }
@@ -128,21 +161,47 @@ void Game::draw()
 
     win->clear();
 
-    win->draw(player->getSprite());
-     win->draw(player->getCircle());
-      win->draw(*life_zone);
-    win->draw(player->getSprite());
+     /// BLOOD ///
 
-    for(unsigned i = 0; i < enemigos.size(); i++)
-        win->draw(enemigos[i].getSprite());
+    for(unsigned i = 0; i< bloods.size();i++)
+    {
+        if(bloods[i].getEstado()){//Si estado esta activado(true) se dibuja
+             win->draw(bloods[i].getSprite());
+             win->draw(bloods[i].getSprite_pato());
+             }
+    }
 
+    /// PLAYER ///
+
+    win->draw(player->getSprite());
+    //win->draw(player->getCircle());
+
+    /// LIFE ZONE ///
+
+    win->draw(*life_zone);
+
+
+    /// ENEMY ///
+
+    for(unsigned i = 0; i < enemigos.size(); i++){
+        win->draw(enemigos[i].getSprite());//Dibuja sprite del enemigo
+        if(info)win->draw(enemigos[i].getLinePlayerEnemy(player->getPosition()));//DibuJa la linea entre enemigo y player
+
+        for(int j = 0; j < enemigos.size();j++){
+            if(enemigos[i].getPosition() != enemigos[j].getPosition())
+               if(info) win->draw(enemigos[i].getLineEnemyEnemy(enemigos[j].getPosition()));//Dibula la linea entre enemigo y enemigo
+             }
+
+    }
+
+    /// BULLET ///
 
 
     for( unsigned j = 0; j < balas.size(); j++)
         win->draw(balas[j].getSprite());
 
     colisionBox();
-     timeToString();
+    timeToString();
     win->draw(*txt_time);
     win->draw(player->getScoreTxt());
     win->draw(player->getLifeBox());
@@ -151,53 +210,13 @@ void Game::draw()
     win->draw(player->getShieldTxt());
 
 
+
+
+
     win->display();
 }
 
-void Game::moverEnemigos(){
 
-   for(unsigned k = 0; k < enemigos.size(); k++){
-        if(!enemigos[k].getBounds().intersects(player->getCircle().getGlobalBounds()))
-            enemigos[k].move(player->getPosition(), false);//Necesita la pos del player para moverse hacia el
-        }
-
-         //collision
-    for(int i=0;i<enemigos.size();i++)
-    for(int j=0;j<enemigos.size();j++)
-    {
-
-        if(enemigos[i].getBounds().intersects(enemigos[j].getBounds()) && enemigos[i].getPosition() != enemigos[j].getPosition())
-        {
-            //enemigos[i].move(player->getPosition(), true);
-            //enemigos[j].move(player->getPosition(), false);
-            float ix = enemigos[i].getPosition().x;
-            float iy = enemigos[i].getPosition().y;
-            float jx = enemigos[j].getPosition().x;
-            float jy = enemigos[j].getPosition().y;
-
-            if(ix > jx){
-            enemigos[i].setPosition(ix+1,iy);
-            enemigos[j].setPosition(jx-1,jy);
-            }else if(ix < jx){
-            enemigos[i].setPosition(ix-1,iy);
-            enemigos[j].setPosition(jx+1,jy);
-            }
-
-            if(iy > jy){
-            enemigos[i].setPosition(ix,iy+1);
-            enemigos[j].setPosition(jx,jy-1);
-            }else if(iy < jy){
-            enemigos[i].setPosition(ix,iy-1);
-            enemigos[j].setPosition(jx,jy+1);
-            }
-
-            //cout << "chocamos" <<endl;
-        }
-    }
-
-
-
-}
 void Game::colisiones()
 {
     FloatRect barrier0x({-30,-30}, {winDim.x+60 , 1});
@@ -230,6 +249,7 @@ void Game::colisiones()
             {
                 if(balas[i].getBounds().intersects(enemigos[j].getBounds()))
                 {
+                    posicionarBlood(enemigos[j].getPosition());//activa y posiciona una sangre en la posicion del enemigo muerto. Falta el if(enemymuerto) para activarla solo cuando muera
                     balas.erase(balas.begin()+i);
                     enemigos.erase(enemigos.begin()+j);
                     player->setScore(player->getScore()+kEnemy_reward);
@@ -240,11 +260,6 @@ void Game::colisiones()
             }
 
         }
-
-
-
-
-
 }
 
 void Game::colisionBox()
@@ -281,7 +296,7 @@ void Game::colisionBox()
         if(player->getPosition().y-enemigos[i].getPosition().y < 0)
         {
             win->draw(enemigos[i].getSprite());
-            if(info)
+           if(info)
                 win->draw(enemigos[i].getRect());
         }
     }
@@ -339,84 +354,119 @@ void Game::inZona()
     }
 }
 
-void Game::crearEnemy(){
+    /// ENEMIES ///
 
- for( unsigned i = 0; i < 15; i++)
+void Game::crearEnemy(int n){
+
+/// Creo un enemigo y lo meto en el array de enemigos. Con cada enemigo creo tambien una de sangre y la meto en su correspondiente array de bloods. Ej: 15 enemigos 15 blood
+
+ for( unsigned i = 0; i < n; i++)
     {
 
         Enemy aux(*tex_enemy,.5);
         enemigos.push_back(aux);
+        crearBlood();
     }
+    enemyRespawn++;
+
+
+}
+int  Game::getEnemyRespawn(){return enemyRespawn;}//nº de oleadas
+void Game::moverEnemigos(){
+
+    /** EXPLICACION METODO moverEnemigos():
+
+    -Este metodo recorre el array de enemigos donde se encuentran todos los enemigos creados por el momento.
+    -La posicion de cada enemigo (y player) viene representada por un vector2f.
+    -Creo un array v_vectores, donde en su primera casilla meto la pos del player y en el resto meto solo la pos de los enemigos que esten a "x" distancia del enemigo actual que estoy recorriendo en el array.
+    -Es decir, si esa "x" distancia es menor que una distancia minima establecida en Enemy.h, se considera que "esta demasiado cerca" e introduzco la posicion del enemigo proximo en el array v_vectores.
+    -Una vez tengo en v_vectores la posicion del player y los enemigos que estan cerca del enemigo actual selleccionado, llamo al metodo .move() para calcular el vector de direccion
+    que tiene que seguir el enemigo teniendo en cuenta la posicion del player y del resto de enemigos cercanos, para que cada enemigo siga al jugador y no colisionen entre ellos (se repelen).
+    -Pero esto no evita que, cuando hay muchos enemigos proximos entre si repeliendose, algun sprite se solape con otro. Para evitar esto tambien hago un metodo que cuando interseccionan
+    las global-bound de los sprites, empuja +1px a los enemigos teniendo en cuenta cual esta a la der e izq del otro.
+
+
+    **/
+
+    for(int i=0;i<enemigos.size();i++)
+    {
+        vector<Vector2f> v_vectores;
+        v_vectores.push_back(player->getPosition());//En la primera casilla del vector siempre estara la pos del player
+        vector<unsigned> indices = enemigos[i].getEnemyArround(enemigos);//devuelve los indices (del array enemigos) de los enemigos que estan demasiado cerca(< dist_min) respecto al enemigo actual
+
+
+        if(indices.size() < 1)//este enemigo no esta cerca de ningun otro enemigo
+           enemigos[i].move(v_vectores);//se pasa el array con solo una pos, la del player.
+
+        else
+        {
+            for(unsigned k = 0; k<indices.size();k++)//meto al array de posiciones la pos de los enemigos que estan cerca del enemigo actual
+            {   unsigned ind = indices[k];
+                v_vectores.push_back(enemigos[ind].getPosition());
+
+            }
+            enemigos[i].move(v_vectores);
+
+        }
+
+    }
+
+
+
+    /**  Con esto consigo evitar un poco mas que se solapen los sprites **/
+    for(int i=0;i<enemigos.size();i++)
+    for(int j=0;j<enemigos.size();j++)
+    {
+
+        if(enemigos[i].getBounds().intersects(enemigos[j].getBounds()) && enemigos[i].getPosition() != enemigos[j].getPosition())
+        {
+
+            float ix = enemigos[i].getPosition().x;
+            float iy = enemigos[i].getPosition().y;
+            float jx = enemigos[j].getPosition().x;
+            float jy = enemigos[j].getPosition().y;
+
+            if(ix > jx){
+            enemigos[i].setPosition(ix+1,iy);
+            enemigos[j].setPosition(jx-1,jy);
+            }else if(ix < jx){
+            enemigos[i].setPosition(ix-1,iy);
+            enemigos[j].setPosition(jx+1,jy);
+            }
+
+            if(iy > jy){
+            enemigos[i].setPosition(ix,iy+1);
+            enemigos[j].setPosition(jx,jy-1);
+            }else if(iy < jy){
+            enemigos[i].setPosition(ix,iy-1);
+            enemigos[j].setPosition(jx,jy+1);
+            }
+
+        }
+    }
+
 
 
 }
 
-void Game::crearAnimaciones(){
-  // set up the animations for all four directions (set spritesheet and push frames)
+    /// BLOOD ///
 
-    Animation walkingAnimationDown;
-    walkingAnimationDown.setSpriteSheet(* tex_enemy);
-    walkingAnimationDown.addFrame(sf::IntRect(24, 0, 24, 24));
-    walkingAnimationDown.addFrame(sf::IntRect(48, 0, 24, 24));
-    walkingAnimationDown.addFrame(sf::IntRect(24, 0, 24, 24));
-    walkingAnimationDown.addFrame(sf::IntRect( 0, 0, 24, 24));
+void Game::crearBlood(){
+    Blood blood(*tex_bloods);
+    bloods.push_back(blood);
 
-    Animation walkingAnimationLeft;
-    walkingAnimationLeft.setSpriteSheet(* tex_enemy);
-    walkingAnimationLeft.addFrame(sf::IntRect(24, 58, 24, 24));
-    walkingAnimationLeft.addFrame(sf::IntRect(48, 58, 24, 24));
-    walkingAnimationLeft.addFrame(sf::IntRect(24, 58, 24, 24));
-    walkingAnimationLeft.addFrame(sf::IntRect( 0, 58, 24, 24));
+}
+void Game::posicionarBlood(Vector2f pos){
+    /// Recorro el array de sangres, la primera que no este activada (posicionada) la activo y la posiciono en la pos del enemigo
+    for(unsigned i = 0; i < bloods.size(); i++)
+    {
+        if(!bloods[i].getEstado()){
+            bloods[i].setPosition(pos);
+            bloods[i].activar();
+            break;
+        }
 
-    Animation walkingAnimationRight;
-    walkingAnimationRight.setSpriteSheet(* tex_enemy);
-    walkingAnimationRight.addFrame(sf::IntRect(24, 142, 24, 24));
-    walkingAnimationRight.addFrame(sf::IntRect(51, 142, 24, 24));
-    walkingAnimationRight.addFrame(sf::IntRect(24, 142, 24, 24));
-    walkingAnimationRight.addFrame(sf::IntRect( 0, 142, 24, 24));
-
-    Animation walkingAnimationUp;
-    walkingAnimationUp.setSpriteSheet(* tex_enemy);
-    walkingAnimationUp.addFrame(sf::IntRect(24, 30, 24, 24));
-    walkingAnimationUp.addFrame(sf::IntRect(48, 30, 24, 24));
-    walkingAnimationUp.addFrame(sf::IntRect(24, 30, 24, 24));
-    walkingAnimationUp.addFrame(sf::IntRect( 0, 30, 24, 24));
-
-    Animation walkingAnimationUpLeft;
-    walkingAnimationUpLeft.setSpriteSheet(* tex_enemy);
-    walkingAnimationUpLeft.addFrame(sf::IntRect(28, 116, 24, 24));
-    walkingAnimationUpLeft.addFrame(sf::IntRect(51, 116, 24, 24));
-    walkingAnimationUpLeft.addFrame(sf::IntRect(28, 116, 24, 24));
-    walkingAnimationUpLeft.addFrame(sf::IntRect( 4, 116, 24, 24));
-
-    Animation walkingAnimationUpRight;
-    walkingAnimationUpRight.setSpriteSheet(* tex_enemy);
-    walkingAnimationUpRight.addFrame(sf::IntRect(28, 200, 24, 24));
-    walkingAnimationUpRight.addFrame(sf::IntRect(50, 200, 24, 24));
-    walkingAnimationUpRight.addFrame(sf::IntRect(28, 200, 24, 24));
-    walkingAnimationUpRight.addFrame(sf::IntRect( 4, 200, 24, 24));
-
-    Animation walkingAnimationDownLeft;
-    walkingAnimationDownLeft.setSpriteSheet(* tex_enemy);
-    walkingAnimationDownLeft.addFrame(sf::IntRect(24, 86, 24, 24));
-    walkingAnimationDownLeft.addFrame(sf::IntRect(52, 86, 24, 24));
-    walkingAnimationDownLeft.addFrame(sf::IntRect(24, 86, 24, 24));
-    walkingAnimationDownLeft.addFrame(sf::IntRect( 0, 86, 24, 24));
-
-    Animation walkingAnimationDownRight;
-    walkingAnimationDownRight.setSpriteSheet(* tex_enemy);
-    walkingAnimationDownRight.addFrame(sf::IntRect(24, 170, 24, 24));
-    walkingAnimationDownRight.addFrame(sf::IntRect(48, 170, 24, 24));
-    walkingAnimationDownRight.addFrame(sf::IntRect(24, 170, 24, 24));
-    walkingAnimationDownRight.addFrame(sf::IntRect( 0, 170, 24, 24));
-
-    Animation* currentAnimation = &walkingAnimationDown;
-
-    // set up AnimatedSprite
-    AnimatedSprite animatedSprite(sf::seconds(0.2), true, false);
-    animatedSprite.setPosition(sf::Vector2f(winDim / 2));
-
-   // sf::Clock frameClock;
-    //float speed = 80.f;
-    //bool noKeyWasPressed = true;
     }
+}
+
+

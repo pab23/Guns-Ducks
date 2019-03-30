@@ -50,13 +50,13 @@ Player::Player(Texture &tex)
         box->setOrigin(box->getSize().x/2,box->getSize().y/2);
         box->setPosition(getPosition().x+3,getPosition().y+spr->getTextureRect().height/3);
 
-        circle = new CircleShape();
+        /*circle = new CircleShape();
         circle->setOrigin(50,50);
         circle->setPosition(spr->getPosition().x+2,spr->getPosition().y );
         circle->setRadius(50);
-        circle->setFillColor(Color(255,0,0,120));
+        circle->setFillColor(Color(255,0,0,120));*/
 
-        speed = 4; dir = {1, 0};
+        speed = 3; dir = {1, 0};
 }
 
 
@@ -92,7 +92,7 @@ void Player::move(int x, int y)
 
     dir = {x, y};
     spr->move(speedX, speedY);
-    circle->move(speedX, speedY);
+    //circle->move(speedX, speedY);
     box->move(speedX, speedY);
 
 
