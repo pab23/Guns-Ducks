@@ -46,7 +46,6 @@ Game::Game(Vector2i win_dim)
 
 
 
-
     gameLoop();
 
 }
@@ -66,6 +65,12 @@ void Game::loadTextures(){
 
     tex_bloods = new Texture();
     tex_bloods->loadFromFile("resources/bloods-tex.png");
+
+    //mapa de prueba
+
+    tex_map = new Texture();
+    tex_map->loadFromFile("resources/mapa.png");
+
 
 
 
@@ -92,19 +97,98 @@ void Game::gameLoop()
             Nº ENEMIES A CREAR = valor por defecto (5) + nº de oleadas que se han creado hasta el momento
             Ejemplo: Oleada 1 = 5 + 0; Oleada 2 = 5 + 1; Oleada 3 = 5 + 2; Oleada 4 = 5 + 3;
 
-                                                                                                    **/
+                                                                                                **/
 
         if(enemy_timer.asSeconds() > T_OLEADAS && getEnemyRespawn() < N_OLEADAS ){
 
             int n = N_ENEMIES_OLEADA + getEnemyRespawn();
-            crearEnemy(n);//crea x enemigos y hace enemyRespawn++
+            crearEnemy(n,SPEED_ENEMY);//crea x enemigos y hace enemyRespawn++
             enemy_clock.restart();
             }
+        if(getEnemyRespawn() == N_OLEADAS && enemigos.size()==0 ){
+            for(unsigned i = 0; i< bloods.size();i++)
+            {
+               //Quito cadaveres, cambio el color de la sangre
+               bloods[i].setStateBlood(2);
+               bloods[i].setStateDuck(0);
 
+
+            }
+            //Reinicio el crono de enemigos y las oleadas
+            enemy_clock.restart();
+            setEnemyRespawn(0);
+        }
 
         draw();
 
     }
+}
+
+
+
+void Game::draw()
+{
+
+    win->clear(Color::White);
+
+    Sprite *spr_map = new Sprite(*tex_map);
+    spr_map->setPosition(0,0);
+    win->draw(*spr_map);
+
+
+
+     /// BLOOD ///
+
+    for(unsigned i = 0; i< bloods.size();i++)
+    {
+        if(bloods[i].getStateBlood() == 1 || bloods[i].getStateBlood() == 2) win->draw(bloods[i].getSpriteBlood());// 0 = invisible; 1 = visible; 3 = vieja (la sangre se ve con menos color)
+        if(bloods[i].getStateDuck() == 1)  win->draw(bloods[i].getSpriteDuck());// 0 = invisible; 1 = visible
+
+    }
+
+    /// PLAYER ///
+
+    win->draw(player->getSprite());
+    //win->draw(player->getCircle());
+
+    /// LIFE ZONE ///
+
+    win->draw(*life_zone);
+
+
+    /// ENEMY ///
+
+    for(unsigned i = 0; i < enemigos.size(); i++){
+        win->draw(enemigos[i].getSprite());//Dibuja sprite del enemigo
+        if(info)win->draw(enemigos[i].getLinePlayerEnemy(player->getPosition()));//DibuJa la linea entre enemigo y player
+
+        for(int j = 0; j < enemigos.size();j++){
+            if(enemigos[i].getPosition() != enemigos[j].getPosition())
+               if(info) win->draw(enemigos[i].getLineEnemyEnemy(enemigos[j].getPosition()));//Dibula la linea entre enemigo y enemigo
+             }
+
+    }
+
+    /// BULLET ///
+
+
+    for( unsigned j = 0; j < balas.size(); j++)
+        win->draw(balas[j].getSprite());
+
+    colisionBox();
+    timeToString();
+    win->draw(*txt_time);
+    win->draw(player->getScoreTxt());
+    win->draw(player->getLifeBox());
+    win->draw(player->getLifeTxt());
+    win->draw(player->getShieldBox());
+    win->draw(player->getShieldTxt());
+
+
+
+
+
+    win->display();
 }
 
 void Game::listenKeyboard()
@@ -155,68 +239,6 @@ void Game::listenKeyboard()
         balas[i].move();
 
 }
-
-void Game::draw()
-{
-
-    win->clear();
-
-     /// BLOOD ///
-
-    for(unsigned i = 0; i< bloods.size();i++)
-    {
-        if(bloods[i].getEstado()){//Si estado esta activado(true) se dibuja
-             win->draw(bloods[i].getSprite());
-             win->draw(bloods[i].getSprite_pato());
-             }
-    }
-
-    /// PLAYER ///
-
-    win->draw(player->getSprite());
-    //win->draw(player->getCircle());
-
-    /// LIFE ZONE ///
-
-    win->draw(*life_zone);
-
-
-    /// ENEMY ///
-
-    for(unsigned i = 0; i < enemigos.size(); i++){
-        win->draw(enemigos[i].getSprite());//Dibuja sprite del enemigo
-        if(info)win->draw(enemigos[i].getLinePlayerEnemy(player->getPosition()));//DibuJa la linea entre enemigo y player
-
-        for(int j = 0; j < enemigos.size();j++){
-            if(enemigos[i].getPosition() != enemigos[j].getPosition())
-               if(info) win->draw(enemigos[i].getLineEnemyEnemy(enemigos[j].getPosition()));//Dibula la linea entre enemigo y enemigo
-             }
-
-    }
-
-    /// BULLET ///
-
-
-    for( unsigned j = 0; j < balas.size(); j++)
-        win->draw(balas[j].getSprite());
-
-    colisionBox();
-    timeToString();
-    win->draw(*txt_time);
-    win->draw(player->getScoreTxt());
-    win->draw(player->getLifeBox());
-    win->draw(player->getLifeTxt());
-    win->draw(player->getShieldBox());
-    win->draw(player->getShieldTxt());
-
-
-
-
-
-    win->display();
-}
-
-
 void Game::colisiones()
 {
     FloatRect barrier0x({-30,-30}, {winDim.x+60 , 1});
@@ -356,14 +378,14 @@ void Game::inZona()
 
     /// ENEMIES ///
 
-void Game::crearEnemy(int n){
+void Game::crearEnemy(int n, float s){
 
 /// Creo un enemigo y lo meto en el array de enemigos. Con cada enemigo creo tambien una de sangre y la meto en su correspondiente array de bloods. Ej: 15 enemigos 15 blood
 
  for( unsigned i = 0; i < n; i++)
     {
 
-        Enemy aux(*tex_enemy,.5);
+        Enemy aux(*tex_enemy,s);
         enemigos.push_back(aux);
         crearBlood();
     }
@@ -371,7 +393,6 @@ void Game::crearEnemy(int n){
 
 
 }
-int  Game::getEnemyRespawn(){return enemyRespawn;}//nº de oleadas
 void Game::moverEnemigos(){
 
     /** EXPLICACION METODO moverEnemigos():
@@ -448,7 +469,8 @@ void Game::moverEnemigos(){
 
 
 }
-
+int  Game::getEnemyRespawn(){return enemyRespawn;}//nº de oleadas
+void Game::setEnemyRespawn(int n){enemyRespawn = n;};
     /// BLOOD ///
 
 void Game::crearBlood(){
@@ -460,9 +482,10 @@ void Game::posicionarBlood(Vector2f pos){
     /// Recorro el array de sangres, la primera que no este activada (posicionada) la activo y la posiciono en la pos del enemigo
     for(unsigned i = 0; i < bloods.size(); i++)
     {
-        if(!bloods[i].getEstado()){
+        if(bloods[i].getStateBlood() == 0){
             bloods[i].setPosition(pos);
-            bloods[i].activar();
+            bloods[i].setStateBlood(1);
+            bloods[i].setStateDuck(1);
             break;
         }
 

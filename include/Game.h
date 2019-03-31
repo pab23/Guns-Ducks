@@ -15,8 +15,9 @@
 /** VALORES POR DEFECTO PARA EL CONTROL DE DE ENEMIGOS Y OLEADAS **/
 #define kEnemy_reward 10
 #define T_OLEADAS 5 //tiempo en segundos que transcurre antes de crear una nueva oleada de enemigos
-#define N_OLEADAS 4 //nº de oleadas que se van a crear
+#define N_OLEADAS 5 //nº de oleadas que se van a crear
 #define N_ENEMIES_OLEADA 5 //nº de enemigos por oleada
+#define SPEED_ENEMY .6 //velocidad del enemigo
 
 
 using namespace sf;
@@ -32,13 +33,14 @@ class Game
         void listenKeyboard();
         void draw();
         void moverEnemigos();
-        void crearEnemy(int n);
+        void crearEnemy(int n, float s);
         void crearAnimaciones();
         void colisiones();
         void colisionBox();
         void timeToString();
         void inZona();
         int getEnemyRespawn();
+        void setEnemyRespawn(int n);
         void crearBlood();
         void posicionarBlood(Vector2f pos);
 
@@ -50,7 +52,7 @@ class Game
     private:
 
         RenderWindow *win;
-        Texture *tex_player,*tex_bloods, *tex_enemy;
+        Texture *tex_player,*tex_bloods, *tex_enemy, *tex_map;
         Player *player;
         Event e;
         int enemyRespawn; //nº de oleadas

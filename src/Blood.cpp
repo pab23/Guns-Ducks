@@ -14,27 +14,30 @@ Blood::Blood(Texture &tex)
     if(RandomNumber(0,1) == 1) sizeScale =-sizeScale;//0 positivo 1 negativo
     spr->setScale(1+sizeScale,1+sizeScale);
 
-    estado = false;
+    state_blood = 0; // 0 = invisible; 1 = visible; 3 = vieja (la sangre se ve con menos color)
+    state_duck = 0; // 0 = invisible; 1 = visible
 
     /// spr de cadaver de pato ///
-    spr_pato = new Sprite(tex);
-    spr_pato->setTextureRect(IntRect(RandomNumber(0,4)*aux, 120, aux, aux));
-    spr_pato->setOrigin(aux/2, aux/2);
-    spr_pato->setScale(1.5,1.5);
-    //spr_pato->setRotation(RandomNumber(0,360));//Doy una rotacion aleatoria
+    spr_duck = new Sprite(tex);
+    spr_duck->setTextureRect(IntRect(RandomNumber(0,4)*aux, 120, aux, aux));
+    spr_duck->setOrigin(aux/2, aux/2);
+    spr_duck->setScale(1.5,1.5);
+    spr_duck->setColor(Color(130,130,130));
+
 }
 
 void Blood::setPosition(Vector2f vec)
 {
     spr->setPosition(vec.x,vec.y);
-    spr_pato->setPosition(vec.x,vec.y);
+    spr_duck->setPosition(vec.x,vec.y);
 }
 
-void Blood::activar(){estado = true;}
-bool Blood::getEstado(){return estado;}
-
-Sprite Blood::getSprite(){return *spr;}
-Sprite Blood::getSprite_pato(){return *spr_pato;}
+void Blood::setStateBlood(int s){state_blood = s; if(s == 2)spr->setColor(Color(150,255,255,200)); }
+void Blood::setStateDuck(int s){state_duck = s;}
+int Blood::getStateBlood(){return state_blood;}
+int Blood::getStateDuck(){return state_duck;}
+Sprite Blood::getSpriteBlood(){return *spr;}
+Sprite Blood::getSpriteDuck(){return *spr_duck;}
 int Blood::RandomNumber( int inicio, int fin ){
 
 

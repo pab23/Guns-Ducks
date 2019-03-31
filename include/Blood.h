@@ -14,17 +14,19 @@ class Blood
     public:
     Blood(Texture &);
     void setPosition(Vector2f vec);
-    void activar();
-    bool getEstado();
-    Sprite getSprite();
-    Sprite getSprite_pato();
+    void setStateBlood(int s);
+    void setStateDuck(int s);
+    int getStateBlood();
+    int getStateDuck();
+    Sprite getSpriteBlood();
+    Sprite getSpriteDuck();
     ~Blood();
     int RandomNumber( int inicio, int fin );//Devuelve un nº aleatorio inicio >= y <= fin
 
 
     private:
-        Sprite *spr, *spr_pato;
-        bool estado;
+        Sprite *spr, *spr_duck;
+        int state_blood, state_duck;
         int aux;//variable que indica ancho y alto del sprite de sangre a recortar en la textura original.
 };
 
