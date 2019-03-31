@@ -22,15 +22,38 @@ Game::Game(Vector2i win_dim)
     tex_player = new Texture();
     tex_player->loadFromFile("resources/sprites.png");
     player = new Player(*tex_player);
+
+    tex_enemy = new Texture();
+    tex_enemy->loadFromFile("resources/patos.png");
+
+    enemy_clock.restart();
+
+    frame_clock.restart();
+    primer = true;
     info = false;
 
-    for( unsigned i = 0; i < 10; i++)
-    {
-        Enemy aux(*tex_player);
-        enemigos.push_back(aux);
-    }
+    font = new Font();
+    font->loadFromFile("letra_pixel.ttf");
+    txt_time = new Text("0",*font);
+    txt_time->setPosition(10,10);
 
-    primer = true;
+    //zona
+    life_zone = new RectangleShape({100,100});
+    life_zone->setFillColor(Color::Green);
+    life_zone->setPosition({100, 300});
+
+    tex_object = new Texture;
+    tex_object->loadFromFile("resources/objetos.png");
+
+    for(unsigned i = 0; i < 4; i++)
+    {
+        objetos.push_back(Object("botijola", *tex_object));
+        objetos.push_back(Object("ducknamyte", *tex_object));
+        objetos.push_back(Object("planchadito", *tex_object));
+        objetos.push_back(Object("pato", *tex_object));
+        objetos.push_back(Object("municionCarabina", *tex_object));
+        objetos.push_back(Object("municionEscopeta", *tex_object));
+    }
 
     gameLoop();
 
@@ -38,15 +61,39 @@ Game::Game(Vector2i win_dim)
 
 void Game::gameLoop()
 {
+
     while(win->isOpen())
     {
-        bullet_cooldown = bullet_clock.getElapsedTime();
-        listenKeyboard();
 
-        colisiones();
-
+        if(frame_clock.getElapsedTime().asMilliseconds() > UPDATE_TICK_TIME)
+        {
+            update();
+            frame_timer = frame_clock.restart();
+        }
         draw();
 
+        if(enemy_timer.asSeconds() > 5.0 ){
+
+            crearEnemy();
+            enemy_clock.restart();
+            }
+
+    }
+}
+
+
+void Game::update()
+{
+    enemy_timer = enemy_clock.getElapsedTime();
+    bullet_cooldown = bullet_clock.getElapsedTime();
+    listenKeyboard();
+    moverEnemigos();
+    colisiones();
+    zone_timer = zone_clock.getElapsedTime();
+    if(zone_timer.asSeconds() >= 1)
+    {
+        inZona();
+        zone_clock.restart();
     }
 }
 
@@ -58,14 +105,20 @@ void Game::listenKeyboard()
         if(e.type == Event::Closed || (e.type == Event::KeyPressed && (e.key.code == Keyboard::Escape)))
         {
             win->close();
-            cout<<"Bala: "<<balas.size()<<endl;
-            for( unsigned i = 0; i < balas.size(); i++)
-                cout<<balas[i].getSprite().getPosition().x<<" "<<balas[i].getSprite().getPosition().y<<endl;
+
         }
+
         if(e.type == Event::KeyPressed && e.key.code == Keyboard::I)
         {
             info = !info;
         }
+
+        if(e.type == Event::KeyPressed && e.key.code == Keyboard::C)
+        {
+            player->cambiarArma();
+
+        }
+
 
     }
     if( Keyboard::isKeyPressed(Keyboard::W))
@@ -88,12 +141,51 @@ void Game::listenKeyboard()
         player->move(x, y);
 
 
-    if( Keyboard::isKeyPressed(Keyboard::Space) && bullet_cooldown.asSeconds() >= .2f)
+    if( Keyboard::isKeyPressed(Keyboard::Space))
     {
-        bullet_clock.restart();
-        balas.push_back(Bullet(player->getPosition(), player->getDir(), 5));//ultimo parametro radio a falta de implementar diferentes tipos de bala
-    }
 
+        if(player->getArmaActiva().getNombre()=="Pistola" && bullet_cooldown.asSeconds() >= .5f)
+        {
+            bullet_clock.restart();
+            balas.push_back(Bullet(player->getPosition(), player->getDir(), 5));//ultimo parametro radio a falta de implementar diferentes tipos de bala
+            cout<<player->getArmaActiva().getNombre()<<": "<<player->getArmaActiva().getMunicion()<<endl;
+
+        }
+
+        if(player->getArmaActiva().getNombre()=="Carabina" && bullet_cooldown.asSeconds() >= .2f)
+        {
+            if(player->getArmaActiva().getMunicion()>0)
+            {
+                bullet_clock.restart();
+                balas.push_back(Bullet(player->getPosition(), player->getDir(), 3));//ultimo parametro radio a falta de implementar diferentes tipos de bala
+                player->quitarBalaActiva();
+                cout<<player->getArmaActiva().getNombre()<<": "<<player->getArmaActiva().getMunicion()<<endl;
+            }
+            else{
+                    cout<<player->getArmaActiva().getNombre()<<": SIN MUNICION"<<endl;
+            }
+
+
+        }
+
+         if(player->getArmaActiva().getNombre()=="Escopeta" && bullet_cooldown.asSeconds() >= .9f)
+        {
+             if(player->getArmaActiva().getMunicion()>0)
+             {
+                 bullet_clock.restart();
+                balas.push_back(Bullet(player->getPosition(), player->getDir(), 7));//ultimo parametro radio a falta de implementar diferentes tipos de bala
+                player->quitarBalaActiva();
+                cout<<player->getArmaActiva().getNombre()<<": "<<player->getArmaActiva().getMunicion()<<endl;
+             }
+             else{
+                    cout<<player->getArmaActiva().getNombre()<<": SIN MUNICION"<<endl;
+             }
+
+
+        }
+
+
+    }
 
     for(unsigned i=0; i<balas.size(); i++)
         balas[i].move();
@@ -105,21 +197,78 @@ void Game::draw()
 
     win->clear();
 
+    win->draw(player->getSprite());
+     win->draw(player->getCircle());
+      win->draw(*life_zone);
+    win->draw(player->getSprite());
 
-
+    for(unsigned i = 0; i < enemigos.size(); i++)
+        win->draw(enemigos[i].getSprite());
 
 
 
     for( unsigned j = 0; j < balas.size(); j++)
         win->draw(balas[j].getSprite());
+    for( unsigned j = 0; j < objetos.size(); j++)
+        win->draw(objetos[j].getSprite());
 
     colisionBox();
-
+     timeToString();
+    win->draw(*txt_time);
+    win->draw(player->getScoreTxt());
+    win->draw(player->getLifeBox());
+    win->draw(player->getLifeTxt());
+    win->draw(player->getShieldBox());
+    win->draw(player->getShieldTxt());
 
 
     win->display();
 }
 
+void Game::moverEnemigos(){
+
+   for(unsigned k = 0; k < enemigos.size(); k++){
+        if(!enemigos[k].getBounds().intersects(player->getCircle().getGlobalBounds()))
+            enemigos[k].move(player->getPosition(), false);//Necesita la pos del player para moverse hacia el
+        }
+
+         //collision
+    for(int i=0;i<enemigos.size();i++)
+    for(int j=0;j<enemigos.size();j++)
+    {
+
+        if(enemigos[i].getBounds().intersects(enemigos[j].getBounds()) && enemigos[i].getPosition() != enemigos[j].getPosition())
+        {
+            //enemigos[i].move(player->getPosition(), true);
+            //enemigos[j].move(player->getPosition(), false);
+            float ix = enemigos[i].getPosition().x;
+            float iy = enemigos[i].getPosition().y;
+            float jx = enemigos[j].getPosition().x;
+            float jy = enemigos[j].getPosition().y;
+
+            if(ix > jx){
+            enemigos[i].setPosition(ix+1,iy);
+            enemigos[j].setPosition(jx-1,jy);
+            }else if(ix < jx){
+            enemigos[i].setPosition(ix-1,iy);
+            enemigos[j].setPosition(jx+1,jy);
+            }
+
+            if(iy > jy){
+            enemigos[i].setPosition(ix,iy+1);
+            enemigos[j].setPosition(jx,jy-1);
+            }else if(iy < jy){
+            enemigos[i].setPosition(ix,iy-1);
+            enemigos[j].setPosition(jx,jy+1);
+            }
+
+            //cout << "chocamos" <<endl;
+        }
+    }
+
+
+
+}
 void Game::colisiones()
 {
     FloatRect barrier0x({-30,-30}, {winDim.x+60 , 1});
@@ -146,23 +295,63 @@ void Game::colisiones()
     }
 
      for(unsigned i = 0; i < balas.size();i++)
+    {
+        for(unsigned j = 0; j < enemigos.size();j++)
+        {
+            if(balas[i].getBounds().intersects(enemigos[j].getBounds()))
+            {
+                balas.erase(balas.begin()+i);
+                enemigos.erase(enemigos.begin()+j);
+                player->setScore(player->getScore()+kEnemy_reward);
+                player->gestionaVida(-10);
+                break;
+            }
+        }
+    }
+    for(int i = 0; i < objetos.size(); i++)
+    {
+        if(objetos[i].getBounds().intersects(player->getSprite().getGlobalBounds()))
         {
 
-            for(unsigned j = 0; j < enemigos.size();j++)
+
+            if(objetos[i].getTipo()=="b")
             {
-                if(balas[i].getBounds().intersects(enemigos[j].getBounds()))
+                cout<<"Botijola: recuperamos todo el escudo"<<endl;
+                player->setShield(100-player->getShield());
+            }
+            else if(objetos[i].getTipo()=="d")
+            {
+                cout<<"Ducknamyte: elimina a todos los enemigos"<<endl;
+                for(unsigned i = 0; i < enemigos.size(); i++)
                 {
-                    balas.erase(balas.begin()+i);
-                    enemigos.erase(enemigos.begin()+j);
+                    enemigos.erase(enemigos.begin(), enemigos.begin()+enemigos.size());
                 }
             }
+            else if(objetos[i].getTipo()=="p")
+            {
+                cout<<"Planchadito: Recuperamos toda la vida"<<endl;
+                player->setLife(100-player->getLife());
+            }
+            else if(objetos[i].getTipo()=="m")
+            {
+                cout<<"Modo PaTo: matas a todos de un tiro"<<endl;
+                //player->getSprite().setColor(Color::Red);
+            }
+            else if(objetos[i].getTipo()=="ammoC")
+            {
+                player->cogerMunicion("Carabina", 50);
+
+            }
+
+            else if(objetos[i].getTipo()=="ammoE")
+            {
+                player->cogerMunicion("Escopeta", 10);
+
+            }
+            objetos.erase(objetos.begin()+i);
 
         }
-
-
-
-
-
+    }
 }
 
 void Game::colisionBox()
@@ -203,5 +392,138 @@ void Game::colisionBox()
                 win->draw(enemigos[i].getRect());
         }
     }
+
+    /*for(unsigned i=0; i<enemigos.size(); i++)
+    {
+
+        if(player->getBoundsBox().intersects(enemigos[i].getBoundsBox()))
+        {
+            if(player->getPosition().y<enemigos[i].getPosition().y)
+            {
+                player->move(0,-1);
+
+            }
+
+            else if(player->getPosition().y>enemigos[i].getPosition().y)
+            {
+                player->move(0,1);
+            }
+
+            if(player->getPosition().x<enemigos[i].getPosition().x)
+            {
+                player->move(-1,0);
+
+            }
+
+            else if(player->getPosition().x>enemigos[i].getPosition().x)
+            {
+                player->move(1,0);
+            }
+            cout<<"ups"<<endl;
+
+
+
+        }
+    }*/
+}
+void Game::timeToString()
+{
+    float val = general_clock.getElapsedTime().asSeconds();
+
+    stringstream ss;
+    ss << val;
+
+    txt_time->setString(ss.str());
 }
 
+void Game::inZona()
+{
+
+    if(player->getSprite().getGlobalBounds().intersects(life_zone->getGlobalBounds()))
+    {
+        player->setLife(10);
+        cout<<player->getLife()<<endl;
+    }
+}
+
+void Game::crearEnemy(){
+
+ for( unsigned i = 0; i < 15; i++)
+    {
+
+        Enemy aux(*tex_enemy,.5);
+        enemigos.push_back(aux);
+    }
+
+
+}
+
+void Game::crearAnimaciones(){
+  // set up the animations for all four directions (set spritesheet and push frames)
+
+    Animation walkingAnimationDown;
+    walkingAnimationDown.setSpriteSheet(* tex_enemy);
+    walkingAnimationDown.addFrame(sf::IntRect(24, 0, 24, 24));
+    walkingAnimationDown.addFrame(sf::IntRect(48, 0, 24, 24));
+    walkingAnimationDown.addFrame(sf::IntRect(24, 0, 24, 24));
+    walkingAnimationDown.addFrame(sf::IntRect( 0, 0, 24, 24));
+
+    Animation walkingAnimationLeft;
+    walkingAnimationLeft.setSpriteSheet(* tex_enemy);
+    walkingAnimationLeft.addFrame(sf::IntRect(24, 58, 24, 24));
+    walkingAnimationLeft.addFrame(sf::IntRect(48, 58, 24, 24));
+    walkingAnimationLeft.addFrame(sf::IntRect(24, 58, 24, 24));
+    walkingAnimationLeft.addFrame(sf::IntRect( 0, 58, 24, 24));
+
+    Animation walkingAnimationRight;
+    walkingAnimationRight.setSpriteSheet(* tex_enemy);
+    walkingAnimationRight.addFrame(sf::IntRect(24, 142, 24, 24));
+    walkingAnimationRight.addFrame(sf::IntRect(51, 142, 24, 24));
+    walkingAnimationRight.addFrame(sf::IntRect(24, 142, 24, 24));
+    walkingAnimationRight.addFrame(sf::IntRect( 0, 142, 24, 24));
+
+    Animation walkingAnimationUp;
+    walkingAnimationUp.setSpriteSheet(* tex_enemy);
+    walkingAnimationUp.addFrame(sf::IntRect(24, 30, 24, 24));
+    walkingAnimationUp.addFrame(sf::IntRect(48, 30, 24, 24));
+    walkingAnimationUp.addFrame(sf::IntRect(24, 30, 24, 24));
+    walkingAnimationUp.addFrame(sf::IntRect( 0, 30, 24, 24));
+
+    Animation walkingAnimationUpLeft;
+    walkingAnimationUpLeft.setSpriteSheet(* tex_enemy);
+    walkingAnimationUpLeft.addFrame(sf::IntRect(28, 116, 24, 24));
+    walkingAnimationUpLeft.addFrame(sf::IntRect(51, 116, 24, 24));
+    walkingAnimationUpLeft.addFrame(sf::IntRect(28, 116, 24, 24));
+    walkingAnimationUpLeft.addFrame(sf::IntRect( 4, 116, 24, 24));
+
+    Animation walkingAnimationUpRight;
+    walkingAnimationUpRight.setSpriteSheet(* tex_enemy);
+    walkingAnimationUpRight.addFrame(sf::IntRect(28, 200, 24, 24));
+    walkingAnimationUpRight.addFrame(sf::IntRect(50, 200, 24, 24));
+    walkingAnimationUpRight.addFrame(sf::IntRect(28, 200, 24, 24));
+    walkingAnimationUpRight.addFrame(sf::IntRect( 4, 200, 24, 24));
+
+    Animation walkingAnimationDownLeft;
+    walkingAnimationDownLeft.setSpriteSheet(* tex_enemy);
+    walkingAnimationDownLeft.addFrame(sf::IntRect(24, 86, 24, 24));
+    walkingAnimationDownLeft.addFrame(sf::IntRect(52, 86, 24, 24));
+    walkingAnimationDownLeft.addFrame(sf::IntRect(24, 86, 24, 24));
+    walkingAnimationDownLeft.addFrame(sf::IntRect( 0, 86, 24, 24));
+
+    Animation walkingAnimationDownRight;
+    walkingAnimationDownRight.setSpriteSheet(* tex_enemy);
+    walkingAnimationDownRight.addFrame(sf::IntRect(24, 170, 24, 24));
+    walkingAnimationDownRight.addFrame(sf::IntRect(48, 170, 24, 24));
+    walkingAnimationDownRight.addFrame(sf::IntRect(24, 170, 24, 24));
+    walkingAnimationDownRight.addFrame(sf::IntRect( 0, 170, 24, 24));
+
+    Animation* currentAnimation = &walkingAnimationDown;
+
+    // set up AnimatedSprite
+    AnimatedSprite animatedSprite(sf::seconds(0.2), true, false);
+    animatedSprite.setPosition(sf::Vector2f(winDim / 2));
+
+   // sf::Clock frameClock;
+    //float speed = 80.f;
+    //bool noKeyWasPressed = true;
+    }

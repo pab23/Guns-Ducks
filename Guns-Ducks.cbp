@@ -13,6 +13,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="include" />
 				</Compiler>
 				<Linker>
 					<Add library="sfml-graphics" />
@@ -27,6 +28,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add directory="include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -39,15 +41,24 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="AnimatedSprite.h" />
 		<Unit filename="cb.bmp" />
+		<Unit filename="include/AnimatedSprite.h" />
+		<Unit filename="include/Animation.h" />
 		<Unit filename="include/Bullet.h" />
 		<Unit filename="include/Enemy.h" />
 		<Unit filename="include/Game.h" />
+		<Unit filename="include/Gun.h" />
+		<Unit filename="include/Object.h" />
 		<Unit filename="include/Player.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/AnimatedSprite.cpp" />
+		<Unit filename="src/Animation.cpp" />
 		<Unit filename="src/Bullet.cpp" />
 		<Unit filename="src/Enemy.cpp" />
 		<Unit filename="src/Game.cpp" />
+		<Unit filename="src/Gun.cpp" />
+		<Unit filename="src/Object.cpp" />
 		<Unit filename="src/Player.cpp" />
 		<Extensions>
 			<envvars />
