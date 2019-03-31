@@ -12,6 +12,7 @@ Enemy::Enemy(Texture &tex, float vel)
     spr->setPosition(pos);
     spr->scale(1.5,1.5);
     dir ={0,1};
+    anim = new Animation(tex, 0);
 
     box = new RectangleShape({spr->getTextureRect().width,spr->getTextureRect().height/4});
     box->setFillColor(Color::Red);
@@ -32,6 +33,10 @@ Enemy::~Enemy()
 Sprite Enemy::getSprite()
 {
     return *spr;
+}
+Sprite Enemy::getAnim()
+{
+    return anim->spr;
 }
 
 FloatRect Enemy::getBounds(){

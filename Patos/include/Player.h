@@ -3,6 +3,7 @@
 #include <iostream>
 #include <sstream>
 #include <SFML/Graphics.hpp>
+#include "../include/Animation.h"
 
 using namespace sf;
 using namespace std;
@@ -41,7 +42,9 @@ class Player
     protected:
 
     private:
-        Sprite *spr;
+        Sprite *spr;//borrar
+        Animation *anim;
+
         RectangleShape *box, *life_box, *shield_box;
         CircleShape *circle;//para que enemigos rodeen al player
         float speed;

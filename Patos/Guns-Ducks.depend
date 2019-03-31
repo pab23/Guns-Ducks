@@ -321,3 +321,66 @@
 1552468067 source:/home/fv/Documentos/GIT/Guns-Ducks/Patos/src/Player.cpp
 	"../include/Player.h"
 
+1554030703 source:/home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/Patos/main.cpp
+	<SFML/Graphics.hpp>
+	<iostream>
+	"include/Game.h"
+
+1554030703 /home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/Patos/include/Game.h
+	<SFML/Graphics.hpp>
+	<iostream>
+	<sstream>
+	"Player.h"
+	"Enemy.h"
+	"Bullet.h"
+	"AnimatedSprite.h"
+	"Animation.h"
+
+1554032784 /home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/Patos/include/Player.h
+	<iostream>
+	<sstream>
+	<SFML/Graphics.hpp>
+	"../include/Animation.h"
+
+1554034629 /home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/Patos/include/Enemy.h
+	"SFML/Graphics.hpp"
+	<iostream>
+	<math.h>
+	"../include/Animation.h"
+
+1554030703 /home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/Patos/include/Bullet.h
+	"SFML/Graphics.hpp"
+	<iostream>
+
+1554030703 /home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/Patos/include/AnimatedSprite.h
+	<SFML/Graphics/RenderTarget.hpp>
+	<SFML/System/Time.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<SFML/Graphics/Transformable.hpp>
+	<SFML/System/Vector2.hpp>
+	"Animation.h"
+
+1554033497 /home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/Patos/include/Animation.h
+	<iostream>
+	<sstream>
+	<SFML/Graphics.hpp>
+
+1554030703 source:/home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/Patos/src/AnimatedSprite.cpp
+	"../include/AnimatedSprite.h"
+
+1554034548 source:/home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/Patos/src/Animation.cpp
+	"../include/Animation.h"
+
+1554030703 source:/home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/Patos/src/Bullet.cpp
+	"../include/Bullet.h"
+
+1554034504 source:/home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/Patos/src/Enemy.cpp
+	"../include/Enemy.h"
+	<math.h>
+
+1554031233 source:/home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/Patos/src/Game.cpp
+	"../include/Game.h"
+
+1554030703 source:/home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/Patos/src/Player.cpp
+	"../include/Player.h"
+

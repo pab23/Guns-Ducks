@@ -351,7 +351,7 @@ void Game::crearEnemy(){
 
 }
 
-void Game::crearAnimaciones(){
+/*void Game::crearAnimaciones(){
   // set up the animations for all four directions (set spritesheet and push frames)
 
     Animation walkingAnimationDown;
@@ -420,3 +420,4 @@ void Game::crearAnimaciones(){
     //float speed = 80.f;
     //bool noKeyWasPressed = true;
     }
+*/

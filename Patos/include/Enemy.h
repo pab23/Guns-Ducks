@@ -4,6 +4,7 @@
 #include "SFML/Graphics.hpp"
 #include <iostream>
 #include <math.h>
+#include "../include/Animation.h"
 
 using namespace std;
 using namespace sf;
@@ -26,6 +27,8 @@ class Enemy
         void setColor(int color);
         FloatRect getBoundsBox();
         RectangleShape getRect();
+        Sprite getAnim();
+
 
 
 
@@ -33,7 +36,8 @@ class Enemy
     protected:
 
     private:
-        Sprite *spr;
+        Sprite *spr;//borrar
+        Animation *anim;
         float speed;
         RectangleShape *box;
         Vector2f direction;//Vector de posicion entre el player y el enemigo.Indica la direccion que toma el enemigo para seguir al player.
