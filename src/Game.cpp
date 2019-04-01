@@ -102,6 +102,7 @@ void Game::gameLoop()
         listenKeyboard();
         moverEnemigos();
         colisiones();
+        playerCollisions();
         zone_timer = zone_clock.getElapsedTime();
         if(zone_timer.asSeconds() >= 1)
         {
@@ -225,6 +226,9 @@ void Game::draw()
 
 
     //////////////////////////////////////////////////////////////////////////
+    /// OBJECT ///
+    for( unsigned j = 0; j < objetos.size(); j++)
+        win->draw(objetos[j].getSprite());
 
     timeToString();
     win->draw(*txt_time);
@@ -234,10 +238,9 @@ void Game::draw()
     win->draw(player->getShieldBox());
     win->draw(player->getShieldTxt());
 
-    /// OBJECT ///
 
-    for( unsigned j = 0; j < objetos.size(); j++)
-        win->draw(objetos[j].getSprite());
+
+
 
 
 
@@ -245,7 +248,34 @@ void Game::draw()
 
     win->display();
 }
+void Game::playerCollisions()
+{
+    for(unsigned i = 0; i < enemigos.size(); i++)
+    {
+        if(enemigos[i].getBounds().intersects(player->getBounds()))
+        {
+            if(enemigos[i].getPosition().x > player->getPosition().x)
+            {
+                player->empujon(-1,0);
+            }
+            else
+            {
+                player->empujon(1,0);
+            }
+            if(enemigos[i].getPosition().y > player->getPosition().y)
+            {
+                player->empujon(0, -1);
+            }
+            else
+            {
+                player->empujon(0, 1);
+            }
+            player->gestionaVida(-10);
+            //break;
+        }
+    }
 
+}
 void Game::listenKeyboard()
 {
     int x = 0, y = 0;
@@ -285,8 +315,12 @@ void Game::listenKeyboard()
     {
         if(player->getPosition().x < winDim.x)x = 1;
     }
+
     if(x!=0 || y!=0)
+    {
         player->move(x, y);
+    }
+
 
 
    if( Keyboard::isKeyPressed(Keyboard::Space))
@@ -387,6 +421,11 @@ void Game::colisiones()
             }
         }
     }
+    itemCollisions();
+
+}
+void Game::itemCollisions()
+{
     for(int i = 0; i < objetos.size(); i++)
     {
         if(objetos[i].getBounds().intersects(player->getSprite().getGlobalBounds()))
@@ -432,7 +471,6 @@ void Game::colisiones()
         }
     }
 }
-
 void Game::timeToString()
 {
     float val = general_clock.getElapsedTime().asSeconds();

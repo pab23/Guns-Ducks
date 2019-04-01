@@ -39,10 +39,13 @@ class Game
         void crearEnemy(int n, float s);
         void crearAnimaciones();
         void colisiones();
+        void playerCollisions();
+        void itemCollisions();
         void timeToString();
         void inZona();
         void crearBlood();
         void posicionarBlood(Vector2f pos);
+
 
 
 

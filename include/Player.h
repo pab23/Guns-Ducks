@@ -43,6 +43,7 @@ class Player
         void cogerMunicion(string,int);
         string infoArmaActiva(int);
         void quitarBalaActiva();
+        void empujon(int, int);
 
 
     protected:
