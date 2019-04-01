@@ -5,6 +5,8 @@
 #include <iostream>
 #include <sstream>
 #include <SFML/Graphics.hpp>
+#include "../include/Animation.h"
+
 using namespace sf;
 using namespace std;
 
@@ -12,15 +14,15 @@ class Animation
 {
 public:
     Animation(Texture, int);
-    void changePos();
-    void changeSprite(int, int);
+
     Sprite getSprite();
-    void setPosition(float,float);
-    void setPosition(Vector2f);
-    Vector2f getPosition();
-    FloatRect getBounds();
+
     Vector2f getRandomPosition(Vector2i ventana);
     int RandomNumber( int inicio, int fin );
+    ///////////
+    void changePos(Vector2i, int, Vector2f);
+    void changeSprite(int, int, Vector2f);
+
 
 
 
@@ -31,6 +33,7 @@ private:
     int pos;
     int col;
     Sprite *spr;
+    Vector2i dir;
 
 };
 

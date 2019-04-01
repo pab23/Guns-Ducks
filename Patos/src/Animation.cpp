@@ -7,6 +7,7 @@ Animation::Animation(Texture tex, int obj)
     anim_tex = tex;
     pos = 0;
     col = 0;
+
     Sprite *aux = new Sprite(anim_tex);
     Vector2i ventana(800,600);
     Vector2f posi = this->getRandomPosition(ventana);
@@ -92,14 +93,96 @@ Animation::Animation(Texture tex, int obj)
 
     }else if(obj == 1)//player
     {
+        aux->setOrigin(0,0);
+        aux->setTextureRect(IntRect(24,30,24,24));
+        aux->setPosition(400,300);
+        //uu
 
+        aux->setTextureRect(IntRect(48,30,24,24));
+        matrix[0][0] = *aux;
+        aux->setTextureRect(IntRect(24,30,24,24));
+        matrix[1][0] = *aux;
+        aux->setTextureRect(IntRect(48,30,24,24));
+        matrix[2][0] = *aux;
+        aux->setTextureRect(IntRect(0,30,24,24));
+        matrix[3][0] = *aux;
+        //ur
+
+        aux->setTextureRect(IntRect(28,200,24,24));
+        matrix[0][1] = *aux;
+        aux->setTextureRect(IntRect(50,200,24,24));
+        matrix[1][1] = *aux;
+        aux->setTextureRect(IntRect(28,200,24,24));
+        matrix[2][1] = *aux;
+        aux->setTextureRect(IntRect(4,200,24,24));
+        matrix[3][1] = *aux;
+        //rr
+
+        aux->setTextureRect(IntRect(24,142,24,24));
+        matrix[0][2] = *aux;
+        aux->setTextureRect(IntRect(51,142,24,24));
+        matrix[1][2] = *aux;
+        aux->setTextureRect(IntRect(24,142,24,24));
+        matrix[2][2] = *aux;
+        aux->setTextureRect(IntRect(0,142,24,24));
+        matrix[3][2] = *aux;
+        //rd
+
+        aux->setTextureRect(IntRect(24,170,24,24));
+        matrix[0][3] = *aux;
+        aux->setTextureRect(IntRect(48,170,24,24));
+        matrix[1][3] = *aux;
+        aux->setTextureRect(IntRect(24,170,24,24));
+        matrix[2][3] = *aux;
+        aux->setTextureRect(IntRect(0,170,24,24));
+        matrix[3][3] = *aux;
+        //dd
+
+        aux->setTextureRect(IntRect(24,0,24,24));
+        matrix[0][4] = *aux;
+        aux->setTextureRect(IntRect(48,0,24,24));
+        matrix[1][4] = *aux;
+        aux->setTextureRect(IntRect(24,0,24,24));
+        matrix[2][4] = *aux;
+        aux->setTextureRect(IntRect(0,0,24,24));
+        matrix[3][4] = *aux;
+        //dl
+
+        aux->setTextureRect(IntRect(24,86,24,24));
+        matrix[0][5] = *aux;
+        aux->setTextureRect(IntRect(52,86,24,24));
+        matrix[1][5] = *aux;
+        aux->setTextureRect(IntRect(24,86,24,24));
+        matrix[2][5] = *aux;
+        aux->setTextureRect(IntRect(0,86,24,24));
+        matrix[3][5] = *aux;
+        //ll
+
+        aux->setTextureRect(IntRect(24,58,24,24));
+        matrix[0][6] = *aux;
+        aux->setTextureRect(IntRect(48,58,24,24));
+        matrix[1][6] = *aux;
+        aux->setTextureRect(IntRect(24,58,24,24));
+        matrix[2][6] = *aux;
+        aux->setTextureRect(IntRect(0,58,24,24));
+        matrix[3][6] = *aux;
+        //lu
+
+        aux->setTextureRect(IntRect(28,116,24,24));
+        matrix[0][7] = *aux;
+        aux->setTextureRect(IntRect(51,116,24,24));
+        matrix[1][7] = *aux;
+        aux->setTextureRect(IntRect(28,116,24,24));
+        matrix[2][7] = *aux;
+        aux->setTextureRect(IntRect(4,116,24,24));
+        matrix[3][7] = *aux;
+
+        spr = new Sprite(matrix[pos][col]);
     }
 
 }
-FloatRect Animation::getBounds()
-{
-    return spr->getGlobalBounds();
-}
+
+
 int Animation::RandomNumber( int inicio, int fin ){
 
 
@@ -172,40 +255,75 @@ Vector2f Animation::getRandomPosition(Vector2i ventana){
     return Vector2f(posx,posy);
 }
 
-Vector2f Animation::getPosition(){
-    return spr->getPosition();
-}
 
 
-void Animation::setPosition(float x, float y)
-{
-    cout<<"Pos = " << x << "/"<<y<<endl;
-    spr->setPosition(x,y);
-}
-void Animation::setPosition(Vector2f vec)
-{
-    cout<<"Pos = " << vec.x << "/"<<vec.y<<endl;
-    spr->setPosition(vec.x,vec.y);
-}
 
 Sprite Animation::getSprite()
     {
         return *spr;
     }
 
-void Animation::changePos()
+void Animation::changePos(Vector2i dire, int obj, Vector2f posi)
 {
-    if(pos == 3)//Esta en la ultima fila
+    cout<<"["<<pos<<","<<col<<"]"<<endl;
+    if(dire != dir)//si ha cambiado de direccion
     {
-        pos = 0;
-    }else
+        dir = dire;
+
+        if(dire.x == 0)
+        {
+            if(dire.y == -1)
+            {
+                changeSprite(0, obj, posi);
+            }else if(dire.y == 1)
+            {
+                changeSprite(4, obj, posi);
+            }
+        }else if(dire.x == 1)
+        {
+            if(dire.y == -1)
+            {
+                changeSprite(1, obj, posi);
+            }else if(dire.y == 0)
+            {
+                changeSprite(2, obj, posi);
+            }else if(dire.y == 1)
+            {
+                changeSprite(3, obj, posi);
+            }
+        }else if(dire.x == -1)
+        {
+            if(dire.y == -1)
+            {
+                changeSprite(7, obj, posi);
+            }else if(dire.y == 0)
+            {
+                changeSprite(6, obj, posi);
+            }else if(dire.y == 1)
+            {
+                changeSprite(5, obj, posi);
+            }
+        }
+
+    }else//si no ha cambiado de direccion
     {
-        pos = pos+1;
+
+        if(pos == 3)//Esta en la ultima fila
+        {
+            pos = 0;
+        }else
+        {
+            pos = pos+1;
+        }
+
+        spr = new Sprite(matrix[pos][col]);
+        spr->setPosition(posi);
+
     }
-    spr = new Sprite(matrix[pos][col]);
+
 }
 
-void Animation::changeSprite(int sprit, int obj)
+void Animation::changeSprite(int sprit, int obj, Vector2f posi)
 {
     //sprit dice que columna de la matriz utilizamos, y obj si es del player o del enemy
     //u = up r = right  d = down  l = left
@@ -214,82 +332,18 @@ void Animation::changeSprite(int sprit, int obj)
     if(obj == 0) //enemy
     {
         col = sprit;
-        switch(sprit)
-        {
-            case 0:
-                spr = new Sprite(matrix[pos][col]);
-            break;
-
-            case 1:
-                spr = new Sprite(matrix[pos][col]);
-            break;
-
-            case 2:
-                spr = new Sprite(matrix[pos][col]);
-            break;
-
-            case 3:
-                spr = new Sprite(matrix[pos][col]);
-            break;
-
-            case 4:
-               spr = new Sprite(matrix[pos][col]);
-            break;
-
-            case 5:
-                spr = new Sprite(matrix[pos][col]);
-            break;
-
-            case 6:
-                spr = new Sprite(matrix[pos][col]);
-            break;
-
-            case 7:
-                spr = new Sprite(matrix[pos][col]);
-            break;
-
-        }
-
+        spr = new Sprite(matrix[pos][col]);
 
     }else if (obj == 1)// player
     {
         col = sprit;
-        switch(sprit)
-        {
-            case 0:
-              spr = new Sprite(matrix[pos][col]);
-            break;
-
-            case 1:
-               spr = new Sprite(matrix[pos][col]);
-            break;
-
-            case 2:
-                spr = new Sprite(matrix[pos][col]);
-            break;
-
-            case 3:
-                spr = new Sprite(matrix[pos][col]);
-            break;
-
-            case 4:
-                spr = new Sprite(matrix[pos][col]);
-            break;
-
-            case 5:
-               spr = new Sprite(matrix[pos][col]);
-            break;
-
-            case 6:
-               spr = new Sprite(matrix[pos][col]);
-            break;
-
-            case 7:
-                spr = new Sprite(matrix[pos][col]);
-            break;
-
-        }
+        spr = new Sprite(matrix[pos][col]);
 
     }
+    cout<<dir.x<<dir.y<<endl;
+    spr->setPosition(posi);
+
 
 }
+
+

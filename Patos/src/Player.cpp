@@ -14,11 +14,16 @@ Player::Player(Texture &tex)
 {
         spr = new Sprite(tex);
 
+        armaActiva=0;
+        armas.push_back(Gun("Pistola", 1));
+
 
         spr->setOrigin(75/2,75/2);
         spr->setTextureRect(IntRect(1*75, 0*75, 75, 75));
         spr->setPosition(400,300);
         spr->scale(.5,.5);
+
+        anim = new Animation(tex, 1);
 
         //Score
         font_txt = new Font();
@@ -50,16 +55,26 @@ Player::Player(Texture &tex)
         box->setOrigin(box->getSize().x/2,box->getSize().y/2);
         box->setPosition(getPosition().x+3,getPosition().y+spr->getTextureRect().height/3);
 
-        circle = new CircleShape();
+        /*circle = new CircleShape();
         circle->setOrigin(50,50);
         circle->setPosition(spr->getPosition().x+2,spr->getPosition().y );
         circle->setRadius(50);
-        circle->setFillColor(Color(255,0,0,120));
+        circle->setFillColor(Color(255,0,0,120));*/
 
-        speed = 4; dir = {1, 0};
+        speed = 2.5; dir = {1, 0};
 }
-
-
+void Player::changePos(Vector2i dire, int obj, Vector2f posi)
+{
+    anim->changePos(dire, obj, posi);
+}
+void Player::setSpr(const Sprite &sprit)
+{
+    spr = new Sprite(sprit);
+}
+Animation Player::getAnim()
+{
+    return *anim;
+}
 void Player::move(int x, int y)
 {
     float speedX;
@@ -92,7 +107,7 @@ void Player::move(int x, int y)
 
     dir = {x, y};
     spr->move(speedX, speedY);
-    circle->move(speedX, speedY);
+    //circle->move(speedX, speedY);
     box->move(speedX, speedY);
 
 
@@ -289,16 +304,56 @@ void Player::setPosition(Vector2f vec){
     spr->setPosition(vec);
     box->setPosition(vec.x, vec.y);
 }
-/*void Player::cambiarAnimacion(){
-   int x,y;
-   x = getDir().x;
-   y = getDir().y;
-
-   //if(x == 0 && y == 1)
-
-
-}*/
 
 
 
+string Player::infoArmaActiva(int i)
+{
+    stringstream ss;
+    ss<<"Selecionada "<<armas[i].getNombre()<<": "<<armas[i].getMunicion();
+    string s=ss.str();
+    return s;
+}
+
+Gun Player::getArmaActiva()
+{
+    return armas[armaActiva];
+}
+
+void Player::cambiarArma()
+{
+    if(armaActiva==armas.size()-1)
+        armaActiva=0;
+    else
+        armaActiva++;
+    //cout<<armas[armaActiva].getNombre()<<": "<<armas[armaActiva].getMunicion()<<endl;
+    //cout<<infoArmaActiva(armaActiva)<<endl;
+}
+
+void Player::cogerMunicion(string n, int nbalas)
+{
+    bool estar=false;
+    int indice=0;
+
+    for(int i=0; i<armas.size() && !estar; i++) //Si el arma ya esta en el inventario solo le añadimos municion
+    {
+        if(armas[i].getNombre()==n)
+        {
+            estar=true;
+            armas[i].setMunicion(nbalas);
+            //cout<<armas[i].getNombre()<<": +"<<nbalas<<"balas"<<endl;
+        }
+    }
+
+    if(!estar) //Si no, la añadimos al inventario
+    {
+        armas.push_back(Gun(n, nbalas));
+        //cout<<"Has cogido: "<<n<<endl;
+    }
+}
+
+void Player::quitarBalaActiva()
+{
+    armas[armaActiva].setMunicion(-1);
+}
 
