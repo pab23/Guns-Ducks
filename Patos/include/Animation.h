@@ -15,6 +15,13 @@ public:
     void changePos();
     void changeSprite(int, int);
     Sprite getSprite();
+    void setPosition(float,float);
+    void setPosition(Vector2f);
+    Vector2f getPosition();
+    FloatRect getBounds();
+    Vector2f getRandomPosition(Vector2i ventana);
+    int RandomNumber( int inicio, int fin );
+
 
 
 

@@ -8,11 +8,13 @@ Animation::Animation(Texture tex, int obj)
     pos = 0;
     col = 0;
     Sprite *aux = new Sprite(anim_tex);
+    Vector2i ventana(800,600);
+    Vector2f posi = this->getRandomPosition(ventana);
     if(obj == 0)//enemy
     {
         aux->setOrigin(0,0);
         aux->setTextureRect(IntRect(24,30,24,24));
-        aux->setPosition(400,300);
+        aux->setPosition(posi);
         //uu
         matrix[0][0] = *aux;
         aux->setTextureRect(IntRect(48,30,24,24));
@@ -94,6 +96,102 @@ Animation::Animation(Texture tex, int obj)
     }
 
 }
+FloatRect Animation::getBounds()
+{
+    return spr->getGlobalBounds();
+}
+int Animation::RandomNumber( int inicio, int fin ){
+
+
+     /*
+      Genera un número aleatorio entre
+      inicio y fin.
+     */
+
+     int resultado = 0;
+
+     // Calculamos el margen entre inicio y fin
+     int margen = fin - inicio;
+
+     // Establecemos el comienzo del intervalo
+     int comienzo = inicio;
+
+     // Comprobamos si el intervalo está al revés
+     if( inicio > fin ){
+
+      // Cambiamos el comienzo
+      comienzo = fin;
+
+      // Cambiamos el signo de la diferencia
+      margen = margen * -1;
+     }
+
+     /*
+      * Añadimos uno al margen ya que la función
+      * rand calcula entre el 0 y uno menos que
+      * el margen.
+      */
+     margen++;
+
+     /*
+      Si el intervalo no comienza y acaba en el
+      mismo número.
+     */
+
+     // Generamos el número aleatorio.
+     resultado = comienzo + (rand() % margen);
+
+     return resultado;
+}
+Vector2f Animation::getRandomPosition(Vector2i ventana){
+
+    int vx = ventana.x; int vy = ventana.y;
+
+    //Establecemos de que pared sale. 1=left, 2=down, 3=right,4=up
+    int a = RandomNumber(1,4);
+    int posx,posy;
+    switch(a)
+    {
+        case 1: posx =-100;
+                posy = RandomNumber(0,vy);
+        break;
+
+        case 2: posy=vy+100;
+                posx = RandomNumber(0,vx);
+        break;
+
+        case 3: posx= vx +100;
+                posy=RandomNumber(0,vy);
+        break;
+
+        case 4: posy= -100;
+                posx = RandomNumber(0,vx);
+        break;
+
+    }
+    return Vector2f(posx,posy);
+}
+
+Vector2f Animation::getPosition(){
+    return spr->getPosition();
+}
+
+
+void Animation::setPosition(float x, float y)
+{
+    cout<<"Pos = " << x << "/"<<y<<endl;
+    spr->setPosition(x,y);
+}
+void Animation::setPosition(Vector2f vec)
+{
+    cout<<"Pos = " << vec.x << "/"<<vec.y<<endl;
+    spr->setPosition(vec.x,vec.y);
+}
+
+Sprite Animation::getSprite()
+    {
+        return *spr;
+    }
 
 void Animation::changePos()
 {
@@ -194,9 +292,4 @@ void Animation::changeSprite(int sprit, int obj)
 
     }
 
-    void Animation::getSprite()
-    {
-
-        return *spr;
-    }
 }

@@ -128,20 +128,36 @@ void Game::draw()
 
     win->clear();
 
-    win->draw(player->getSprite());
+
      win->draw(player->getCircle());
       win->draw(*life_zone);
-    win->draw(player->getSprite());
+
 
     for(unsigned i = 0; i < enemigos.size(); i++)
-        win->draw(enemigos[i].getSprite());
+    {
+        if(player->getPosition().y-enemigos[i].getPosition().y < 0) //Cuando el player esta por encima del enemigo las box enemigas son rojas
+            enemigos[i].setColor(0);
+        else
+            enemigos[i].setColor(1);
+
+        win->draw(enemigos[i].getAnim());
+        if(info)
+        {
+            win->draw(enemigos[i].getRect());
+            win->draw(player->getRect());
+        }
+
+    }
+    win->draw(player->getSprite());
+
+
 
 
 
     for( unsigned j = 0; j < balas.size(); j++)
         win->draw(balas[j].getSprite());
 
-    colisionBox();
+    //colisionBox();
      timeToString();
     win->draw(*txt_time);
     win->draw(player->getScoreTxt());
@@ -159,7 +175,7 @@ void Game::moverEnemigos(){
    for(unsigned k = 0; k < enemigos.size(); k++){
         if(!enemigos[k].getBounds().intersects(player->getCircle().getGlobalBounds()))
             enemigos[k].move(player->getPosition(), false);//Necesita la pos del player para moverse hacia el
-        }
+    }
 
          //collision
     for(int i=0;i<enemigos.size();i++)
@@ -168,6 +184,7 @@ void Game::moverEnemigos(){
 
         if(enemigos[i].getBounds().intersects(enemigos[j].getBounds()) && enemigos[i].getPosition() != enemigos[j].getPosition())
         {
+            cout<<"Entro"<<endl;
             //enemigos[i].move(player->getPosition(), true);
             //enemigos[j].move(player->getPosition(), false);
             float ix = enemigos[i].getPosition().x;
@@ -198,6 +215,7 @@ void Game::moverEnemigos(){
 
 
 }
+
 void Game::colisiones()
 {
     FloatRect barrier0x({-30,-30}, {winDim.x+60 , 1});
@@ -261,18 +279,11 @@ void Game::colisionBox()
     {
 
 
-        if(player->getPosition().y-enemigos[i].getPosition().y < 0) //Cuando el player esta por encima del enemigo las box enemigas son rojas
-            enemigos[i].setColor(0);
-        else
-            enemigos[i].setColor(1); //Cuando el player esta por debajo las box son verdes
+        //Cuando el player esta por debajo las box son verdes
 
-        win->draw(enemigos[i].getSprite());
-        win->draw(player->getSprite());
-        if(info)
-        {
-            win->draw(enemigos[i].getRect());
-            win->draw(player->getRect());
-        }
+       // win->draw(enemigos[i].getSprite());
+       // win->draw(player->getSprite());
+
 
     }
 
@@ -280,7 +291,7 @@ void Game::colisionBox()
     {
         if(player->getPosition().y-enemigos[i].getPosition().y < 0)
         {
-            win->draw(enemigos[i].getSprite());
+        //    win->draw(enemigos[i].getSprite());
             if(info)
                 win->draw(enemigos[i].getRect());
         }
@@ -341,7 +352,7 @@ void Game::inZona()
 
 void Game::crearEnemy(){
 
- for( unsigned i = 0; i < 15; i++)
+ for( unsigned i = 0; i < 1; i++)
     {
 
         Enemy aux(*tex_enemy,.5);

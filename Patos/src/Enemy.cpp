@@ -36,17 +36,18 @@ Sprite Enemy::getSprite()
 }
 Sprite Enemy::getAnim()
 {
-    return anim->spr;
+
+    return anim->getSprite();
 }
 
 FloatRect Enemy::getBounds(){
-    return spr->getGlobalBounds();
+    return anim->getBounds();
 }
 FloatRect Enemy::getBoundsBox(){
     return box->getGlobalBounds();
 }
 Vector2f Enemy::getPosition(){
-    return spr->getPosition();
+    return anim->getPosition();
 }
 void Enemy::setColor(int color)
 {
@@ -66,10 +67,15 @@ RectangleShape Enemy::getRect()
 }
 void Enemy::setPosition(float x, float y){
     spr->setPosition(x,y);
+
+    anim->setPosition(x,y);
+    cout<<"Pos = " << x << "/"<<y<<endl;
     box->setPosition(x,y+spr->getTextureRect().height/3);
 }
 void Enemy::setPosition(Vector2f vec){
     spr->setPosition(vec.x,vec.y);
+    anim->setPosition(vec.x,vec.y);
+    cout<<"Pos = " << vec.x << "/"<<vec.y<<endl;
     box->setPosition(vec.x,vec.y+spr->getTextureRect().height/3);
 }
 void Enemy::move(Vector2f playerPosition, bool collision){
@@ -90,9 +96,9 @@ void Enemy::move(Vector2f playerPosition, bool collision){
     aux_currentSpeed = aux_normalizedDir * speed;//distancia por velocidad
 
     if(collision)
-        spr->move(aux_currentSpeed);
+        anim->getSprite().move(aux_currentSpeed);
     else
-    spr->move(currentSpeed);
+    anim->getSprite().move(currentSpeed);
 
     box->move(currentSpeed);
 
