@@ -10,6 +10,8 @@
 #include "AnimatedSprite.h"
 #include "Animation.h"
 #include "Blood.h"
+#include "Gun.h"
+#include "Object.h"
 
 
 /** VALORES POR DEFECTO PARA EL CONTROL DE DE ENEMIGOS Y OLEADAS **/
@@ -17,7 +19,8 @@
 #define T_OLEADAS 5 //tiempo en segundos que transcurre antes de crear una nueva oleada de enemigos
 #define N_OLEADAS 5 //nº de oleadas que se van a crear
 #define N_ENEMIES_OLEADA 5 //nº de enemigos por oleada
-#define SPEED_ENEMY .6 //velocidad del enemigo
+#define SPEED_ENEMY .5 //velocidad del enemigo
+#define N_RONDAS 4
 
 
 using namespace sf;
@@ -39,8 +42,6 @@ class Game
         void colisionBox();
         void timeToString();
         void inZona();
-        int getEnemyRespawn();
-        void setEnemyRespawn(int n);
         void crearBlood();
         void posicionarBlood(Vector2f pos);
 
@@ -52,13 +53,14 @@ class Game
     private:
 
         RenderWindow *win;
-        Texture *tex_player,*tex_bloods, *tex_enemy, *tex_map;
+        Texture *tex_player,*tex_bloods, *tex_enemy, *tex_map, *tex_object;
         Player *player;
         Event e;
-        int enemyRespawn; //nº de oleadas
+        int cont_oleadas, cont_rondas; //contador de oleadas y rondas creadas
         vector<Enemy> enemigos;
         vector<Blood> bloods;
         vector<Bullet> balas;
+        vector<Object> objetos;
         Clock bullet_clock, general_clock, zone_clock,  enemy_clock,frame_clock;
         Time bullet_cooldown, enemy_timer, general_timer, zone_timer;
         Vector2i winDim;

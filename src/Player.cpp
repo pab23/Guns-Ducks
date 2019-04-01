@@ -14,6 +14,9 @@ Player::Player(Texture &tex)
 {
         spr = new Sprite(tex);
 
+        armaActiva=0;
+        armas.push_back(Gun("Pistola", 1));
+
 
         spr->setOrigin(75/2,75/2);
         spr->setTextureRect(IntRect(1*75, 0*75, 75, 75));
@@ -56,7 +59,7 @@ Player::Player(Texture &tex)
         circle->setRadius(50);
         circle->setFillColor(Color(255,0,0,120));*/
 
-        speed = 3; dir = {1, 0};
+        speed = 2.5; dir = {1, 0};
 }
 
 
@@ -289,16 +292,56 @@ void Player::setPosition(Vector2f vec){
     spr->setPosition(vec);
     box->setPosition(vec.x, vec.y);
 }
-/*void Player::cambiarAnimacion(){
-   int x,y;
-   x = getDir().x;
-   y = getDir().y;
-
-   //if(x == 0 && y == 1)
-
-
-}*/
 
 
 
+string Player::infoArmaActiva(int i)
+{
+    stringstream ss;
+    ss<<"Selecionada "<<armas[i].getNombre()<<": "<<armas[i].getMunicion();
+    string s=ss.str();
+    return s;
+}
+
+Gun Player::getArmaActiva()
+{
+    return armas[armaActiva];
+}
+
+void Player::cambiarArma()
+{
+    if(armaActiva==armas.size()-1)
+        armaActiva=0;
+    else
+        armaActiva++;
+    //cout<<armas[armaActiva].getNombre()<<": "<<armas[armaActiva].getMunicion()<<endl;
+    //cout<<infoArmaActiva(armaActiva)<<endl;
+}
+
+void Player::cogerMunicion(string n, int nbalas)
+{
+    bool estar=false;
+    int indice=0;
+
+    for(int i=0; i<armas.size() && !estar; i++) //Si el arma ya esta en el inventario solo le añadimos municion
+    {
+        if(armas[i].getNombre()==n)
+        {
+            estar=true;
+            armas[i].setMunicion(nbalas);
+            //cout<<armas[i].getNombre()<<": +"<<nbalas<<"balas"<<endl;
+        }
+    }
+
+    if(!estar) //Si no, la añadimos al inventario
+    {
+        armas.push_back(Gun(n, nbalas));
+        //cout<<"Has cogido: "<<n<<endl;
+    }
+}
+
+void Player::quitarBalaActiva()
+{
+    armas[armaActiva].setMunicion(-1);
+}
 

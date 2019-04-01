@@ -3,6 +3,7 @@
 #include <iostream>
 #include <sstream>
 #include <SFML/Graphics.hpp>
+#include "Gun.h"
 
 using namespace sf;
 using namespace std;
@@ -36,6 +37,12 @@ class Player
         Text getLifeTxt();
         Text getShieldTxt();
         void gestionaVida(int);
+        Gun getArmaActiva();
+        Gun getArmaById();
+        void cambiarArma();
+        void cogerMunicion(string,int);
+        string infoArmaActiva(int);
+        void quitarBalaActiva();
 
 
     protected:
@@ -52,6 +59,8 @@ class Player
         //Life
         int life, shield;
         Text *txt_life, *txt_shield;
+        vector<Gun> armas;
+        int armaActiva;
 
 };
 

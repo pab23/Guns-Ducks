@@ -20,15 +20,15 @@ Game::Game(Vector2i win_dim)
     win->setFramerateLimit(60);
     loadTextures();//Cargamos texturas
 
+    //valoroes del game
+    cont_oleadas, cont_rondas = 0;
+
     //player
     player = new Player(*tex_player);
 
     //enemy
     enemy_clock.restart();
-    enemyRespawn = 0;//contador de oleadas
-
-
-
+    cont_oleadas = 0;//contador de oleadas
 
     primer = true;
     info = false;
@@ -42,6 +42,19 @@ Game::Game(Vector2i win_dim)
     life_zone = new RectangleShape({100,100});
     life_zone->setFillColor(Color::Green);
     life_zone->setPosition({100, 300});
+
+    // Object
+
+
+    for(unsigned i = 0; i < 4; i++)
+    {
+        objetos.push_back(Object("botijola", *tex_object));
+        objetos.push_back(Object("ducknamyte", *tex_object));
+        objetos.push_back(Object("planchadito", *tex_object));
+        objetos.push_back(Object("pato", *tex_object));
+        objetos.push_back(Object("municionCarabina", *tex_object));
+        objetos.push_back(Object("municionEscopeta", *tex_object));
+    }
 
 
 
@@ -71,6 +84,10 @@ void Game::loadTextures(){
     tex_map = new Texture();
     tex_map->loadFromFile("resources/mapa.png");
 
+    //object
+     tex_object = new Texture;
+    tex_object->loadFromFile("resources/objetos.png");
+
 
 
 
@@ -92,31 +109,32 @@ void Game::gameLoop()
             zone_clock.restart();
         }
 
-        /**
-            T_OLEADAS, N_OLEADAS y N_ENEMIES_OLEADA se definen en game.h
-            Nº ENEMIES A CREAR = valor por defecto (5) + nº de oleadas que se han creado hasta el momento
-            Ejemplo: Oleada 1 = 5 + 0; Oleada 2 = 5 + 1; Oleada 3 = 5 + 2; Oleada 4 = 5 + 3;
 
-                                                                                                **/
+        /** T_OLEADAS, N_OLEADAS y N_ENEMIES_OLEADA se definen en game.h
+            Nº ENEMIGOS A CREAR = valor por defecto (5) + nº de oleadas que se han creado hasta el momento
+            Ejemplo: Oleada 1 = 5 + 0; Oleada 2 = 5 + 1; Oleada 3 = 5 + 2; Oleada 4 = 5 + 3;      **/
 
-        if(enemy_timer.asSeconds() > T_OLEADAS && getEnemyRespawn() < N_OLEADAS ){
 
-            int n = N_ENEMIES_OLEADA + getEnemyRespawn();
-            crearEnemy(n,SPEED_ENEMY);//crea x enemigos y hace enemyRespawn++
+
+        if(enemy_timer.asSeconds() > T_OLEADAS && cont_oleadas < N_OLEADAS ){//Nueva oleada
+
+            int n = N_ENEMIES_OLEADA + cont_oleadas;
+            float s = SPEED_ENEMY + ((float)cont_rondas/10);
+            crearEnemy(n,s);//crea x enemigos y hace cont_oleadas++
             enemy_clock.restart();
             }
-        if(getEnemyRespawn() == N_OLEADAS && enemigos.size()==0 ){
+        else if(cont_oleadas == N_OLEADAS && enemigos.size()==0 && cont_rondas < N_RONDAS ){//Nueva ronda
             for(unsigned i = 0; i< bloods.size();i++)
             {
                //Quito cadaveres, cambio el color de la sangre
                bloods[i].setStateBlood(2);
                bloods[i].setStateDuck(0);
 
-
             }
             //Reinicio el crono de enemigos y las oleadas
             enemy_clock.restart();
-            setEnemyRespawn(0);
+            cont_oleadas=0;
+            cont_rondas++;
         }
 
         draw();
@@ -184,6 +202,11 @@ void Game::draw()
     win->draw(player->getShieldBox());
     win->draw(player->getShieldTxt());
 
+    /// OBJECT ///
+
+    for( unsigned j = 0; j < objetos.size(); j++)
+        win->draw(objetos[j].getSprite());
+
 
 
 
@@ -205,6 +228,11 @@ void Game::listenKeyboard()
           if(e.type == Event::KeyPressed && e.key.code == Keyboard::I)
         {
             info = !info;
+        }
+          if(e.type == Event::KeyPressed && e.key.code == Keyboard::C)
+        {
+            player->cambiarArma();
+
         }
 
 
@@ -229,10 +257,52 @@ void Game::listenKeyboard()
         player->move(x, y);
 
 
-    if( Keyboard::isKeyPressed(Keyboard::Space) && bullet_cooldown.asSeconds() >= .2f)
+   if( Keyboard::isKeyPressed(Keyboard::Space))
     {
-        bullet_clock.restart();
-        balas.push_back(Bullet(player->getPosition(), player->getDir(), 5));//ultimo parametro radio a falta de implementar diferentes tipos de bala
+
+        if(player->getArmaActiva().getNombre()=="Pistola" && bullet_cooldown.asSeconds() >= .5f)
+        {
+            bullet_clock.restart();
+            balas.push_back(Bullet(player->getPosition(), player->getDir(), 5));//ultimo parametro radio a falta de implementar diferentes tipos de bala
+            //cout<<player->getArmaActiva().getNombre()<<": "<<player->getArmaActiva().getMunicion()<<endl;
+
+        }
+
+        if(player->getArmaActiva().getNombre()=="Carabina" && bullet_cooldown.asSeconds() >= .2f)
+        {
+            if(player->getArmaActiva().getMunicion()>0)
+            {
+                bullet_clock.restart();
+                balas.push_back(Bullet(player->getPosition(), player->getDir(), 3));//ultimo parametro radio a falta de implementar diferentes tipos de bala
+                player->quitarBalaActiva();
+                //cout<<player->getArmaActiva().getNombre()<<": "<<player->getArmaActiva().getMunicion()<<endl;
+            }
+            else{
+                    //cout<<player->getArmaActiva().getNombre()<<": SIN MUNICION"<<endl;
+                    player->cambiarArma();
+            }
+
+
+        }
+
+         if(player->getArmaActiva().getNombre()=="Escopeta" && bullet_cooldown.asSeconds() >= .9f)
+        {
+             if(player->getArmaActiva().getMunicion()>0)
+             {
+                 bullet_clock.restart();
+                balas.push_back(Bullet(player->getPosition(), player->getDir(), 7));//ultimo parametro radio a falta de implementar diferentes tipos de bala
+                player->quitarBalaActiva();
+                //cout<<player->getArmaActiva().getNombre()<<": "<<player->getArmaActiva().getMunicion()<<endl;
+             }
+             else{
+                   // cout<<player->getArmaActiva().getNombre()<<": SIN MUNICION"<<endl;
+                   player->cambiarArma();
+             }
+
+
+        }
+
+
     }
 
     for(unsigned i=0; i<balas.size(); i++)
@@ -265,25 +335,65 @@ void Game::colisiones()
     }
 
      for(unsigned i = 0; i < balas.size();i++)
+    {
+        for(unsigned j = 0; j < enemigos.size();j++)
+        {
+            if(balas[i].getBounds().intersects(enemigos[j].getBounds()))
+            {
+                posicionarBlood(enemigos[j].getPosition());//activa y posiciona una sangre en la posicion del enemigo muerto. Falta el if(enemymuerto) para activarla solo cuando muera
+                balas.erase(balas.begin()+i);
+                enemigos.erase(enemigos.begin()+j);
+                player->setScore(player->getScore()+kEnemy_reward);
+                player->gestionaVida(-10);
+                break;
+            }
+        }
+    }
+    for(int i = 0; i < objetos.size(); i++)
+    {
+        if(objetos[i].getBounds().intersects(player->getSprite().getGlobalBounds()))
         {
 
-            for(unsigned j = 0; j < enemigos.size();j++)
+
+            if(objetos[i].getTipo()=="b")
             {
-                if(balas[i].getBounds().intersects(enemigos[j].getBounds()))
+                //cout<<"Botijola: recuperamos todo el escudo"<<endl;
+                player->setShield(100-player->getShield());
+            }
+            else if(objetos[i].getTipo()=="d")
+            {
+                //cout<<"Ducknamyte: elimina a todos los enemigos"<<endl;
+                for(unsigned i = 0; i < enemigos.size(); i++)
                 {
-                    posicionarBlood(enemigos[j].getPosition());//activa y posiciona una sangre en la posicion del enemigo muerto. Falta el if(enemymuerto) para activarla solo cuando muera
-                    balas.erase(balas.begin()+i);
-                    enemigos.erase(enemigos.begin()+j);
-                    player->setScore(player->getScore()+kEnemy_reward);
-                    player->gestionaVida(-10);
-                    break;
+                    enemigos.erase(enemigos.begin(), enemigos.begin()+enemigos.size());
                 }
+            }
+            else if(objetos[i].getTipo()=="p")
+            {
+                //cout<<"Planchadito: Recuperamos toda la vida"<<endl;
+                player->setLife(100-player->getLife());
+            }
+            else if(objetos[i].getTipo()=="m")
+            {
+                //cout<<"Modo PaTo: matas a todos de un tiro"<<endl;
+                //player->getSprite().setColor(Color::Red);
+            }
+            else if(objetos[i].getTipo()=="ammoC")
+            {
+                player->cogerMunicion("Carabina", 50);
 
             }
 
-        }
-}
+            else if(objetos[i].getTipo()=="ammoE")
+            {
+                player->cogerMunicion("Escopeta", 10);
 
+            }
+            objetos.erase(objetos.begin()+i);
+
+        }
+    }
+}
 void Game::colisionBox()
 {
 
@@ -372,7 +482,7 @@ void Game::inZona()
     if(player->getSprite().getGlobalBounds().intersects(life_zone->getGlobalBounds()))
     {
         player->setLife(10);
-        cout<<player->getLife()<<endl;
+        //cout<<player->getLife()<<endl;
     }
 }
 
@@ -389,7 +499,7 @@ void Game::crearEnemy(int n, float s){
         enemigos.push_back(aux);
         crearBlood();
     }
-    enemyRespawn++;
+    cont_oleadas++;
 
 
 }
@@ -469,8 +579,7 @@ void Game::moverEnemigos(){
 
 
 }
-int  Game::getEnemyRespawn(){return enemyRespawn;}//nº de oleadas
-void Game::setEnemyRespawn(int n){enemyRespawn = n;};
+
     /// BLOOD ///
 
 void Game::crearBlood(){
