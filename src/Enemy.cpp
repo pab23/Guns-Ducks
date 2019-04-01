@@ -235,19 +235,6 @@ void Enemy::setVida(string gun)
     {
         dmg=-120;
     }
-   /* switch(gun)
-    {
-    case "Pistola":
-        dmg = -50;
-        break;
-    case "Carabina":
-        dmg = -40;
-        break;
-    case "Escopeta":
-        dmg = -100;
-        break;
-        default: break;
-    }*/
     hp += dmg;
 }
 

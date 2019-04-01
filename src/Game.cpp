@@ -374,10 +374,8 @@ void Game::colisiones()
             {
 
                 balas.erase(balas.begin()+i);
-
-
                 enemigos[j].setVida(player->getArmaActiva().getNombre());
-                if(enemigos[j].getVida() == 0)
+                if(enemigos[j].getVida() <= 0)
                 {
                     posicionarBlood(enemigos[j].getPosition());//activa y posiciona una sangre en la posicion del enemigo muerto. Falta el if(enemymuerto) para activarla solo cuando muera
                     enemigos.erase(enemigos.begin()+j);
