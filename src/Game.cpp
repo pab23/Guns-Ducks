@@ -372,9 +372,17 @@ void Game::colisiones()
         {
             if(balas[i].getBounds().intersects(enemigos[j].getBounds()))
             {
-                posicionarBlood(enemigos[j].getPosition());//activa y posiciona una sangre en la posicion del enemigo muerto. Falta el if(enemymuerto) para activarla solo cuando muera
+
                 balas.erase(balas.begin()+i);
-                enemigos.erase(enemigos.begin()+j);
+
+
+                enemigos[j].setVida(player->getArmaActiva().getNombre());
+                if(enemigos[j].getVida() == 0)
+                {
+                    posicionarBlood(enemigos[j].getPosition());//activa y posiciona una sangre en la posicion del enemigo muerto. Falta el if(enemymuerto) para activarla solo cuando muera
+                    enemigos.erase(enemigos.begin()+j);
+
+                }
                 player->setScore(player->getScore()+kEnemy_reward);
                 player->gestionaVida(-10);
                 break;
@@ -456,7 +464,7 @@ void Game::crearEnemy(int n, float s){
  for( unsigned i = 0; i < n; i++)
     {
 
-        Enemy aux(*tex_enemy,s);
+        Enemy aux(*tex_enemy,s, (int)100);
         enemigos.push_back(aux);
         crearBlood();
     }

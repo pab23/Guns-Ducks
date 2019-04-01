@@ -1,7 +1,7 @@
 #include "../include/Enemy.h"
 #include <math.h>
 
-Enemy::Enemy(Texture &tex, float vel)
+Enemy::Enemy(Texture &tex, float vel, int vida)
 {
 
     Vector2i ventana(800,600);
@@ -12,6 +12,7 @@ Enemy::Enemy(Texture &tex, float vel)
     spr->setTextureRect(IntRect(0*75, 0*75, 24, 24));
     spr->setPosition(pos);
     spr->scale(1.5,1.5);
+    hp = vida;
 
     box = new RectangleShape({spr->getTextureRect().width,spr->getTextureRect().height/4});
     box->setFillColor(Color::Red);
@@ -215,6 +216,44 @@ Vector2f Enemy::getRandomPosition(Vector2i ventana){
 
     }
     return Vector2f(posx,posy);
+}
+
+void Enemy::setVida(string gun)
+{
+    int dmg = 0;
+    cout<<"Dis"<<gun<<endl;
+
+    if(gun=="Carabina")
+    {
+        dmg=-40;
+    }
+    else if(gun=="Pistola")
+    {
+        dmg=-50;
+    }
+    else if(gun=="Escopeta")
+    {
+        dmg=-120;
+    }
+   /* switch(gun)
+    {
+    case "Pistola":
+        dmg = -50;
+        break;
+    case "Carabina":
+        dmg = -40;
+        break;
+    case "Escopeta":
+        dmg = -100;
+        break;
+        default: break;
+    }*/
+    hp += dmg;
+}
+
+int Enemy::getVida()
+{
+    return hp;
 }
 
 

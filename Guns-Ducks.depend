@@ -23,7 +23,7 @@
 	<SFML/Graphics.hpp>
 	"Gun.h"
 
-1554118127 source:/home/fv/Escritorio/Guns-Ducks/src/Game.cpp
+1554119529 source:/home/fv/Escritorio/Guns-Ducks/src/Game.cpp
 	"../include/Game.h"
 
 1554117586 source:/home/fv/Escritorio/Guns-Ducks/src/Player.cpp
@@ -123,7 +123,7 @@
 1551125035 source:/home/javifv/Escritorio/Guns-Ducks-Shots/src/Enemy.cpp
 	"../include/Enemy.h"
 
-1554117586 /home/fv/Escritorio/Guns-Ducks/include/Enemy.h
+1554119546 /home/fv/Escritorio/Guns-Ducks/include/Enemy.h
 	"SFML/Graphics.hpp"
 	<iostream>
 	<math.h>
@@ -133,10 +133,10 @@
 	"SFML/Graphics.hpp"
 	<iostream>
 
-1554117586 source:/home/fv/Escritorio/Guns-Ducks/src/Bullet.cpp
+1554119335 source:/home/fv/Escritorio/Guns-Ducks/src/Bullet.cpp
 	"../include/Bullet.h"
 
-1554117586 source:/home/fv/Escritorio/Guns-Ducks/src/Enemy.cpp
+1554119076 source:/home/fv/Escritorio/Guns-Ducks/src/Enemy.cpp
 	"../include/Enemy.h"
 	<math.h>
 
