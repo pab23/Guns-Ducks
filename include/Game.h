@@ -39,7 +39,6 @@ class Game
         void crearEnemy(int n, float s);
         void crearAnimaciones();
         void colisiones();
-        void colisionBox();
         void timeToString();
         void inZona();
         void crearBlood();

@@ -193,7 +193,39 @@ void Game::draw()
     for( unsigned j = 0; j < balas.size(); j++)
         win->draw(balas[j].getSprite());
 
-    colisionBox();
+    //////////////////////////////////////////////////////////////////////////
+    for(unsigned i=0; i<enemigos.size(); i++)
+    {
+
+
+        if(player->getPosition().y>enemigos[i].getPosition().y) //Cuando el player esta por encima del enemigo las box enemigas son rojas
+        {
+            enemigos[i].setColor(0);
+            win->draw(enemigos[i].getSprite());
+            if(info)
+                win->draw(enemigos[i].getRect());
+
+        }
+
+    }
+    win->draw(player->getSprite());
+    if(info)
+        win->draw(player->getRect());
+
+    for(unsigned i=0; i<enemigos.size(); i++)
+    {
+        if(player->getPosition().y<=enemigos[i].getPosition().y)
+        {
+            enemigos[i].setColor(1);
+            win->draw(enemigos[i].getSprite());
+            if(info)
+                win->draw(enemigos[i].getRect());
+        }
+    }
+
+
+    //////////////////////////////////////////////////////////////////////////
+
     timeToString();
     win->draw(*txt_time);
     win->draw(player->getScoreTxt());
@@ -394,78 +426,7 @@ void Game::colisiones()
         }
     }
 }
-void Game::colisionBox()
-{
 
-
-    if(enemigos.size() == 0)
-    {
-        win->draw(player->getSprite());
-        if(info)
-            win->draw(player->getRect());
-    }
-    for(unsigned i=0; i<enemigos.size(); i++)
-    {
-
-
-        if(player->getPosition().y-enemigos[i].getPosition().y < 0) //Cuando el player esta por encima del enemigo las box enemigas son rojas
-            enemigos[i].setColor(0);
-        else
-            enemigos[i].setColor(1); //Cuando el player esta por debajo las box son verdes
-
-        win->draw(enemigos[i].getSprite());
-        win->draw(player->getSprite());
-        if(info)
-        {
-            win->draw(enemigos[i].getRect());
-            win->draw(player->getRect());
-        }
-
-    }
-
-    for(unsigned i=0; i<enemigos.size(); i++)
-    {
-        if(player->getPosition().y-enemigos[i].getPosition().y < 0)
-        {
-            win->draw(enemigos[i].getSprite());
-           if(info)
-                win->draw(enemigos[i].getRect());
-        }
-    }
-
-    /*for(unsigned i=0; i<enemigos.size(); i++)
-    {
-
-        if(player->getBoundsBox().intersects(enemigos[i].getBoundsBox()))
-        {
-            if(player->getPosition().y<enemigos[i].getPosition().y)
-            {
-                player->move(0,-1);
-
-            }
-
-            else if(player->getPosition().y>enemigos[i].getPosition().y)
-            {
-                player->move(0,1);
-            }
-
-            if(player->getPosition().x<enemigos[i].getPosition().x)
-            {
-                player->move(-1,0);
-
-            }
-
-            else if(player->getPosition().x>enemigos[i].getPosition().x)
-            {
-                player->move(1,0);
-            }
-            cout<<"ups"<<endl;
-
-
-
-        }
-    }*/
-}
 void Game::timeToString()
 {
     float val = general_clock.getElapsedTime().asSeconds();
