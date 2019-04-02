@@ -4,34 +4,39 @@ using namespace std;
 
 Object::Object(string type, Texture &tex)
 {
+    spr = new Sprite(tex);
+    spr->setOrigin(32,32);
     if(type=="botijola")
     {
         tipo="b";
-        spr = new Sprite(tex);
-        spr->setOrigin(32,32);
         spr->setTextureRect(IntRect(64, 64, 64, 64));
 
     }
     else if(type=="planchadito")
     {
         tipo="p";
-        spr = new Sprite(tex);
-        spr->setOrigin(32,32);
         spr->setTextureRect(IntRect(0, 0, 64, 64));
     }
     else if(type=="ducknamyte")
     {
         tipo="d";
-        spr = new Sprite(tex);
-        spr->setOrigin(32,32);
         spr->setTextureRect(IntRect(64,0, 64, 64));
     }
     else if(type=="pato")
     {
         tipo="m";
-        spr = new Sprite(tex);
-        spr->setOrigin(32,32);
         spr->setTextureRect(IntRect(0, 64, 64, 64));
+    }
+    else if(type=="municionCarabina")
+    {
+        tipo="ammoC";
+        spr->setTextureRect(IntRect(0, 128, 64, 64));
+    }
+
+    else if(type=="municionEscopeta")
+    {
+        tipo="ammoE";
+        spr->setTextureRect(IntRect(64, 128, 64, 64));
     }
 
 

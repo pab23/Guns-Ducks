@@ -6,22 +6,22 @@
     * move(int, int) Mueve el jugador en la direccion indicada por parametro.
     * getters y setters necesarios
 
-    *Se han intrudicido tanto la barra de vida como las zonas de curación.
 
-
-    *@author Sergio Bañuls Martinez
-
-
+    *@author Pablo Amoros Becerra Javier Ramirez de la Cal
 
 */
 Player::Player(Texture &tex)
 {
         spr = new Sprite(tex);
-        box = new RectangleShape();
-        box->setSize({50, 20});
+
+        armaActiva=0;
+        armas.push_back(Gun("Pistola", 1));
+
+
         spr->setOrigin(75/2,75/2);
         spr->setTextureRect(IntRect(1*75, 0*75, 75, 75));
         spr->setPosition(400,300);
+        spr->scale(.5,.5);
 
         //Score
         font_txt = new Font();
@@ -48,9 +48,18 @@ Player::Player(Texture &tex)
         txt_shield->setPosition(shield_box->getSize().x/2,570);
         txt_shield->setColor(Color::Black);
 
+        box = new RectangleShape({spr->getScale().x*spr->getTextureRect().width,spr->getScale().y*spr->getTextureRect().height/4});
+        box->setFillColor(Color::Blue);
+        box->setOrigin(box->getSize().x/2,box->getSize().y/2);
+        box->setPosition(getPosition().x+3,getPosition().y+spr->getTextureRect().height/3);
 
-        //Velocidad
-        speed = 2; dir = {1, 0};
+        /*circle = new CircleShape();
+        circle->setOrigin(50,50);
+        circle->setPosition(spr->getPosition().x+2,spr->getPosition().y );
+        circle->setRadius(50);
+        circle->setFillColor(Color(255,0,0,120));*/
+
+        speed = 2.5; dir = {1, 0};
 }
 
 
@@ -86,24 +95,11 @@ void Player::move(int x, int y)
 
     dir = {x, y};
     spr->move(speedX, speedY);
+    //circle->move(speedX, speedY);
+    box->move(speedX, speedY);
 
 
 }
-
-Sprite Player::getSprite()
-{
-    return *spr;
-}
-
-Vector2f Player::getPosition()
-{
-    return spr->getPosition();
-}
-Vector2i Player::getDir()
-{
-    return dir;
-}
-
 int Player::getScore()
 {
     return score;
@@ -248,11 +244,134 @@ void Player::setShield(int x)
             txt_shield->setPosition(shield_box->getSize().x/2,txt_shield->getPosition().y);
         }
     }
+
+
+    if (life >= 50)
+    {
+        life_box->setFillColor(Color::Green);
+    }else if (life < 50 && life >= 20)
+    {
+        life_box->setFillColor(Color(255, 102, 0));
+    }else
+    {
+        life_box->setFillColor(Color::Red);
+    }
+
+
 }
 
 
 
+Sprite Player::getSprite()
+{
+    return *spr;
+}
+CircleShape Player::getCircle(){return *circle;}
+Vector2f Player::getPosition()
+{
+    return spr->getPosition();
+}
+Vector2i Player::getDir()
+{
+    return dir;
+}
+RectangleShape Player::getRect()
+{
+    return *box;
+}
+
+FloatRect Player::getBounds(){
+    return spr->getGlobalBounds();
+}
+
+FloatRect Player::getBoundsBox(){
+    return box->getGlobalBounds();
+}
+
+void Player::setPosition(Vector2f vec){
+    spr->setPosition(vec);
+    box->setPosition(vec.x, vec.y);
+}
 
 
 
+string Player::infoArmaActiva(int i)
+{
+    stringstream ss;
+    ss<<"Selecionada "<<armas[i].getNombre()<<": "<<armas[i].getMunicion();
+    string s=ss.str();
+    return s;
+}
+
+Gun Player::getArmaActiva()
+{
+    return armas[armaActiva];
+}
+
+void Player::cambiarArma()
+{
+    if(armaActiva==armas.size()-1)
+        armaActiva=0;
+    else
+        armaActiva++;
+    //cout<<armas[armaActiva].getNombre()<<": "<<armas[armaActiva].getMunicion()<<endl;
+    //cout<<infoArmaActiva(armaActiva)<<endl;
+}
+
+void Player::cogerMunicion(string n, int nbalas)
+{
+    bool estar=false;
+    int indice=0;
+
+    for(int i=0; i<armas.size() && !estar; i++) //Si el arma ya esta en el inventario solo le añadimos municion
+    {
+        if(armas[i].getNombre()==n)
+        {
+            estar=true;
+            armas[i].setMunicion(nbalas);
+            //cout<<armas[i].getNombre()<<": +"<<nbalas<<"balas"<<endl;
+        }
+    }
+
+    if(!estar) //Si no, la añadimos al inventario
+    {
+        armas.push_back(Gun(n, nbalas));
+        //cout<<"Has cogido: "<<n<<endl;
+    }
+}
+
+void Player::quitarBalaActiva()
+{
+    armas[armaActiva].setMunicion(-1);
+}
+void Player::empujon(int dirX, int dirY)
+{
+    float speedEm = 5, speedX, speedY;
+    switch(dirX)
+    {
+        case 1:
+            speedX = speedEm;
+        break;
+        case -1:
+            speedX = -speedEm;
+        break;
+        default:
+            speedX = 0;
+        break;
+    }
+    switch(dirY)
+    {
+        case 1:
+            speedY = speedEm;
+        break;
+        case -1:
+            speedY = -speedEm;
+        break;
+        default:
+            speedY = 0;
+        break;
+    }
+    spr->move(speedX, speedY);
+    box->move(speedX, speedY);
+}
 

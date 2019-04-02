@@ -1,9 +1,9 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 #include <iostream>
-#include <string>
 #include <sstream>
 #include <SFML/Graphics.hpp>
+#include "Gun.h"
 
 using namespace sf;
 using namespace std;
@@ -19,6 +19,12 @@ class Player
         Sprite getSprite();
         Vector2f getPosition();
         Vector2i getDir();
+        CircleShape getCircle();
+        FloatRect getBounds();
+        FloatRect getBoundsBox();
+        void setPosition(Vector2f vec);
+        RectangleShape getRect();
+        //void cambiarAnimacion();
         int getScore();
         Text getScoreTxt();
         void setScore(int);
@@ -31,8 +37,13 @@ class Player
         Text getLifeTxt();
         Text getShieldTxt();
         void gestionaVida(int);
-
-
+        Gun getArmaActiva();
+        Gun getArmaById();
+        void cambiarArma();
+        void cogerMunicion(string,int);
+        string infoArmaActiva(int);
+        void quitarBalaActiva();
+        void empujon(int, int);
 
 
     protected:
@@ -40,6 +51,7 @@ class Player
     private:
         Sprite *spr;
         RectangleShape *box, *life_box, *shield_box;
+        CircleShape *circle;//para que enemigos rodeen al player
         float speed;
         Vector2i dir;
         int score = 0;
@@ -48,6 +60,8 @@ class Player
         //Life
         int life, shield;
         Text *txt_life, *txt_shield;
+        vector<Gun> armas;
+        int armaActiva;
 
 };
 
