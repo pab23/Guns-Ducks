@@ -18,15 +18,28 @@ Game::Game(Vector2i win_dim)
     winDim=win_dim;
     win = new RenderWindow(VideoMode(win_dim.x, win_dim.y), "Guns & Ducks");
     win->setFramerateLimit(60);
+
+
     loadTextures();//Cargamos texturas
 
-    //valoroes del game
+
+    /// mapa de prueba
+    spr_map = new Sprite(*tex_map);
+    spr_map->setPosition(0,0);
+    spr_map->setScale(1.1,1.1);
+
+    /// HUD
+
+    hud = new Hud(*tex_ammo);
+
+
+    ///valores del game
     cont_oleadas, cont_rondas = 0;
 
-    //player
+    ///player
     player = new Player(*tex_player);
 
-    //enemy
+    ///enemy
     enemy_clock.restart();
     cont_oleadas = 0;//contador de oleadas
 
@@ -38,7 +51,7 @@ Game::Game(Vector2i win_dim)
     txt_time = new Text("0",*font);
     txt_time->setPosition(10,10);
 
-    //zona
+    ///zona
     life_zone = new RectangleShape({100,100});
     life_zone->setFillColor(Color::Green);
     life_zone->setPosition({100, 300});
@@ -55,9 +68,6 @@ Game::Game(Vector2i win_dim)
         objetos.push_back(Object("municionCarabina", *tex_object));
         objetos.push_back(Object("municionEscopeta", *tex_object));
     }
-
-
-
 
     gameLoop();
 
@@ -88,6 +98,10 @@ void Game::loadTextures(){
      tex_object = new Texture;
     tex_object->loadFromFile("resources/objetos.png");
 
+    // ammo display
+    tex_ammo = new Texture;
+    tex_ammo->loadFromFile("resources/ammo-display.png");
+
 
 
 
@@ -113,8 +127,6 @@ void Game::gameLoop()
         /** T_OLEADAS, N_OLEADAS y N_ENEMIES_OLEADA se definen en game.h
             Nº ENEMIGOS A CREAR = valor por defecto (5) + nº de oleadas que se han creado hasta el momento
             Ejemplo: Oleada 1 = 5 + 0; Oleada 2 = 5 + 1; Oleada 3 = 5 + 2; Oleada 4 = 5 + 3;      **/
-
-
 
         if(enemy_timer.asSeconds() > T_OLEADAS && cont_oleadas < N_OLEADAS ){//Nueva oleada
 
@@ -142,16 +154,15 @@ void Game::gameLoop()
     }
 }
 
-
-
 void Game::draw()
 {
 
     win->clear(Color::White);
 
-    Sprite *spr_map = new Sprite(*tex_map);
-    spr_map->setPosition(0,0);
+
     win->draw(*spr_map);
+
+
 
 
 
@@ -208,8 +219,10 @@ void Game::draw()
         win->draw(objetos[j].getSprite());
 
 
+    /// HUD (AMMO DISPLAY, RONDAS, ETC
 
-
+    hud->drawHud(win);
+    hud->setTxtAmmo(player->getArmaActiva().getMunicion());
 
     win->display();
 }
@@ -232,6 +245,10 @@ void Game::listenKeyboard()
           if(e.type == Event::KeyPressed && e.key.code == Keyboard::C)
         {
             player->cambiarArma();
+            hud->setGun(player->getArmaActiva().getNombre());
+
+
+
 
         }
 
@@ -270,6 +287,7 @@ void Game::listenKeyboard()
 
         if(player->getArmaActiva().getNombre()=="Carabina" && bullet_cooldown.asSeconds() >= .2f)
         {
+
             if(player->getArmaActiva().getMunicion()>0)
             {
                 bullet_clock.restart();
@@ -280,6 +298,7 @@ void Game::listenKeyboard()
             else{
                     //cout<<player->getArmaActiva().getNombre()<<": SIN MUNICION"<<endl;
                     player->cambiarArma();
+                    hud->setGun(player->getArmaActiva().getNombre());//cambiar arma en el hud del ammo
             }
 
 
@@ -287,6 +306,7 @@ void Game::listenKeyboard()
 
          if(player->getArmaActiva().getNombre()=="Escopeta" && bullet_cooldown.asSeconds() >= .9f)
         {
+
              if(player->getArmaActiva().getMunicion()>0)
              {
                  bullet_clock.restart();
@@ -296,7 +316,8 @@ void Game::listenKeyboard()
              }
              else{
                    // cout<<player->getArmaActiva().getNombre()<<": SIN MUNICION"<<endl;
-                   player->cambiarArma();
+                    player->cambiarArma();
+                    hud->setGun(player->getArmaActiva().getNombre());//cambiar arma en el hud del ammo
              }
 
 
@@ -340,9 +361,15 @@ void Game::colisiones()
         {
             if(balas[i].getBounds().intersects(enemigos[j].getBounds()))
             {
-                posicionarBlood(enemigos[j].getPosition());//activa y posiciona una sangre en la posicion del enemigo muerto. Falta el if(enemymuerto) para activarla solo cuando muera
+
                 balas.erase(balas.begin()+i);
-                enemigos.erase(enemigos.begin()+j);
+                enemigos[j].setVida(player->getArmaActiva().getNombre());
+                if(enemigos[j].getVida() <= 0)
+                {
+                    posicionarBlood(enemigos[j].getPosition());//activa y posiciona una sangre en la posicion del enemigo muerto. Falta el if(enemymuerto) para activarla solo cuando muera
+                    enemigos.erase(enemigos.begin()+j);
+
+                }
                 player->setScore(player->getScore()+kEnemy_reward);
                 player->gestionaVida(-10);
                 break;
@@ -357,12 +384,10 @@ void Game::colisiones()
 
             if(objetos[i].getTipo()=="b")
             {
-                //cout<<"Botijola: recuperamos todo el escudo"<<endl;
                 player->setShield(100-player->getShield());
             }
             else if(objetos[i].getTipo()=="d")
             {
-                //cout<<"Ducknamyte: elimina a todos los enemigos"<<endl;
                 for(unsigned i = 0; i < enemigos.size(); i++)
                 {
                     enemigos.erase(enemigos.begin(), enemigos.begin()+enemigos.size());
@@ -370,7 +395,6 @@ void Game::colisiones()
             }
             else if(objetos[i].getTipo()=="p")
             {
-                //cout<<"Planchadito: Recuperamos toda la vida"<<endl;
                 player->setLife(100-player->getLife());
             }
             else if(objetos[i].getTipo()=="m")
@@ -432,39 +456,6 @@ void Game::colisionBox()
                 win->draw(enemigos[i].getRect());
         }
     }
-
-    /*for(unsigned i=0; i<enemigos.size(); i++)
-    {
-
-        if(player->getBoundsBox().intersects(enemigos[i].getBoundsBox()))
-        {
-            if(player->getPosition().y<enemigos[i].getPosition().y)
-            {
-                player->move(0,-1);
-
-            }
-
-            else if(player->getPosition().y>enemigos[i].getPosition().y)
-            {
-                player->move(0,1);
-            }
-
-            if(player->getPosition().x<enemigos[i].getPosition().x)
-            {
-                player->move(-1,0);
-
-            }
-
-            else if(player->getPosition().x>enemigos[i].getPosition().x)
-            {
-                player->move(1,0);
-            }
-            cout<<"ups"<<endl;
-
-
-
-        }
-    }*/
 }
 void Game::timeToString()
 {
@@ -495,7 +486,7 @@ void Game::crearEnemy(int n, float s){
  for( unsigned i = 0; i < n; i++)
     {
 
-        Enemy aux(*tex_enemy,s);
+        Enemy aux(*tex_enemy,s, (int)100);
         enemigos.push_back(aux);
         crearBlood();
     }

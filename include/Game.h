@@ -12,6 +12,7 @@
 #include "Blood.h"
 #include "Gun.h"
 #include "Object.h"
+#include "Hud.h"
 
 
 /** VALORES POR DEFECTO PARA EL CONTROL DE DE ENEMIGOS Y OLEADAS **/
@@ -20,7 +21,7 @@
 #define N_OLEADAS 5 //nº de oleadas que se van a crear
 #define N_ENEMIES_OLEADA 5 //nº de enemigos por oleada
 #define SPEED_ENEMY .5 //velocidad del enemigo
-#define N_RONDAS 4
+#define N_RONDAS 6
 
 
 using namespace sf;
@@ -53,7 +54,8 @@ class Game
     private:
 
         RenderWindow *win;
-        Texture *tex_player,*tex_bloods, *tex_enemy, *tex_map, *tex_object;
+        Texture *tex_player,*tex_bloods, *tex_enemy, *tex_map, *tex_object, *tex_ammo;
+        Sprite *spr_map, *spr_ammo;
         Player *player;
         Event e;
         int cont_oleadas, cont_rondas; //contador de oleadas y rondas creadas
@@ -68,6 +70,7 @@ class Game
         Text *txt_time;
         Font *font;
         RectangleShape *life_zone;
+        Hud *hud;
 
 
 

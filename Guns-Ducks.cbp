@@ -50,6 +50,7 @@
 		<Unit filename="include/Enemy.h" />
 		<Unit filename="include/Game.h" />
 		<Unit filename="include/Gun.h" />
+		<Unit filename="include/Hud.h" />
 		<Unit filename="include/Object.h" />
 		<Unit filename="include/Player.h" />
 		<Unit filename="main.cpp" />
@@ -60,6 +61,7 @@
 		<Unit filename="src/Enemy.cpp" />
 		<Unit filename="src/Game.cpp" />
 		<Unit filename="src/Gun.cpp" />
+		<Unit filename="src/Hud.cpp" />
 		<Unit filename="src/Object.cpp" />
 		<Unit filename="src/Player.cpp" />
 		<Extensions>

@@ -13,7 +13,7 @@ class Enemy
 {
     public:
 
-        Enemy(Texture &, float vel);
+        Enemy(Texture &, float, int);
         ~Enemy();
 
         Sprite getSprite();
@@ -31,6 +31,8 @@ class Enemy
         void move(vector<Vector2f> v_posiciones);
         int RandomNumber( int inicio, int fin );//Devuelve un nº aleatorio inicio >= y <= fin
         vector<unsigned> getEnemyArround(vector<Enemy>& enemigos);
+        void setVida(string);
+        int getVida();
 
 
 
@@ -41,6 +43,7 @@ class Enemy
     private:
         Sprite *spr;
         float speed;
+        int hp;
         RectangleShape *box;
         //Vector2f direction;//Vector de posicion  player-enemigo.Indica la direccion que toma el enemigo para seguir al player.
         //Vector2f normalizedDir;//Vector "direction" normalizado.
