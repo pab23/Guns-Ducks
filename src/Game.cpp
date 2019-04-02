@@ -57,7 +57,7 @@ Game::Game(Vector2i win_dim)
     }
 
 
-
+    modoPato=false;
 
     gameLoop();
 
@@ -136,6 +136,13 @@ void Game::gameLoop()
             enemy_clock.restart();
             cont_oleadas=0;
             cont_rondas++;
+        }
+        ///Modo pato///
+        modoPato_timer=modoPato_clock.getElapsedTime();
+        if(modoPato && modoPato_timer.asSeconds()>=15)
+        {
+            cout<<"Se acabo el modo pato"<<endl;
+            modoPatoOFF();
         }
 
         draw();
@@ -452,8 +459,7 @@ void Game::itemCollisions()
             }
             else if(objetos[i].getTipo()=="m")
             {
-                //cout<<"Modo PaTo: matas a todos de un tiro"<<endl;
-                //player->getSprite().setColor(Color::Red);
+                modoPatoON();
             }
             else if(objetos[i].getTipo()=="ammoC")
             {
@@ -489,6 +495,30 @@ void Game::inZona()
         player->setLife(10);
         //cout<<player->getLife()<<endl;
     }
+}
+
+/// OBJETO MODO PATO ///
+void Game::modoPatoON()
+{
+    modoPato_clock.restart();
+    cout<<"Modo PaTo: matas a todos de un tiro"<<endl;
+    for(unsigned i = 0; i< enemigos.size(); i++)
+    {
+        enemigos[i].setHp(1);
+    }
+
+    modoPato=true;
+    //player->getSprite().setColor(Color::Red);
+
+}
+
+void Game::modoPatoOFF()
+{
+    for(unsigned i = 0; i< enemigos.size(); i++)
+    {
+        enemigos[i].setHp(100);
+    }
+    modoPato=false;
 }
 
     /// ENEMIES ///

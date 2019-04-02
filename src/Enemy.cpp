@@ -243,4 +243,9 @@ int Enemy::getVida()
     return hp;
 }
 
+void Enemy::setHp(int n)
+{
+    hp=n;
+}
+
 

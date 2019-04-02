@@ -45,9 +45,8 @@ class Game
         void inZona();
         void crearBlood();
         void posicionarBlood(Vector2f pos);
-
-
-
+        void modoPatoON();
+        void modoPatoOFF();
 
 
     protected:
@@ -63,10 +62,10 @@ class Game
         vector<Blood> bloods;
         vector<Bullet> balas;
         vector<Object> objetos;
-        Clock bullet_clock, general_clock, zone_clock,  enemy_clock,frame_clock;
-        Time bullet_cooldown, enemy_timer, general_timer, zone_timer;
+        Clock bullet_clock, general_clock, zone_clock,  enemy_clock,frame_clock, modoPato_clock;
+        Time bullet_cooldown, enemy_timer, general_timer, zone_timer, modoPato_timer;
         Vector2i winDim;
-        bool primer, info;
+        bool primer, info, modoPato;
         Text *txt_time;
         Font *font;
         RectangleShape *life_zone;

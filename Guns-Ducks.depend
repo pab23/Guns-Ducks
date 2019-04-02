@@ -585,7 +585,7 @@
 	<iostream>
 	"include/Game.h"
 
-1554222878 /home/elhectordesp/Escritorio/GIT/Pick-up/Guns-Ducks/include/Game.h
+1554224261 /home/elhectordesp/Escritorio/GIT/Pick-up/Guns-Ducks/include/Game.h
 	<SFML/Graphics.hpp>
 	<iostream>
 	<sstream>
@@ -609,7 +609,7 @@
 	<sstream>
 	<SFML/Graphics.hpp>
 
-1554222755 /home/elhectordesp/Escritorio/GIT/Pick-up/Guns-Ducks/include/Enemy.h
+1554223473 /home/elhectordesp/Escritorio/GIT/Pick-up/Guns-Ducks/include/Enemy.h
 	"SFML/Graphics.hpp"
 	<iostream>
 	<math.h>
@@ -662,7 +662,7 @@
 1554222755 source:/home/elhectordesp/Escritorio/GIT/Pick-up/Guns-Ducks/src/Bullet.cpp
 	"../include/Bullet.h"
 
-1554222755 source:/home/elhectordesp/Escritorio/GIT/Pick-up/Guns-Ducks/src/Enemy.cpp
+1554223639 source:/home/elhectordesp/Escritorio/GIT/Pick-up/Guns-Ducks/src/Enemy.cpp
 	"../include/Enemy.h"
 	<math.h>
 

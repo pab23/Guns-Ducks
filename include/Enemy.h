@@ -33,6 +33,7 @@ class Enemy
         vector<unsigned> getEnemyArround(vector<Enemy>& enemigos);
         void setVida(string);
         int getVida();
+        void setHp(int);
 
 
 
