@@ -105,11 +105,18 @@ void Game::gameLoop()
         colisiones();
         zone_timer = zone_clock.getElapsedTime();
         //Animation
-        if(animation_timer.asSeconds() >= .1)
+        if(animation_timer.asSeconds() >= .2)
         {
+            //Player
             player->changePos(player->getDir(), 1, player->getPosition());
             player->setSpr(player->getAnim().getSprite());
-          //  cout<< player->getAnim().getPosition().x<<endl;
+            //Enemigos
+            for(unsigned i = 0; i < enemigos.size(); i++)
+            {
+                enemigos[i].changePos(enemigos[i].getDir(), 0, enemigos[i].getPosition());
+                enemigos[i].setSpr(enemigos[i].getAnim().getSprite());
+            }
+
             animation_clock.restart();
         }
 

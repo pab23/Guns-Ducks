@@ -13,81 +13,89 @@ Animation::Animation(Texture tex, int obj)
     Vector2f posi = this->getRandomPosition(ventana);
     if(obj == 0)//enemy
     {
-        aux->setOrigin(0,0);
+         aux->setOrigin(0,0);
         aux->setTextureRect(IntRect(24,30,24,24));
         aux->setPosition(posi);
         //uu
-        matrix[0][0] = *aux;
+
         aux->setTextureRect(IntRect(48,30,24,24));
+        matrix[0][0] = *aux;
+        aux->setTextureRect(IntRect(24,30,24,24));
         matrix[1][0] = *aux;
         aux->setTextureRect(IntRect(48,30,24,24));
         matrix[2][0] = *aux;
-        aux->setTextureRect(IntRect(24,30,24,24));
-        matrix[3][0] = *aux;
         aux->setTextureRect(IntRect(0,30,24,24));
+        matrix[3][0] = *aux;
         //ur
+
+        aux->setTextureRect(IntRect(28,200,24,24));
         matrix[0][1] = *aux;
-        aux->setTextureRect(IntRect(28,200,24,24));
-        matrix[1][1] = *aux;
         aux->setTextureRect(IntRect(50,200,24,24));
-        matrix[2][1] = *aux;
+        matrix[1][1] = *aux;
         aux->setTextureRect(IntRect(28,200,24,24));
-        matrix[3][1] = *aux;
+        matrix[2][1] = *aux;
         aux->setTextureRect(IntRect(4,200,24,24));
+        matrix[3][1] = *aux;
         //rr
+
+        aux->setTextureRect(IntRect(24,142,24,24));
         matrix[0][2] = *aux;
-        aux->setTextureRect(IntRect(24,142,24,24));
-        matrix[1][2] = *aux;
         aux->setTextureRect(IntRect(51,142,24,24));
-        matrix[2][2] = *aux;
+        matrix[1][2] = *aux;
         aux->setTextureRect(IntRect(24,142,24,24));
-        matrix[3][2] = *aux;
+        matrix[2][2] = *aux;
         aux->setTextureRect(IntRect(0,142,24,24));
+        matrix[3][2] = *aux;
         //rd
+
+        aux->setTextureRect(IntRect(24,170,24,24));
         matrix[0][3] = *aux;
-        aux->setTextureRect(IntRect(24,170,24,24));
+        aux->setTextureRect(IntRect(48,170,24,24));
         matrix[1][3] = *aux;
-        aux->setTextureRect(IntRect(48,170,24,24));
+        aux->setTextureRect(IntRect(24,170,24,24));
         matrix[2][3] = *aux;
-        aux->setTextureRect(IntRect(24,170,24,24));
+        aux->setTextureRect(IntRect(0,170,24,24));
         matrix[3][3] = *aux;
-        aux->setTextureRect(IntRect(0,170,24,24));
         //dd
+
+        aux->setTextureRect(IntRect(24,0,24,24));
         matrix[0][4] = *aux;
-        aux->setTextureRect(IntRect(24,170,24,24));
+        aux->setTextureRect(IntRect(48,0,24,24));
         matrix[1][4] = *aux;
-        aux->setTextureRect(IntRect(48,170,24,24));
+        aux->setTextureRect(IntRect(24,0,24,24));
         matrix[2][4] = *aux;
-        aux->setTextureRect(IntRect(24,170,24,24));
+        aux->setTextureRect(IntRect(0,0,24,24));
         matrix[3][4] = *aux;
-        aux->setTextureRect(IntRect(0,170,24,24));
         //dl
+
+        aux->setTextureRect(IntRect(24,86,24,24));
         matrix[0][5] = *aux;
-        aux->setTextureRect(IntRect(24,86,24,24));
-        matrix[1][5] = *aux;
         aux->setTextureRect(IntRect(52,86,24,24));
-        matrix[2][5] = *aux;
+        matrix[1][5] = *aux;
         aux->setTextureRect(IntRect(24,86,24,24));
-        matrix[3][5] = *aux;
+        matrix[2][5] = *aux;
         aux->setTextureRect(IntRect(0,86,24,24));
+        matrix[3][5] = *aux;
         //ll
+
+        aux->setTextureRect(IntRect(24,58,24,24));
         matrix[0][6] = *aux;
-        aux->setTextureRect(IntRect(24,58,24,24));
-        matrix[1][6] = *aux;
         aux->setTextureRect(IntRect(48,58,24,24));
-        matrix[2][6] = *aux;
+        matrix[1][6] = *aux;
         aux->setTextureRect(IntRect(24,58,24,24));
-        matrix[3][6] = *aux;
+        matrix[2][6] = *aux;
         aux->setTextureRect(IntRect(0,58,24,24));
+        matrix[3][6] = *aux;
         //lu
+
+        aux->setTextureRect(IntRect(28,116,24,24));
         matrix[0][7] = *aux;
-        aux->setTextureRect(IntRect(28,116,24,24));
-        matrix[1][7] = *aux;
         aux->setTextureRect(IntRect(51,116,24,24));
-        matrix[2][7] = *aux;
+        matrix[1][7] = *aux;
         aux->setTextureRect(IntRect(28,116,24,24));
-        matrix[3][7] = *aux;
+        matrix[2][7] = *aux;
         aux->setTextureRect(IntRect(4,116,24,24));
+        matrix[3][7] = *aux;
 
         spr = new Sprite(matrix[pos][col]);
 
@@ -265,7 +273,7 @@ Sprite Animation::getSprite()
 
 void Animation::changePos(Vector2i dire, int obj, Vector2f posi)
 {
-    cout<<"["<<pos<<","<<col<<"]"<<endl;
+
     if(dire != dir)//si ha cambiado de direccion
     {
         dir = dire;
@@ -340,7 +348,7 @@ void Animation::changeSprite(int sprit, int obj, Vector2f posi)
         spr = new Sprite(matrix[pos][col]);
 
     }
-    cout<<dir.x<<dir.y<<endl;
+
     spr->setPosition(posi);
 
 

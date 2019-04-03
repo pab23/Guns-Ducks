@@ -272,12 +272,12 @@
 	"../include/Enemy.h"
 	<math.h>
 
-1552465806 source:/home/fv/Documentos/GIT/Guns-Ducks/Patos/main.cpp
+1553677081 source:/home/fv/Documentos/GIT/Guns-Ducks/Patos/main.cpp
 	<SFML/Graphics.hpp>
 	<iostream>
 	"include/Game.h"
 
-1552467980 /home/fv/Documentos/GIT/Guns-Ducks/Patos/include/Game.h
+1554277382 /home/fv/Documentos/GIT/Guns-Ducks/Patos/include/Game.h
 	<SFML/Graphics.hpp>
 	<iostream>
 	<sstream>
@@ -286,22 +286,29 @@
 	"Bullet.h"
 	"AnimatedSprite.h"
 	"Animation.h"
+	"Blood.h"
+	"Gun.h"
+	"Object.h"
 
-1552468087 /home/fv/Documentos/GIT/Guns-Ducks/Patos/include/Player.h
+1554277382 /home/fv/Documentos/GIT/Guns-Ducks/Patos/include/Player.h
 	<iostream>
 	<sstream>
 	<SFML/Graphics.hpp>
+	"Gun.h"
+	"../include/Animation.h"
 
-1552465806 /home/fv/Documentos/GIT/Guns-Ducks/Patos/include/Enemy.h
+1554278849 /home/fv/Documentos/GIT/Guns-Ducks/Patos/include/Enemy.h
 	"SFML/Graphics.hpp"
 	<iostream>
 	<math.h>
+	"VertexArray.hpp"
+	"../include/Animation.h"
 
-1552465616 /home/fv/Documentos/GIT/Guns-Ducks/Patos/include/Bullet.h
+1553677081 /home/fv/Documentos/GIT/Guns-Ducks/Patos/include/Bullet.h
 	"SFML/Graphics.hpp"
 	<iostream>
 
-1552465806 /home/fv/Documentos/GIT/Guns-Ducks/Patos/include/AnimatedSprite.h
+1553677081 /home/fv/Documentos/GIT/Guns-Ducks/Patos/include/AnimatedSprite.h
 	<SFML/Graphics/RenderTarget.hpp>
 	<SFML/System/Time.hpp>
 	<SFML/Graphics/Drawable.hpp>
@@ -309,28 +316,29 @@
 	<SFML/System/Vector2.hpp>
 	"Animation.h"
 
-1552465806 /home/fv/Documentos/GIT/Guns-Ducks/Patos/include/Animation.h
-	<vector>
-	<SFML/Graphics/Rect.hpp>
-	<SFML/Graphics/Texture.hpp>
+1554277382 /home/fv/Documentos/GIT/Guns-Ducks/Patos/include/Animation.h
+	<iostream>
+	<sstream>
+	<SFML/Graphics.hpp>
+	"../include/Animation.h"
 
 1552465806 source:/home/fv/Documentos/GIT/Guns-Ducks/Patos/src/AnimatedSprite.cpp
 	"../include/AnimatedSprite.h"
 
-1552465806 source:/home/fv/Documentos/GIT/Guns-Ducks/Patos/src/Animation.cpp
+1554279100 source:/home/fv/Documentos/GIT/Guns-Ducks/Patos/src/Animation.cpp
 	"../include/Animation.h"
 
-1552465616 source:/home/fv/Documentos/GIT/Guns-Ducks/Patos/src/Bullet.cpp
+1554277382 source:/home/fv/Documentos/GIT/Guns-Ducks/Patos/src/Bullet.cpp
 	"../include/Bullet.h"
 
-1552465806 source:/home/fv/Documentos/GIT/Guns-Ducks/Patos/src/Enemy.cpp
+1554278888 source:/home/fv/Documentos/GIT/Guns-Ducks/Patos/src/Enemy.cpp
 	"../include/Enemy.h"
 	<math.h>
 
-1552467718 source:/home/fv/Documentos/GIT/Guns-Ducks/Patos/src/Game.cpp
+1554278762 source:/home/fv/Documentos/GIT/Guns-Ducks/Patos/src/Game.cpp
 	"../include/Game.h"
 
-1552468067 source:/home/fv/Documentos/GIT/Guns-Ducks/Patos/src/Player.cpp
+1554277382 source:/home/fv/Documentos/GIT/Guns-Ducks/Patos/src/Player.cpp
 	"../include/Player.h"
 
 1554117586 /home/fv/Escritorio/Guns-Ducks/include/Gun.h
@@ -670,4 +678,36 @@
 
 1554144325 source:/home/fv/Escritorio/DIOS/src/Player.cpp
 	"../include/Player.h"
+
+1554277382 /home/fv/Documentos/GIT/Guns-Ducks/Patos/include/Gun.h
+	<iostream>
+	<sstream>
+	<SFML/Graphics.hpp>
+
+1554277382 /home/fv/Documentos/GIT/Guns-Ducks/Patos/include/VertexArray.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Vertex.hpp>
+	<SFML/Graphics/PrimitiveType.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<vector>
+
+1554277382 /home/fv/Documentos/GIT/Guns-Ducks/Patos/include/Blood.h
+	"SFML/Graphics.hpp"
+	<iostream>
+
+1553677123 /home/fv/Documentos/GIT/Guns-Ducks/Patos/include/Object.h
+	<iostream>
+	<ctime>
+	"SFML/Graphics.hpp"
+
+1554277382 source:/home/fv/Documentos/GIT/Guns-Ducks/Patos/src/Blood.cpp
+	"../include/Blood.h"
+	"Blood.h"
+
+1554277382 source:/home/fv/Documentos/GIT/Guns-Ducks/Patos/src/Gun.cpp
+	"Gun.h"
+
+1554277382 source:/home/fv/Documentos/GIT/Guns-Ducks/Patos/src/Object.cpp
+	"../include/Object.h"
 

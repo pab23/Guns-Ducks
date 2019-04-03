@@ -35,8 +35,12 @@ class Enemy
         vector<unsigned> getEnemyArround(vector<Enemy>& enemigos);
         void setVida(string);
         int getVida();
-        void setSpr(Sprite&);
-         void changePos(Vector2i, int, Vector2f);
+        void setSpr(const Sprite&);
+        void changePos(Vector2i, int, Vector2f);
+        Vector2i getDir();
+        Animation getAnim();
+
+
 
 
 
@@ -50,6 +54,7 @@ class Enemy
         float speed;
         int hp;
         RectangleShape *box;
+        Vector2i dir;
         //Vector2f direction;//Vector de posicion  player-enemigo.Indica la direccion que toma el enemigo para seguir al player.
         //Vector2f normalizedDir;//Vector "direction" normalizado.
         int dist_col = 50;//Distancia rquerida para la colision entre enemigos
