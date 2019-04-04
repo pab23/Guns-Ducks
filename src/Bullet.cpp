@@ -13,7 +13,7 @@ Bullet::Bullet(Vector2f pos, Vector2i p_dir, float radius)
 
 Bullet::~Bullet()
 {
-    //dtor
+    delete box;
 }
 
 void Bullet::move()

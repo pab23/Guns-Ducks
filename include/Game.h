@@ -61,7 +61,7 @@ class Game
         int cont_oleadas, cont_rondas; //contador de oleadas y rondas creadas
         vector<Enemy> enemigos;
         vector<Blood> bloods;
-        vector<Bullet> balas;
+        vector<Bullet*> balas;
         vector<Object> objetos;
         Clock bullet_clock, general_clock, zone_clock,  enemy_clock,frame_clock;
         Time bullet_cooldown, enemy_timer, general_timer, zone_timer;
