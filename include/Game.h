@@ -45,6 +45,7 @@ class Game
         void inZona();
         void crearBlood();
         void posicionarBlood(Vector2f pos);
+        void borrarBala(int);
 
 
 

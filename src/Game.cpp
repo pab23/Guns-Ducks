@@ -328,8 +328,7 @@ void Game::listenKeyboard()
         if(player->getArmaActiva().getNombre()=="Pistola" && bullet_cooldown.asSeconds() >= .5f)
         {
             bullet_clock.restart();
-            Bullet *aux = new Bullet(player->getPosition(), player->getDir(), 5);
-            balas.push_back(aux);//ultimo parametro radio a falta de implementar diferentes tipos de bala
+            balas.push_back(new Bullet(player->getPosition(), player->getDir(), 5));//ultimo parametro radio a falta de implementar diferentes tipos de bala
             //cout<<player->getArmaActiva().getNombre()<<": "<<player->getArmaActiva().getMunicion()<<endl;
 
         }
@@ -339,8 +338,7 @@ void Game::listenKeyboard()
             if(player->getArmaActiva().getMunicion()>0)
             {
                 bullet_clock.restart();
-                Bullet *aux = new Bullet(player->getPosition(), player->getDir(), 3);
-                balas.push_back(aux);//ultimo parametro radio a falta de implementar diferentes tipos de bala
+                balas.push_back(new Bullet(player->getPosition(), player->getDir(), 3));//ultimo parametro radio a falta de implementar diferentes tipos de bala
                 player->quitarBalaActiva();
                 //cout<<player->getArmaActiva().getNombre()<<": "<<player->getArmaActiva().getMunicion()<<endl;
             }
@@ -357,8 +355,7 @@ void Game::listenKeyboard()
              if(player->getArmaActiva().getMunicion()>0)
              {
                  bullet_clock.restart();
-                 Bullet *aux = new Bullet(player->getPosition(), player->getDir(), 7);
-                 balas.push_back(aux);//ultimo parametro radio a falta de implementar diferentes tipos de bala
+                 balas.push_back(new Bullet(player->getPosition(), player->getDir(), 7));//ultimo parametro radio a falta de implementar diferentes tipos de bala
                  player->quitarBalaActiva();
                 //cout<<player->getArmaActiva().getNombre()<<": "<<player->getArmaActiva().getMunicion()<<endl;
              }
@@ -379,19 +376,13 @@ void Game::listenKeyboard()
 }
 void Game::colisiones()
 {
-    FloatRect barrier0x({-30,-30}, {winDim.x+60 , 1});
-    FloatRect barrierxx({-30 , winDim.y+30}, {winDim.x+60 , 1});
-    FloatRect barrieryy({winDim.x+30 , -30}, {1 , winDim.y+60});
-    FloatRect barrier0y({-30 , -30}, {1 , winDim.y+60});
+
     for(unsigned i=0; i<balas.size(); i++)
     {
-
-        if(balas[i]->getBounds().intersects(barrier0x) || balas[i]->getBounds().intersects(barrier0y) ||balas[i]->getBounds().intersects(barrierxx) || balas[i]->getBounds().intersects(barrieryy))
+        Vector2f aux = balas[i]->getPos();
+        if(aux.x < 0 || aux.x > winDim.x || aux.y < 0 || aux.y > winDim.y)
         {
-            delete balas[i];
-            cout<<balas.size()<<" - ";
-            balas.erase(balas.begin()+i);
-            cout<<balas.size()<<endl;
+            borrarBala(i);
         }
     }
 
@@ -401,10 +392,8 @@ void Game::colisiones()
         {
             if(balas[i]->getBounds().intersects(enemigos[j].getBounds()))
             {
-                delete balas[i];
-                cout<<balas.size()<<" - ";
-                balas.erase(balas.begin()+i);
-                cout<<balas.size()<<endl;
+                borrarBala(i);
+
                 enemigos[j].setVida(player->getArmaActiva().getNombre());
                 if(enemigos[j].getVida() <= 0)
                 {
@@ -601,6 +590,15 @@ void Game::posicionarBlood(Vector2f pos){
         }
 
     }
+}
+
+void Game::borrarBala(int i)
+{
+    cout <<"borro"<<endl;
+    Bullet* aux = balas[i];
+    balas.erase(balas.begin()+i);
+    delete aux;
+    cout<<"borrado"<<balas.size()<<endl;
 }
 
 

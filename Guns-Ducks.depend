@@ -4,7 +4,7 @@
 	<iostream>
 	"include/Game.h"
 
-1554118229 /home/fv/Escritorio/Guns-Ducks/include/Game.h
+1554719468 /home/fv/Escritorio/Guns-Ducks/include/Game.h
 	<SFML/Graphics.hpp>
 	<iostream>
 	<sstream>
@@ -17,16 +17,16 @@
 	"Gun.h"
 	"Object.h"
 
-1554117586 /home/fv/Escritorio/Guns-Ducks/include/Player.h
+1554277452 /home/fv/Escritorio/Guns-Ducks/include/Player.h
 	<iostream>
 	<sstream>
 	<SFML/Graphics.hpp>
 	"Gun.h"
 
-1554119529 source:/home/fv/Escritorio/Guns-Ducks/src/Game.cpp
+1554719343 source:/home/fv/Escritorio/Guns-Ducks/src/Game.cpp
 	"../include/Game.h"
 
-1554117586 source:/home/fv/Escritorio/Guns-Ducks/src/Player.cpp
+1554277452 source:/home/fv/Escritorio/Guns-Ducks/src/Player.cpp
 	"../include/Player.h"
 
 1552465806 source:/home/fv/Documentos/GIT/Guns-Ducks/main.cpp
@@ -129,14 +129,14 @@
 	<math.h>
 	"VertexArray.hpp"
 
-1554117586 /home/fv/Escritorio/Guns-Ducks/include/Bullet.h
+1554719942 /home/fv/Escritorio/Guns-Ducks/include/Bullet.h
 	"SFML/Graphics.hpp"
 	<iostream>
 
-1554119335 source:/home/fv/Escritorio/Guns-Ducks/src/Bullet.cpp
+1554718839 source:/home/fv/Escritorio/Guns-Ducks/src/Bullet.cpp
 	"../include/Bullet.h"
 
-1554119076 source:/home/fv/Escritorio/Guns-Ducks/src/Enemy.cpp
+1554277423 source:/home/fv/Escritorio/Guns-Ducks/src/Enemy.cpp
 	"../include/Enemy.h"
 	<math.h>
 

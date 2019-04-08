@@ -11,12 +11,17 @@ class Bullet
 {
     public:
         Bullet(Vector2f, Vector2i, float);
+        Bullet(const Bullet&);
+
+        Bullet & operator=(const Bullet&);
+
         virtual ~Bullet();
 
 
         CircleShape getSprite();
         void move();
         FloatRect getBounds();
+        Vector2f getPos();
 
     protected:
 
