@@ -27,6 +27,17 @@ Object::Object(string type, Texture &tex)
         tipo="m";
         spr->setTextureRect(IntRect(0, 64, 64, 64));
     }
+    else if(type=="municionCarabina")
+    {
+        tipo="ammoC";
+        spr->setTextureRect(IntRect(0, 128, 64, 64));
+    }
+
+    else if(type=="municionEscopeta")
+    {
+        tipo="ammoE";
+        spr->setTextureRect(IntRect(64, 128, 64, 64));
+    }
 
 
 
