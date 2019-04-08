@@ -7,7 +7,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Bullet.h"
-#include "AnimatedSprite.h"
+
 #include "Animation.h"
 #include "Blood.h"
 #include "Gun.h"
