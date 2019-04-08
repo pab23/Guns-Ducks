@@ -1,24 +1,40 @@
-#ifndef ANIMATION_INCLUDE
-#define ANIMATION_INCLUDE
+#ifndef ANIMATION_H
+#define ANIMATION_H
 
-#include <vector>
-#include <SFML/Graphics/Rect.hpp>
-#include <SFML/Graphics/Texture.hpp>
+
+#include <iostream>
+#include <sstream>
+#include <SFML/Graphics.hpp>
+#include "../include/Animation.h"
+
+using namespace sf;
+using namespace std;
 
 class Animation
 {
 public:
-    Animation();
+    Animation(Texture, int);
 
-    void addFrame(sf::IntRect rect);
-    void setSpriteSheet(const sf::Texture& texture);
-    const sf::Texture* getSpriteSheet() const;
-    std::size_t getSize() const;
-    const sf::IntRect& getFrame(std::size_t n) const;
+    Sprite getSprite();
+
+    Vector2f getRandomPosition(Vector2i ventana);
+    int RandomNumber( int inicio, int fin );
+    ///////////
+    void changePos(Vector2i, int, Vector2f);
+    void changeSprite(int, int, Vector2f);
+
+
+
+
 
 private:
-    std::vector<sf::IntRect> m_frames;
-    const sf::Texture* m_texture;
+    Sprite matrix[4][8];
+    Texture anim_tex;
+    int pos;
+    int col;
+    Sprite *spr;
+    Vector2i dir;
+
 };
 
 #endif // ANIMATION_INCLUDE

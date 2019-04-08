@@ -58,6 +58,7 @@ Player::Player(Texture &tex)
         circle->setPosition(spr->getPosition().x+2,spr->getPosition().y );
         circle->setRadius(50);
         circle->setFillColor(Color(255,0,0,120));*/
+        anim = new Animation(tex,1);
 
         speed = 2.5; dir = {1, 0};
 }
@@ -343,5 +344,17 @@ void Player::cogerMunicion(string n, int nbalas)
 void Player::quitarBalaActiva()
 {
     armas[armaActiva].setMunicion(-1);
+}
+void Player::changePos(Vector2i dire, int obj, Vector2f posi)
+{
+    anim->changePos(dire, obj, posi);
+}
+void Player::setSpr(const Sprite &sprit)
+{
+    spr = new Sprite(sprit);
+}
+Animation Player::getAnim()
+{
+    return *anim;
 }
 

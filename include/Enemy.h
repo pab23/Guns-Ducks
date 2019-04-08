@@ -5,6 +5,7 @@
 #include <iostream>
 #include <math.h>
 #include "VertexArray.hpp"
+#include "Animation.h"
 
 using namespace std;
 using namespace sf;
@@ -33,6 +34,11 @@ class Enemy
         vector<unsigned> getEnemyArround(vector<Enemy>& enemigos);
         void setVida(string);
         int getVida();
+        void setHp(int);
+        void setSpr(const Sprite&);
+        void changePos(Vector2i, int, Vector2f);
+        Vector2i getDir();
+        Animation getAnim();
 
 
 
@@ -48,6 +54,8 @@ class Enemy
         //Vector2f direction;//Vector de posicion  player-enemigo.Indica la direccion que toma el enemigo para seguir al player.
         //Vector2f normalizedDir;//Vector "direction" normalizado.
         int dist_col = 50;//Distancia rquerida para la colision entre enemigos
+        Animation *anim;
+        Vector2i dir;
 
 
 

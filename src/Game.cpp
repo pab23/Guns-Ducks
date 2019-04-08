@@ -29,12 +29,11 @@ Game::Game(Vector2i win_dim)
     spr_map->setScale(1.1,1.1);
 
     /// HUD
-
     hud = new Hud(*tex_ammo);
 
 
     ///valores del game
-    cont_oleadas, cont_rondas = 0;
+    cont_oleadas = 0, cont_rondas = 0, cont_bajas = 0;
 
     ///player
     player = new Player(*tex_player);
@@ -43,6 +42,7 @@ Game::Game(Vector2i win_dim)
     enemy_clock.restart();
     cont_oleadas = 0;//contador de oleadas
 
+    /// info del juego
     primer = true;
     info = false;
 
@@ -56,8 +56,7 @@ Game::Game(Vector2i win_dim)
     life_zone->setFillColor(Color::Green);
     life_zone->setPosition({100, 300});
 
-    // Object
-
+    /// Object
 
     for(unsigned i = 0; i < 4; i++)
     {
@@ -69,6 +68,8 @@ Game::Game(Vector2i win_dim)
         objetos.push_back(Object("municionEscopeta", *tex_object));
     }
 
+    modoPato=false;
+
     gameLoop();
 
 }
@@ -76,7 +77,7 @@ Game::Game(Vector2i win_dim)
 void Game::loadTextures(){
     //player
     tex_player = new Texture();
-    tex_player->loadFromFile("resources/sprites.png");
+    tex_player->loadFromFile("resources/patos.png");
 
 
     //enemy
@@ -117,6 +118,24 @@ void Game::gameLoop()
         moverEnemigos();
         colisiones();
         zone_timer = zone_clock.getElapsedTime();
+         animation_timer = animation_clock.getElapsedTime();
+
+          ///Animation
+        if(animation_timer.asSeconds() >= .2)
+        {
+            //Player
+            player->changePos(player->getDir(), 1, player->getPosition());
+            player->setSpr(player->getAnim().getSprite());
+            //Enemigos
+            for(unsigned i = 0; i < enemigos.size(); i++)
+            {
+                enemigos[i].changePos(enemigos[i].getDir(), 0, enemigos[i].getPosition());
+                enemigos[i].setSpr(enemigos[i].getAnim().getSprite());
+            }
+
+            animation_clock.restart();
+        }
+
         if(zone_timer.asSeconds() >= 1)
         {
             inZona();
@@ -132,6 +151,7 @@ void Game::gameLoop()
 
             int n = N_ENEMIES_OLEADA + cont_oleadas;
             float s = SPEED_ENEMY + ((float)cont_rondas/10);
+            cout << "Ronda " << cont_rondas << ". Velocidad de enemigo: " << s <<". Enemigos creados: " << n << endl;
             crearEnemy(n,s);//crea x enemigos y hace cont_oleadas++
             enemy_clock.restart();
             }
@@ -148,6 +168,16 @@ void Game::gameLoop()
             cont_oleadas=0;
             cont_rondas++;
         }
+
+        ///Modo Pato///
+        modoPato_timer=modoPato_clock.getElapsedTime();
+        if(modoPato && modoPato_timer.asSeconds()>=15)
+        {
+            cout<<"Se acabo el modo pato"<<endl;
+            modoPatoOFF();
+        }
+
+
 
         draw();
 
@@ -198,13 +228,45 @@ void Game::draw()
 
     }
 
-    /// BULLET ///
+  /// BULLET ///
 
 
     for( unsigned j = 0; j < balas.size(); j++)
         win->draw(balas[j].getSprite());
 
-    colisionBox();
+    //////////////////////////////////////////////////////////////////////////
+    for(unsigned i=0; i<enemigos.size(); i++)
+    {
+
+
+        if(player->getPosition().y>enemigos[i].getPosition().y) //Cuando el player esta por encima del enemigo las box enemigas son rojas
+        {
+            enemigos[i].setColor(0);
+            win->draw(enemigos[i].getSprite());
+            if(info)
+                win->draw(enemigos[i].getRect());
+
+        }
+
+    }
+    win->draw(player->getSprite());
+    if(info)
+        win->draw(player->getRect());
+
+    for(unsigned i=0; i<enemigos.size(); i++)
+    {
+        if(player->getPosition().y<=enemigos[i].getPosition().y)
+        {
+            enemigos[i].setColor(1);
+            win->draw(enemigos[i].getSprite());
+            if(info)
+                win->draw(enemigos[i].getRect());
+        }
+    }
+
+
+    //////////////////////////////////////////////////////////////////////////
+
     timeToString();
     win->draw(*txt_time);
     win->draw(player->getScoreTxt());
@@ -223,6 +285,7 @@ void Game::draw()
 
     hud->drawHud(win);
     hud->setTxtAmmo(player->getArmaActiva().getMunicion());
+
 
     win->display();
 }
@@ -367,6 +430,8 @@ void Game::colisiones()
                 if(enemigos[j].getVida() <= 0)
                 {
                     posicionarBlood(enemigos[j].getPosition());//activa y posiciona una sangre en la posicion del enemigo muerto. Falta el if(enemymuerto) para activarla solo cuando muera
+                    cont_bajas++;
+                    hud->setTxtDuckdead(cont_bajas);
                     enemigos.erase(enemigos.begin()+j);
 
                 }
@@ -390,8 +455,11 @@ void Game::colisiones()
             {
                 for(unsigned i = 0; i < enemigos.size(); i++)
                 {
-                    enemigos.erase(enemigos.begin(), enemigos.begin()+enemigos.size());
+                    posicionarBlood(enemigos[i].getPosition());//activa y posiciona una sangre en la posicion del enemigo muerto. Falta el if(enemymuerto) para activarla solo cuando muera
+                    cont_bajas++;
                 }
+                hud->setTxtDuckdead(cont_bajas);
+                enemigos.erase(enemigos.begin(), enemigos.begin()+enemigos.size());
             }
             else if(objetos[i].getTipo()=="p")
             {
@@ -399,6 +467,8 @@ void Game::colisiones()
             }
             else if(objetos[i].getTipo()=="m")
             {
+
+                modoPatoON();
                 //cout<<"Modo PaTo: matas a todos de un tiro"<<endl;
                 //player->getSprite().setColor(Color::Red);
             }
@@ -418,65 +488,27 @@ void Game::colisiones()
         }
     }
 }
-void Game::colisionBox()
+
+
+
+///MODO PATO///
+void Game::modoPatoON()
 {
-
-
-    if(enemigos.size() == 0)
+    modoPato_clock.restart();
+    for(unsigned i=0; i<enemigos.size();i++)
     {
-        win->draw(player->getSprite());
-        if(info)
-            win->draw(player->getRect());
+        enemigos[i].setHp(1);
     }
+    modoPato=true;
+}
+void Game::modoPatoOFF()
+{
     for(unsigned i=0; i<enemigos.size(); i++)
     {
-
-
-        if(player->getPosition().y-enemigos[i].getPosition().y < 0) //Cuando el player esta por encima del enemigo las box enemigas son rojas
-            enemigos[i].setColor(0);
-        else
-            enemigos[i].setColor(1); //Cuando el player esta por debajo las box son verdes
-
-        win->draw(enemigos[i].getSprite());
-        win->draw(player->getSprite());
-        if(info)
-        {
-            win->draw(enemigos[i].getRect());
-            win->draw(player->getRect());
-        }
-
+        enemigos[i].setHp(100);
     }
-
-    for(unsigned i=0; i<enemigos.size(); i++)
-    {
-        if(player->getPosition().y-enemigos[i].getPosition().y < 0)
-        {
-            win->draw(enemigos[i].getSprite());
-           if(info)
-                win->draw(enemigos[i].getRect());
-        }
-    }
+    modoPato=false;
 }
-void Game::timeToString()
-{
-    float val = general_clock.getElapsedTime().asSeconds();
-
-    stringstream ss;
-    ss << val;
-
-    txt_time->setString(ss.str());
-}
-
-void Game::inZona()
-{
-
-    if(player->getSprite().getGlobalBounds().intersects(life_zone->getGlobalBounds()))
-    {
-        player->setLife(10);
-        //cout<<player->getLife()<<endl;
-    }
-}
-
     /// ENEMIES ///
 
 void Game::crearEnemy(int n, float s){
@@ -503,7 +535,7 @@ void Game::moverEnemigos(){
     -Creo un array v_vectores, donde en su primera casilla meto la pos del player y en el resto meto solo la pos de los enemigos que esten a "x" distancia del enemigo actual que estoy recorriendo en el array.
     -Es decir, si esa "x" distancia es menor que una distancia minima establecida en Enemy.h, se considera que "esta demasiado cerca" e introduzco la posicion del enemigo proximo en el array v_vectores.
     -Una vez tengo en v_vectores la posicion del player y los enemigos que estan cerca del enemigo actual selleccionado, llamo al metodo .move() para calcular el vector de direccion
-    que tiene que seguir el enemigo teniendo en cuenta la posicion del player y del resto de enemigos cercanos, para que cada enemigo siga al jugador y no colisionen entre ellos (se repelen).
+    que tiene que seguir el enemigo teniendo en cuenta la posicion del player y las del resto de enemigos cercanos, para que cada enemigo siga al jugador y no colisionen entre ellos (se repelen).
     -Pero esto no evita que, cuando hay muchos enemigos proximos entre si repeliendose, algun sprite se solape con otro. Para evitar esto tambien hago un metodo que cuando interseccionan
     las global-bound de los sprites, empuja +1px a los enemigos teniendo en cuenta cual esta a la der e izq del otro.
 
@@ -589,6 +621,26 @@ void Game::posicionarBlood(Vector2f pos){
             break;
         }
 
+    }
+}
+
+void Game::timeToString()
+{
+    float val = general_clock.getElapsedTime().asSeconds();
+
+    stringstream ss;
+    ss << val;
+
+    txt_time->setString(ss.str());
+}
+
+void Game::inZona()
+{
+
+    if(player->getSprite().getGlobalBounds().intersects(life_zone->getGlobalBounds()))
+    {
+        player->setLife(10);
+        //cout<<player->getLife()<<endl;
     }
 }
 

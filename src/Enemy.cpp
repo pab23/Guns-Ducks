@@ -13,6 +13,7 @@ Enemy::Enemy(Texture &tex, float vel, int vida)
     spr->setPosition(pos);
     spr->scale(1.5,1.5);
     hp = vida;
+    anim = new Animation(tex,0);
 
     box = new RectangleShape({spr->getTextureRect().width,spr->getTextureRect().height/4});
     box->setFillColor(Color::Red);
@@ -70,7 +71,7 @@ void Enemy::move(vector<Vector2f> v_posiciones){
 
     vector<Vector2f> vectores;
     Vector2f playerPosition,position, direction, normalizedDir, currentSpeed;
-    float aux = .8;
+    float aux = .8;//peso del vector de repulsion del enemigo
 
     for(unsigned i = 0;i < v_posiciones.size();i++)
     {
@@ -89,6 +90,27 @@ void Enemy::move(vector<Vector2f> v_posiciones){
         normalizedDir.y = direction.y / (sqrt(pow(direction.x, 2) + pow(direction.y, 2)));
         currentSpeed = normalizedDir * speed;//v.unitario * escalar, ahora tenemos modulo(velocidad) y direccion (vector direction)*Creo que esa es la teoria
 
+
+        if(direction.x < 0)
+            dir.x = -1;
+        else if(direction.x < 1.0)
+            dir.x = 0;
+        else dir.x = 1;
+
+        if(direction.y < 0)
+            dir.y = -1;
+        else if(direction.y < 1.0)
+            dir.y = 0;
+        else dir.y = 1;
+
+        Vector2f posP,posE;
+        posP = v_posiciones[0];
+        posE = getPosition();
+
+        if(posE.x <= posP.x+50 && posE.x >= posP.x -50)
+            cout << "estoy vertical con player" << endl;
+        else
+            cout << "ahora no" << endl;
 
         spr->move(currentSpeed);
         box->move(currentSpeed);
@@ -240,5 +262,26 @@ void Enemy::setVida(string gun)
 int Enemy::getVida()
 {
     return hp;
+}
+
+void Enemy::setHp(int n)
+{
+    hp=n;
+}
+void Enemy::changePos(Vector2i dire, int obj, Vector2f posi)
+{
+    anim->changePos(dire, obj, posi);
+}
+Animation Enemy::getAnim()
+{
+    return *anim;
+}
+Vector2i Enemy::getDir()
+{
+    return dir;
+}
+void Enemy::setSpr(const Sprite &sprit)
+{
+    spr = new Sprite(sprit);
 }
 

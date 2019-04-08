@@ -4,6 +4,7 @@
 #include <sstream>
 #include <SFML/Graphics.hpp>
 #include "Gun.h"
+#include "Animation.h"
 
 using namespace sf;
 using namespace std;
@@ -43,6 +44,9 @@ class Player
         void cogerMunicion(string,int);
         string infoArmaActiva(int);
         void quitarBalaActiva();
+        void setSpr(const Sprite&);
+        Animation getAnim();
+        void changePos(Vector2i, int, Vector2f);
 
 
     protected:
@@ -61,6 +65,7 @@ class Player
         Text *txt_life, *txt_shield;
         vector<Gun> armas;
         int armaActiva;
+        Animation *anim;
 
 };
 

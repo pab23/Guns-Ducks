@@ -17,14 +17,15 @@ class Hud
         void drawHud(RenderWindow*);
         void setGun(string);
         void setTxtAmmo(int n);
+        void setTxtDuckdead(int n);
 
     protected:
     private:
-        Texture *tex_ammo;
-        Sprite *spr_ammo;
+        Texture *tex_ammo;;
+        Sprite *spr_ammo, *spr_duckdead;
         string *str_gun;
         Font *font;
-        Text *txt_bullet;
+        Text *txt_bullet, *txt_duckdead;
 
 };
 
