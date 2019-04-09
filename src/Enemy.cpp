@@ -91,26 +91,18 @@ void Enemy::move(vector<Vector2f> v_posiciones){
         currentSpeed = normalizedDir * speed;//v.unitario * escalar, ahora tenemos modulo(velocidad) y direccion (vector direction)*Creo que esa es la teoria
 
 
-        if(direction.x < 0)
-            dir.x = -1;
-        else if(direction.x < 1.0)
-            dir.x = 0;
+        if(direction.x < 0) dir.x = -1;
         else dir.x = 1;
 
-        if(direction.y < 0)
-            dir.y = -1;
-        else if(direction.y < 1.0)
-            dir.y = 0;
+        if(direction.y < 0)dir.y = -1;
         else dir.y = 1;
 
         Vector2f posP,posE;
         posP = v_posiciones[0];
         posE = getPosition();
 
-        if(posE.x <= posP.x+50 && posE.x >= posP.x -50)
-            cout << "estoy vertical con player" << endl;
-        else
-            cout << "ahora no" << endl;
+        if(posE.x <= posP.x+30 && posE.x >= posP.x -30)dir.x = 0;
+        if(posE.y <= posP.y+30 && posE.y >= posP.y -30)dir.y = 0;
 
         spr->move(currentSpeed);
         box->move(currentSpeed);

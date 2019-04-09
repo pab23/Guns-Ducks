@@ -377,7 +377,7 @@
 	<iostream>
 	"include/Game.h"
 
-1554723080 /home/javi/Escritorio/extra/Guns-Ducks/include/Game.h
+1554731496 /home/javi/Escritorio/extra/Guns-Ducks/include/Game.h
 	<SFML/Graphics.hpp>
 	<iostream>
 	<sstream>
@@ -462,7 +462,7 @@
 1551257072 source:/home/javi/Escritorio/extra/Guns-Ducks/src/Bullet.cpp
 	"../include/Bullet.h"
 
-1554721266 source:/home/javi/Escritorio/extra/Guns-Ducks/src/Enemy.cpp
+1554731439 source:/home/javi/Escritorio/extra/Guns-Ducks/src/Enemy.cpp
 	"../include/Enemy.h"
 	<math.h>
 
