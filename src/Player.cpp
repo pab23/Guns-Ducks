@@ -12,10 +12,10 @@
 */
 Player::Player(Texture &tex)
 {
-        int armaActiva=0;
-        armas.push_back(Gun("Pistola", 1));
-
         spr = new Sprite(tex);
+
+        armaActiva=0;
+        armas.push_back(Gun("Pistola", 1));
 
 
         spr->setOrigin(75/2,75/2);
@@ -53,14 +53,14 @@ Player::Player(Texture &tex)
         box->setOrigin(box->getSize().x/2,box->getSize().y/2);
         box->setPosition(getPosition().x+3,getPosition().y+spr->getTextureRect().height/3);
 
-        circle = new CircleShape();
+        /*circle = new CircleShape();
         circle->setOrigin(50,50);
         circle->setPosition(spr->getPosition().x+2,spr->getPosition().y );
         circle->setRadius(50);
-        circle->setFillColor(Color(255,0,0,120));
+        circle->setFillColor(Color(255,0,0,120));*/
+        anim = new Animation(tex,1);
 
-        speed = 4; dir = {1, 0};
-
+        speed = 2.5; dir = {1, 0};
 }
 
 
@@ -96,7 +96,7 @@ void Player::move(int x, int y)
 
     dir = {x, y};
     spr->move(speedX, speedY);
-    circle->move(speedX, speedY);
+    //circle->move(speedX, speedY);
     box->move(speedX, speedY);
 
 
@@ -294,6 +294,8 @@ void Player::setPosition(Vector2f vec){
     box->setPosition(vec.x, vec.y);
 }
 
+
+
 string Player::infoArmaActiva(int i)
 {
     stringstream ss;
@@ -314,7 +316,7 @@ void Player::cambiarArma()
     else
         armaActiva++;
     //cout<<armas[armaActiva].getNombre()<<": "<<armas[armaActiva].getMunicion()<<endl;
-    cout<<infoArmaActiva(armaActiva)<<endl;
+    //cout<<infoArmaActiva(armaActiva)<<endl;
 }
 
 void Player::cogerMunicion(string n, int nbalas)
@@ -328,14 +330,14 @@ void Player::cogerMunicion(string n, int nbalas)
         {
             estar=true;
             armas[i].setMunicion(nbalas);
-            cout<<armas[i].getNombre()<<": +"<<nbalas<<"balas"<<endl;
+            //cout<<armas[i].getNombre()<<": +"<<nbalas<<"balas"<<endl;
         }
     }
 
     if(!estar) //Si no, la añadimos al inventario
     {
         armas.push_back(Gun(n, nbalas));
-        cout<<"Has cogido: "<<n<<endl;
+        //cout<<"Has cogido: "<<n<<endl;
     }
 }
 
@@ -343,7 +345,46 @@ void Player::quitarBalaActiva()
 {
     armas[armaActiva].setMunicion(-1);
 }
-
-
-
+void Player::changePos(Vector2i dire, int obj, Vector2f posi)
+{
+    anim->changePos(dire, obj, posi);
+}
+void Player::setSpr(const Sprite &sprit)
+{
+    spr = new Sprite(sprit);
+}
+Animation Player::getAnim()
+{
+    return *anim;
+}
+void Player::empujon(int dirX, int dirY)
+{
+    float speedEm = 5, speedX, speedY;
+    switch(dirX)
+    {
+        case 1:
+            speedX = speedEm;
+        break;
+        case -1:
+            speedX = -speedEm;
+        break;
+        default:
+            speedX = 0;
+        break;
+    }
+    switch(dirY)
+    {
+        case 1:
+            speedY = speedEm;
+        break;
+        case -1:
+            speedY = -speedEm;
+        break;
+        default:
+            speedY = 0;
+        break;
+    }
+    spr->move(speedX, speedY);
+    box->move(speedX, speedY);
+}
 
