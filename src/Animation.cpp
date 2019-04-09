@@ -1,6 +1,9 @@
 
 #include "../include/Animation.h"
 
+
+
+
 Animation::Animation(Texture tex, int obj)
 {
     //obj indica si es player o enemy:  0 - enemy   1 - player
@@ -191,6 +194,12 @@ Animation::Animation(Texture tex, int obj)
 
     }
 
+
+}
+
+Animation::~Animation()
+{
+    delete spr;
 
 }
 

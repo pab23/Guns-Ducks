@@ -15,7 +15,7 @@ class Enemy
     public:
 
         Enemy(Texture &, float, int);
-        ~Enemy();
+        virtual ~Enemy();
 
         Sprite getSprite();
         FloatRect getBounds();//Devuelve la global bounds del sprite enemigo
