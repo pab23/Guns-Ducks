@@ -117,6 +117,7 @@ void Game::gameLoop()
         listenKeyboard();
         moverEnemigos();
         colisiones();
+        playerCollisions();
         zone_timer = zone_clock.getElapsedTime();
          animation_timer = animation_clock.getElapsedTime();
 
@@ -151,7 +152,7 @@ void Game::gameLoop()
 
             int n = N_ENEMIES_OLEADA + cont_oleadas;
             float s = SPEED_ENEMY + ((float)cont_rondas/10);
-            cout << "Ronda " << cont_rondas << ". Velocidad de enemigo: " << s <<". Enemigos creados: " << n << endl;
+            //cout << "Ronda " << cont_rondas << ". Velocidad de enemigo: " << s <<". Enemigos creados: " << n << endl;
             crearEnemy(n,s);//crea x enemigos y hace cont_oleadas++
             enemy_clock.restart();
             }
@@ -232,7 +233,7 @@ void Game::draw()
 
 
     for( unsigned j = 0; j < balas.size(); j++)
-        win->draw(balas[j].getSprite());
+        win->draw(balas[j]->getSprite());
 
     //////////////////////////////////////////////////////////////////////////
     for(unsigned i=0; i<enemigos.size(); i++)
@@ -310,11 +311,7 @@ void Game::listenKeyboard()
             player->cambiarArma();
             hud->setGun(player->getArmaActiva().getNombre());
 
-
-
-
         }
-
 
     }
     if( Keyboard::isKeyPressed(Keyboard::W))
@@ -337,26 +334,22 @@ void Game::listenKeyboard()
         player->move(x, y);
 
 
-   if( Keyboard::isKeyPressed(Keyboard::Space))
+  if( Keyboard::isKeyPressed(Keyboard::Space))
     {
-
         if(player->getArmaActiva().getNombre()=="Pistola" && bullet_cooldown.asSeconds() >= .5f)
         {
             bullet_clock.restart();
-            balas.push_back(Bullet(player->getPosition(), player->getDir(), 5));//ultimo parametro radio a falta de implementar diferentes tipos de bala
+            balas.push_back(new Bullet(player->getPosition(), player->getDir(), 5));//ultimo parametro radio a falta de implementar diferentes tipos de bala
             //cout<<player->getArmaActiva().getNombre()<<": "<<player->getArmaActiva().getMunicion()<<endl;
 
         }
-
         if(player->getArmaActiva().getNombre()=="Carabina" && bullet_cooldown.asSeconds() >= .2f)
         {
-
             if(player->getArmaActiva().getMunicion()>0)
             {
                 bullet_clock.restart();
-                balas.push_back(Bullet(player->getPosition(), player->getDir(), 3));//ultimo parametro radio a falta de implementar diferentes tipos de bala
+                balas.push_back(new Bullet(player->getPosition(), player->getDir(), 3));//ultimo parametro radio a falta de implementar diferentes tipos de bala
                 player->quitarBalaActiva();
-                //cout<<player->getArmaActiva().getNombre()<<": "<<player->getArmaActiva().getMunicion()<<endl;
             }
             else{
                     //cout<<player->getArmaActiva().getNombre()<<": SIN MUNICION"<<endl;
@@ -364,131 +357,67 @@ void Game::listenKeyboard()
                     hud->setGun(player->getArmaActiva().getNombre());//cambiar arma en el hud del ammo
             }
 
-
         }
-
          if(player->getArmaActiva().getNombre()=="Escopeta" && bullet_cooldown.asSeconds() >= .9f)
         {
-
              if(player->getArmaActiva().getMunicion()>0)
              {
                  bullet_clock.restart();
-                balas.push_back(Bullet(player->getPosition(), player->getDir(), 7));//ultimo parametro radio a falta de implementar diferentes tipos de bala
-                player->quitarBalaActiva();
+                 balas.push_back(new Bullet(player->getPosition(), player->getDir(), 7));//ultimo parametro radio a falta de implementar diferentes tipos de bala
+                 player->quitarBalaActiva();
                 //cout<<player->getArmaActiva().getNombre()<<": "<<player->getArmaActiva().getMunicion()<<endl;
              }
              else{
                    // cout<<player->getArmaActiva().getNombre()<<": SIN MUNICION"<<endl;
-                    player->cambiarArma();
-                    hud->setGun(player->getArmaActiva().getNombre());//cambiar arma en el hud del ammo
+                   player->cambiarArma();
+                   hud->setGun(player->getArmaActiva().getNombre());//cambiar arma en el hud del ammo
              }
-
-
         }
-
-
     }
 
     for(unsigned i=0; i<balas.size(); i++)
-        balas[i].move();
+        balas[i]->move();
 
 }
 void Game::colisiones()
 {
-    FloatRect barrier0x({-30,-30}, {winDim.x+60 , 1});
-    FloatRect barrierxx({-30 , winDim.y+30}, {winDim.x+60 , 1});
-    FloatRect barrieryy({winDim.x+30 , -30}, {1 , winDim.y+60});
-    FloatRect barrier0y({-30 , -30}, {1 , winDim.y+60});
 
     for(unsigned i=0; i<balas.size(); i++)
     {
-
-        if(balas[i].getBounds().intersects(barrier0x))
-            balas.erase(balas.begin()+i);
-
-        if(balas[i].getBounds().intersects(barrier0y))
-            balas.erase(balas.begin()+i);
-
-        if(balas[i].getBounds().intersects(barrierxx))
-            balas.erase(balas.begin()+i);
-
-        if(balas[i].getBounds().intersects(barrieryy))
-            balas.erase(balas.begin()+i);
-
-
+        Vector2f aux = balas[i]->getPos();
+        if(aux.x < 0 || aux.x > winDim.x || aux.y < 0 || aux.y > winDim.y)
+        {
+            borrarBala(i);
+        }
     }
 
      for(unsigned i = 0; i < balas.size();i++)
     {
         for(unsigned j = 0; j < enemigos.size();j++)
         {
-            if(balas[i].getBounds().intersects(enemigos[j].getBounds()))
+            if(balas[i]->getBounds().intersects(enemigos[j].getBounds()))
             {
+                borrarBala(i);
 
-                balas.erase(balas.begin()+i);
                 enemigos[j].setVida(player->getArmaActiva().getNombre());
                 if(enemigos[j].getVida() <= 0)
                 {
                     posicionarBlood(enemigos[j].getPosition());//activa y posiciona una sangre en la posicion del enemigo muerto. Falta el if(enemymuerto) para activarla solo cuando muera
+                    enemigos.erase(enemigos.begin()+j);
                     cont_bajas++;
                     hud->setTxtDuckdead(cont_bajas);
-                    enemigos.erase(enemigos.begin()+j);
 
                 }
                 player->setScore(player->getScore()+kEnemy_reward);
-                player->gestionaVida(-10);
+
+
                 break;
             }
         }
     }
-    for(int i = 0; i < objetos.size(); i++)
-    {
-        if(objetos[i].getBounds().intersects(player->getSprite().getGlobalBounds()))
-        {
+    itemCollisions();
 
-
-            if(objetos[i].getTipo()=="b")
-            {
-                player->setShield(100-player->getShield());
-            }
-            else if(objetos[i].getTipo()=="d")
-            {
-                for(unsigned i = 0; i < enemigos.size(); i++)
-                {
-                    posicionarBlood(enemigos[i].getPosition());//activa y posiciona una sangre en la posicion del enemigo muerto. Falta el if(enemymuerto) para activarla solo cuando muera
-                    cont_bajas++;
-                }
-                hud->setTxtDuckdead(cont_bajas);
-                enemigos.erase(enemigos.begin(), enemigos.begin()+enemigos.size());
-            }
-            else if(objetos[i].getTipo()=="p")
-            {
-                player->setLife(100-player->getLife());
-            }
-            else if(objetos[i].getTipo()=="m")
-            {
-
-                modoPatoON();
-                //cout<<"Modo PaTo: matas a todos de un tiro"<<endl;
-                //player->getSprite().setColor(Color::Red);
-            }
-            else if(objetos[i].getTipo()=="ammoC")
-            {
-                player->cogerMunicion("Carabina", 50);
-
-            }
-
-            else if(objetos[i].getTipo()=="ammoE")
-            {
-                player->cogerMunicion("Escopeta", 10);
-
-            }
-            objetos.erase(objetos.begin()+i);
-
-        }
-    }
 }
-
 
 
 ///MODO PATO///
@@ -644,4 +573,91 @@ void Game::inZona()
     }
 }
 
+void Game::playerCollisions()
+{
+    for(unsigned i = 0; i < enemigos.size(); i++)
+    {
+        if(enemigos[i].getBounds().intersects(player->getBounds()))
+        {
+            if(enemigos[i].getPosition().x > player->getPosition().x)
+            {
+                player->empujon(-1,0);
+            }
+            else
+            {
+                player->empujon(1,0);
+            }
+            if(enemigos[i].getPosition().y > player->getPosition().y)
+            {
+                player->empujon(0, -1);
+            }
+            else
+            {
+                player->empujon(0, 1);
+            }
+            player->gestionaVida(-10);
+            //break;
+        }
+    }
+
+}
+void Game::borrarBala(int i)
+{
+
+    Bullet* aux = balas[i];
+    balas.erase(balas.begin()+i);
+    delete aux;
+
+}
+void Game::itemCollisions()
+{
+    for(int i = 0; i < objetos.size(); i++)
+    {
+        if(objetos[i].getBounds().intersects(player->getSprite().getGlobalBounds()))
+        {
+
+
+            if(objetos[i].getTipo()=="b")
+            {
+                //cout<<"Botijola: recuperamos todo el escudo"<<endl;
+                player->setShield(100-player->getShield());
+            }
+            else if(objetos[i].getTipo()=="d")
+            {
+                //cout<<"Ducknamyte: elimina a todos los enemigos"<<endl;
+                for(unsigned i = 0; i < enemigos.size(); i++)
+                {
+                posicionarBlood(enemigos[i].getPosition());//activa y posiciona una sangre en la posicion del enemigo muerto. Falta el if(enemymuerto) para activarla solo cuando muera
+                cont_bajas++;
+
+                }
+                hud->setTxtDuckdead(cont_bajas);
+                enemigos.erase(enemigos.begin(), enemigos.begin()+enemigos.size());
+            }
+            else if(objetos[i].getTipo()=="p")
+            {
+                //cout<<"Planchadito: Recuperamos toda la vida"<<endl;
+                player->setLife(100-player->getLife());
+            }
+            else if(objetos[i].getTipo()=="m")
+            {
+                //cout<<"Modo PaTo: matas a todos de un tiro"<<endl;
+                //player->getSprite().setColor(Color::Red);
+            }
+            else if(objetos[i].getTipo()=="ammoC")
+            {
+                player->cogerMunicion("Carabina", 50);
+
+            }
+
+            else if(objetos[i].getTipo()=="ammoE")
+            {
+                player->cogerMunicion("Escopeta", 10);
+
+            }
+            objetos.erase(objetos.begin()+i);
+
+        }
+    }
+}
 

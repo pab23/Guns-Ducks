@@ -7,13 +7,37 @@ Bullet::Bullet(Vector2f pos, Vector2i p_dir, float radius)
     box->setFillColor(Color::Red);
     box->setPosition(pos);
     dir = p_dir;
-    speed = 5;
+    speed = 50;
 
 }
 
+Bullet::Bullet(const Bullet& b)
+{
+    box = b.box;
+    dir = b.dir;
+    speed = b.speed;
+}
+
+Bullet & Bullet::operator=(const Bullet& b)
+{
+    if(this != &b)
+    {
+        if(box != NULL)
+            delete box;
+        if(b.box != NULL)
+            *box = *b.box;
+        dir = b.dir;
+        speed = b.speed;
+    }
+    return *this;
+}
+
+
 Bullet::~Bullet()
 {
-    //dtor
+    delete box;
+    dir = {0,0};
+    speed = 0;
 }
 
 void Bullet::move()
@@ -54,8 +78,11 @@ CircleShape Bullet::getSprite()
 
     return *box;
 }
+Vector2f Bullet::getPos()
+{
+    return box->getPosition();
+}
 
 FloatRect Bullet::getBounds(){
     return box->getGlobalBounds();
 }
-

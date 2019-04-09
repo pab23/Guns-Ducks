@@ -377,7 +377,7 @@
 	<iostream>
 	"include/Game.h"
 
-1554731496 /home/javi/Escritorio/extra/Guns-Ducks/include/Game.h
+1554809931 /home/javi/Escritorio/extra/Guns-Ducks/include/Game.h
 	<SFML/Graphics.hpp>
 	<iostream>
 	<sstream>
@@ -390,7 +390,7 @@
 	"Object.h"
 	"Hud.h"
 
-1554719371 /home/javi/Escritorio/extra/Guns-Ducks/include/Player.h
+1554809756 /home/javi/Escritorio/extra/Guns-Ducks/include/Player.h
 	<iostream>
 	<sstream>
 	<SFML/Graphics.hpp>
@@ -423,7 +423,7 @@
 	<SFML/Graphics/Drawable.hpp>
 	<vector>
 
-1551257072 /home/javi/Escritorio/extra/Guns-Ducks/include/Bullet.h
+1554808822 /home/javi/Escritorio/extra/Guns-Ducks/include/Bullet.h
 	"SFML/Graphics.hpp"
 	<iostream>
 
@@ -459,14 +459,14 @@
 	"../include/Blood.h"
 	"Blood.h"
 
-1551257072 source:/home/javi/Escritorio/extra/Guns-Ducks/src/Bullet.cpp
+1554808859 source:/home/javi/Escritorio/extra/Guns-Ducks/src/Bullet.cpp
 	"../include/Bullet.h"
 
-1554731439 source:/home/javi/Escritorio/extra/Guns-Ducks/src/Enemy.cpp
+1554731858 source:/home/javi/Escritorio/extra/Guns-Ducks/src/Enemy.cpp
 	"../include/Enemy.h"
 	<math.h>
 
-1554720773 source:/home/javi/Escritorio/extra/Guns-Ducks/src/Game.cpp
+1554810635 source:/home/javi/Escritorio/extra/Guns-Ducks/src/Game.cpp
 	"../include/Game.h"
 
 1554045108 source:/home/javi/Escritorio/extra/Guns-Ducks/src/Gun.cpp
@@ -478,6 +478,6 @@
 1554045108 source:/home/javi/Escritorio/extra/Guns-Ducks/src/Object.cpp
 	"../include/Object.h"
 
-1554720003 source:/home/javi/Escritorio/extra/Guns-Ducks/src/Player.cpp
+1554809816 source:/home/javi/Escritorio/extra/Guns-Ducks/src/Player.cpp
 	"../include/Player.h"
 

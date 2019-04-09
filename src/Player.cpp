@@ -357,4 +357,34 @@ Animation Player::getAnim()
 {
     return *anim;
 }
+void Player::empujon(int dirX, int dirY)
+{
+    float speedEm = 5, speedX, speedY;
+    switch(dirX)
+    {
+        case 1:
+            speedX = speedEm;
+        break;
+        case -1:
+            speedX = -speedEm;
+        break;
+        default:
+            speedX = 0;
+        break;
+    }
+    switch(dirY)
+    {
+        case 1:
+            speedY = speedEm;
+        break;
+        case -1:
+            speedY = -speedEm;
+        break;
+        default:
+            speedY = 0;
+        break;
+    }
+    spr->move(speedX, speedY);
+    box->move(speedX, speedY);
+}
 

@@ -47,6 +47,7 @@ class Player
         void setSpr(const Sprite&);
         Animation getAnim();
         void changePos(Vector2i, int, Vector2f);
+        void empujon(int, int);
 
 
     protected:

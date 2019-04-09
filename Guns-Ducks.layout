@@ -2,60 +2,40 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="src/Player.cpp" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2983" topLine="208" />
-		</Cursor>
-		<Folding>
-			<Collapse line="13" />
-		</Folding>
-	</File>
-	<File name="include/Enemy.h" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1436" topLine="3" />
-		</Cursor>
-	</File>
-	<File name="src/Blood.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1396" topLine="9" />
-		</Cursor>
-	</File>
 	<File name="src/Enemy.cpp" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="5885" topLine="170" />
 		</Cursor>
 	</File>
-	<File name="src/Hud.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="386" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="src/Animation.cpp" open="1" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src/Animation.cpp" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="22" topLine="6" />
 		</Cursor>
 	</File>
-	<File name="include/Game.h" open="1" top="1" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="include/Game.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="204" topLine="0" />
+			<Cursor1 position="1233" topLine="12" />
 		</Cursor>
 	</File>
-	<File name="include/Hud.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src/Game.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="395" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="src/Object.cpp" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="src/Game.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="13737" topLine="442" />
+			<Cursor1 position="17932" topLine="96" />
 		</Cursor>
 		<Folding>
 			<Collapse line="76" />
+			<Collapse line="188" />
+			<Collapse line="294" />
+			<Collapse line="382" />
+			<Collapse line="424" />
+			<Collapse line="433" />
+			<Collapse line="442" />
+			<Collapse line="457" />
+			<Collapse line="536" />
+			<Collapse line="541" />
+			<Collapse line="556" />
+			<Collapse line="566" />
+			<Collapse line="576" />
+			<Collapse line="612" />
 		</Folding>
 	</File>
 	<File name="include/Blood.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -63,9 +43,32 @@
 			<Cursor1 position="319" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="src/Bullet.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src/Blood.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="257" topLine="1" />
+			<Cursor1 position="1396" topLine="9" />
+		</Cursor>
+	</File>
+	<File name="src/Bullet.cpp" open="1" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="390" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src/Player.cpp" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="8688" topLine="312" />
+		</Cursor>
+		<Folding>
+			<Collapse line="13" />
+		</Folding>
+	</File>
+	<File name="include/Animation.h" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="186" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src/Hud.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="386" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="main.cpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -73,19 +76,29 @@
 			<Cursor1 position="222" topLine="0" />
 		</Cursor>
 	</File>
+	<File name="src/Object.cpp" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="96" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include/Hud.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="395" topLine="0" />
+		</Cursor>
+	</File>
 	<File name="include/Player.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="54" topLine="0" />
+			<Cursor1 position="984" topLine="30" />
 		</Cursor>
 	</File>
-	<File name="include/Bullet.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="include/Bullet.h" open="1" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="310" topLine="0" />
+			<Cursor1 position="183" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="include/Animation.h" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="include/Enemy.h" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="186" topLine="0" />
+			<Cursor1 position="1436" topLine="3" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>
