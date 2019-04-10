@@ -24,7 +24,7 @@
 	"Gun.h"
 	"Animation.h"
 
-1554918238 source:/home/fv/Escritorio/Guns-Ducks/src/Game.cpp
+1554918384 source:/home/fv/Escritorio/Guns-Ducks/src/Game.cpp
 	"../include/Game.h"
 
 1554828931 source:/home/fv/Escritorio/Guns-Ducks/src/Player.cpp
@@ -518,7 +518,7 @@
 	"SFML/Graphics.hpp"
 	<iostream>
 
-1554917734 /home/fv/Escritorio/Guns-Ducks/include/Object.h
+1554918591 /home/fv/Escritorio/Guns-Ducks/include/Object.h
 	<iostream>
 	<ctime>
 	"SFML/Graphics.hpp"

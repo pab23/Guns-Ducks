@@ -23,10 +23,8 @@ class Object
         //GETTERS
         string getTipo();
         Sprite getSprite();
-        RectangleShape getRect();
         Vector2f getPosition();
         FloatRect getBounds();
-        FloatRect getBoundsBox();
 
         //SETTERS
         void setColor(int);
@@ -39,7 +37,6 @@ class Object
     private:
         string tipo;
         Sprite *spr;
-        RectangleShape *box;
 };
 
 
