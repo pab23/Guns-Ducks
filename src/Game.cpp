@@ -60,12 +60,12 @@ Game::Game(Vector2i win_dim)
 
     for(unsigned i = 0; i < 4; i++)
     {
-        objetos.push_back(Object("botijola", *tex_object));
-        objetos.push_back(Object("ducknamyte", *tex_object));
-        objetos.push_back(Object("planchadito", *tex_object));
-        objetos.push_back(Object("pato", *tex_object));
-        objetos.push_back(Object("municionCarabina", *tex_object));
-        objetos.push_back(Object("municionEscopeta", *tex_object));
+        objetos.push_back(new Object("botijola", *tex_object));
+        objetos.push_back(new Object("ducknamyte", *tex_object));
+        objetos.push_back(new Object("planchadito", *tex_object));
+        objetos.push_back(new Object("pato", *tex_object));
+        objetos.push_back(new Object("municionCarabina", *tex_object));
+        objetos.push_back(new Object("municionEscopeta", *tex_object));
     }
 
     modoPato=false;
@@ -112,14 +112,7 @@ void Game::gameLoop()
 
     while(win->isOpen())
     {
-        enemy_timer = enemy_clock.getElapsedTime();
-        bullet_cooldown = bullet_clock.getElapsedTime();
-        listenKeyboard();
-        moverEnemigos();
-        colisiones();
-        playerCollisions();
-        zone_timer = zone_clock.getElapsedTime();
-         animation_timer = animation_clock.getElapsedTime();
+        update();
 
           ///Animation
         if(animation_timer.asSeconds() >= .2)
@@ -184,18 +177,23 @@ void Game::gameLoop()
 
     }
 }
-
+void Game::update()
+{
+    enemy_timer = enemy_clock.getElapsedTime();
+    bullet_cooldown = bullet_clock.getElapsedTime();
+    listenKeyboard();
+    moverEnemigos();
+    colisiones();
+    playerCollisions();
+    zone_timer = zone_clock.getElapsedTime();
+    animation_timer = animation_clock.getElapsedTime();
+}
 void Game::draw()
 {
 
     win->clear(Color::White);
 
-
     win->draw(*spr_map);
-
-
-
-
 
      /// BLOOD ///
 
@@ -279,7 +277,7 @@ void Game::draw()
     /// OBJECT ///
 
     for( unsigned j = 0; j < objetos.size(); j++)
-        win->draw(objetos[j].getSprite());
+        win->draw(objetos[j]->getSprite());
 
 
     /// HUD (AMMO DISPLAY, RONDAS, ETC
@@ -406,9 +404,10 @@ void Game::colisiones()
                     enemigos.erase(enemigos.begin()+j);
                     cont_bajas++;
                     hud->setTxtDuckdead(cont_bajas);
+                    player->setScore(player->getScore()+ENEMY_REWARD);
 
                 }
-                player->setScore(player->getScore()+kEnemy_reward);
+
 
 
                 break;
@@ -535,8 +534,7 @@ void Game::moverEnemigos(){
     /// BLOOD ///
 
 void Game::crearBlood(){
-    Blood blood(*tex_bloods);
-    bloods.push_back(blood);
+    bloods.push_back(Blood(*tex_bloods));
 
 }
 void Game::posicionarBlood(Vector2f pos){
@@ -553,15 +551,7 @@ void Game::posicionarBlood(Vector2f pos){
     }
 }
 
-void Game::timeToString()
-{
-    float val = general_clock.getElapsedTime().asSeconds();
 
-    stringstream ss;
-    ss << val;
-
-    txt_time->setString(ss.str());
-}
 
 void Game::inZona()
 {
@@ -613,16 +603,16 @@ void Game::itemCollisions()
 {
     for(int i = 0; i < objetos.size(); i++)
     {
-        if(objetos[i].getBounds().intersects(player->getSprite().getGlobalBounds()))
+        if(objetos[i]->getBounds().intersects(player->getSprite().getGlobalBounds()))
         {
+            string aux = objetos[i]->getTipo();
 
-
-            if(objetos[i].getTipo()=="b")
+            if(aux=="b")
             {
                 //cout<<"Botijola: recuperamos todo el escudo"<<endl;
                 player->setShield(100-player->getShield());
             }
-            else if(objetos[i].getTipo()=="d")
+            else if(aux=="d")
             {
                 //cout<<"Ducknamyte: elimina a todos los enemigos"<<endl;
                 for(unsigned i = 0; i < enemigos.size(); i++)
@@ -634,30 +624,42 @@ void Game::itemCollisions()
                 hud->setTxtDuckdead(cont_bajas);
                 enemigos.erase(enemigos.begin(), enemigos.begin()+enemigos.size());
             }
-            else if(objetos[i].getTipo()=="p")
+            else if(aux=="p")
             {
                 //cout<<"Planchadito: Recuperamos toda la vida"<<endl;
                 player->setLife(100-player->getLife());
             }
-            else if(objetos[i].getTipo()=="m")
+            else if(aux=="m")
             {
                 //cout<<"Modo PaTo: matas a todos de un tiro"<<endl;
                 //player->getSprite().setColor(Color::Red);
             }
-            else if(objetos[i].getTipo()=="ammoC")
+            else if(aux=="ammoC")
             {
                 player->cogerMunicion("Carabina", 50);
 
             }
 
-            else if(objetos[i].getTipo()=="ammoE")
+            else if(aux=="ammoE")
             {
                 player->cogerMunicion("Escopeta", 10);
 
             }
+            Object* obau = objetos[i];
             objetos.erase(objetos.begin()+i);
+            delete obau;
 
         }
     }
+}
+
+void Game::timeToString()
+{
+    float val = general_clock.getElapsedTime().asSeconds();
+
+    stringstream ss;
+    ss << val;
+
+    txt_time->setString(ss.str());
 }
 

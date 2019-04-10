@@ -17,7 +17,7 @@
 
 
 /** VALORES POR DEFECTO PARA EL CONTROL DE DE ENEMIGOS Y OLEADAS **/
-#define kEnemy_reward 10
+#define ENEMY_REWARD 10
 #define T_OLEADAS 5 //tiempo en segundos que transcurre antes de crear una nueva oleada de enemigos
 #define N_OLEADAS 5 //nº de oleadas que se van a crear
 #define N_ENEMIES_OLEADA 5 //nº de enemigos por oleada
@@ -50,6 +50,7 @@ class Game
         void borrarBala(int);
         void playerCollisions();
         void itemCollisions();
+        void update();
 
 
 
@@ -67,7 +68,7 @@ class Game
         vector<Enemy> enemigos;
         vector<Blood> bloods;
         vector<Bullet*> balas;
-        vector<Object> objetos;
+        vector<Object*> objetos;
         Clock bullet_clock, general_clock, zone_clock,  enemy_clock,frame_clock,  modoPato_clock, animation_clock;
         Time bullet_cooldown, enemy_timer, general_timer, zone_timer, modoPato_timer,animation_timer;;
         Vector2i winDim;

@@ -28,11 +28,11 @@ Enemy::Enemy(Texture &tex, float vel, int vida)
 
 Enemy::~Enemy()
 {
-    delete spr;
+    /*delete spr;
     delete box;
     delete anim;
     speed = hp = dist_col = 0;
-    dir = {0, 0};
+    dir = {0, 0};*/
 
 }
 

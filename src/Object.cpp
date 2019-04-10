@@ -5,38 +5,38 @@ using namespace std;
 Object::Object(string type, Texture &tex)
 {
     spr = new Sprite(tex);
-    spr->setOrigin(32,32);
+    spr->setOrigin(SPR_SIZE/2,SPR_SIZE/2);
     if(type=="botijola")
     {
         tipo="b";
-        spr->setTextureRect(IntRect(64, 64, 64, 64));
+        spr->setTextureRect(IntRect(SPR_SIZE, SPR_SIZE, SPR_SIZE, SPR_SIZE));
 
     }
     else if(type=="planchadito")
     {
         tipo="p";
-        spr->setTextureRect(IntRect(0, 0, 64, 64));
+        spr->setTextureRect(IntRect(0, 0, SPR_SIZE, SPR_SIZE));
     }
     else if(type=="ducknamyte")
     {
         tipo="d";
-        spr->setTextureRect(IntRect(64,0, 64, 64));
+        spr->setTextureRect(IntRect(SPR_SIZE,0, SPR_SIZE, SPR_SIZE));
     }
     else if(type=="pato")
     {
         tipo="m";
-        spr->setTextureRect(IntRect(0, 64, 64, 64));
+        spr->setTextureRect(IntRect(0, SPR_SIZE, SPR_SIZE, SPR_SIZE));
     }
     else if(type=="municionCarabina")
     {
         tipo="ammoC";
-        spr->setTextureRect(IntRect(0, 128, 64, 64));
+        spr->setTextureRect(IntRect(0, SPR_SIZE*2, SPR_SIZE, SPR_SIZE));
     }
 
     else if(type=="municionEscopeta")
     {
         tipo="ammoE";
-        spr->setTextureRect(IntRect(64, 128, 64, 64));
+        spr->setTextureRect(IntRect(SPR_SIZE, SPR_SIZE*2, SPR_SIZE, SPR_SIZE));
     }
 
 
@@ -50,10 +50,33 @@ Object::Object(string type, Texture &tex)
     box->setOrigin(84/2,76/2);
     box->setPosition(randx, randy+76/1.8);
 }
-
+Object::Object(const Object& obj)
+{
+    tipo = obj.tipo;
+    spr = obj.spr;
+    box = obj.box;
+}
+Object & Object::operator=(const Object& obj)
+{
+    if(this != &obj)
+    {
+        if(spr != NULL)
+            delete spr;
+        if(box != NULL)
+            delete box;
+        tipo = obj.tipo;
+        spr = obj.spr;
+        box = obj.box;
+    }
+    return *this;
+}
 Object::~Object()
 {
-    //dtor
+    tipo = "";
+    if(spr != NULL)
+        delete spr;
+    if(box != NULL)
+        delete box;
 }
 
 Sprite Object::getSprite()
