@@ -1,6 +1,9 @@
 
 #include "../include/Animation.h"
 
+
+
+
 Animation::Animation(Texture tex, int obj)
 {
     //obj indica si es player o enemy:  0 - enemy   1 - player
@@ -16,6 +19,7 @@ Animation::Animation(Texture tex, int obj)
          aux->setOrigin(0,0);
         aux->setTextureRect(IntRect(24,30,24,24));
         aux->setPosition(posi);
+        aux->setScale(1.5,1.5);
         //uu
 
         aux->setTextureRect(IntRect(48,30,24,24));
@@ -98,13 +102,14 @@ Animation::Animation(Texture tex, int obj)
         matrix[3][7] = *aux;
 
         spr = new Sprite(matrix[pos][col]);
+
 
     }else if(obj == 1)//player
     {
         aux->setOrigin(0,0);
         aux->setTextureRect(IntRect(24,30,24,24));
         aux->setPosition(400,300);
-        //uu
+        aux->setScale(1.5,1.5);
 
         aux->setTextureRect(IntRect(48,30,24,24));
         matrix[0][0] = *aux;
@@ -186,7 +191,15 @@ Animation::Animation(Texture tex, int obj)
         matrix[3][7] = *aux;
 
         spr = new Sprite(matrix[pos][col]);
+
     }
+
+
+}
+
+Animation::~Animation()
+{
+    delete spr;
 
 }
 
@@ -353,5 +366,4 @@ void Animation::changeSprite(int sprit, int obj, Vector2f posi)
 
 
 }
-
 

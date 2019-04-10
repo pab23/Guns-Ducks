@@ -7,11 +7,13 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Bullet.h"
-#include "AnimatedSprite.h"
+
 #include "Animation.h"
 #include "Blood.h"
 #include "Gun.h"
 #include "Object.h"
+#include "Hud.h"
+
 
 
 /** VALORES POR DEFECTO PARA EL CONTROL DE DE ENEMIGOS Y OLEADAS **/
@@ -43,6 +45,11 @@ class Game
         void inZona();
         void crearBlood();
         void posicionarBlood(Vector2f pos);
+        void modoPatoON();
+        void modoPatoOFF();
+        void borrarBala(int);
+        void playerCollisions();
+        void itemCollisions();
 
 
 
@@ -52,21 +59,23 @@ class Game
     private:
 
         RenderWindow *win;
-        Texture *tex_player,*tex_bloods, *tex_enemy, *tex_map, *tex_object;
+        Texture *tex_player,*tex_bloods, *tex_enemy, *tex_map, *tex_object, *tex_ammo, *tex_icon;
+        Sprite *spr_map, *spr_ammo;
         Player *player;
         Event e;
-        int cont_oleadas, cont_rondas; //contador de oleadas y rondas creadas
+        int cont_oleadas, cont_rondas, cont_bajas; //contador de oleadas y rondas creadas
         vector<Enemy> enemigos;
         vector<Blood> bloods;
-        vector<Bullet> balas;
+        vector<Bullet*> balas;
         vector<Object> objetos;
-        Clock bullet_clock, general_clock, zone_clock,  enemy_clock,frame_clock, animation_clock;
-        Time bullet_cooldown, enemy_timer, general_timer, zone_timer, animation_timer;
+        Clock bullet_clock, general_clock, zone_clock,  enemy_clock,frame_clock,  modoPato_clock, animation_clock;
+        Time bullet_cooldown, enemy_timer, general_timer, zone_timer, modoPato_timer,animation_timer;;
         Vector2i winDim;
-        bool primer, info;
+        bool primer, info, modoPato;
         Text *txt_time;
         Font *font;
         RectangleShape *life_zone;
+        Hud *hud;
 
 
 

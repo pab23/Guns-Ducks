@@ -13,7 +13,7 @@ Enemy::Enemy(Texture &tex, float vel, int vida)
     spr->setPosition(pos);
     spr->scale(1.5,1.5);
     hp = vida;
-    anim = new Animation(tex, 0);
+    anim = new Animation(tex,0);
 
     box = new RectangleShape({spr->getTextureRect().width,spr->getTextureRect().height/4});
     box->setFillColor(Color::Red);
@@ -28,14 +28,14 @@ Enemy::Enemy(Texture &tex, float vel, int vida)
 
 Enemy::~Enemy()
 {
-    /*if(spr != NULL)
-        delete spr;*/
+    delete spr;
+    delete box;
+    delete anim;
+    speed = hp = dist_col = 0;
+    dir = {0, 0};
+
 }
 
-void Enemy::changePos(Vector2i dire, int obj, Vector2f posi)
-{
-    anim->changePos(dire, obj, posi);
-}
 Sprite Enemy::getSprite()
 {
     return *spr;
@@ -75,7 +75,7 @@ void Enemy::move(vector<Vector2f> v_posiciones){
 
     vector<Vector2f> vectores;
     Vector2f playerPosition,position, direction, normalizedDir, currentSpeed;
-    float aux = .8;
+    float aux = .8;//peso del vector de repulsion del enemigo
 
     for(unsigned i = 0;i < v_posiciones.size();i++)
     {
@@ -88,28 +88,25 @@ void Enemy::move(vector<Vector2f> v_posiciones){
             direction -= (vaux*aux);
         }
 
-
     }
-
 
         normalizedDir.x = direction.x / (sqrt(pow(direction.x, 2) + pow(direction.y, 2)));//Normalizamos el vector para convetirlo en unitario
         normalizedDir.y = direction.y / (sqrt(pow(direction.x, 2) + pow(direction.y, 2)));
         currentSpeed = normalizedDir * speed;//v.unitario * escalar, ahora tenemos modulo(velocidad) y direccion (vector direction)*Creo que esa es la teoria
 
-        if(direction.x < 0)
-            dir.x = -1;
-        else if(direction.x < 1.0)
-            dir.x = 0;
+
+        if(direction.x < 0) dir.x = -1;
         else dir.x = 1;
 
-        if(direction.y < 0)
-            dir.y = -1;
-        else if(direction.y < 1.0)
-            dir.y = 0;
+        if(direction.y < 0)dir.y = -1;
         else dir.y = 1;
 
+        Vector2f posP,posE;
+        posP = v_posiciones[0];
+        posE = getPosition();
 
-
+        if(posE.x <= posP.x+30 && posE.x >= posP.x -30)dir.x = 0;
+        if(posE.y <= posP.y+30 && posE.y >= posP.y -30)dir.y = 0;
 
         spr->move(currentSpeed);
         box->move(currentSpeed);
@@ -118,15 +115,6 @@ void Enemy::move(vector<Vector2f> v_posiciones){
 
 
 }
-Animation Enemy::getAnim()
-{
-    return *anim;
-}
-Vector2i Enemy::getDir()
-{
-    return dir;
-}
-
 float Enemy::getDistance(Vector2f posEnemy){
     Vector2f direction =  posEnemy - getPosition();//Vector que une enemigo-enemigo
     float dist = sqrt(pow(direction.x, 2) + pow(direction.y, 2));
@@ -134,10 +122,6 @@ float Enemy::getDistance(Vector2f posEnemy){
 
 
     return dist;
-}
-void Enemy::setSpr(const Sprite &sprit)
-{
-    spr = new Sprite(sprit);
 }
 VertexArray Enemy::getLinePlayerEnemy(Vector2f playerPosition){
 
@@ -255,7 +239,6 @@ Vector2f Enemy::getRandomPosition(Vector2i ventana){
 void Enemy::setVida(string gun)
 {
     int dmg = 0;
-    cout<<"Dis"<<gun<<endl;
 
     if(gun=="Carabina")
     {
@@ -277,4 +260,24 @@ int Enemy::getVida()
     return hp;
 }
 
+void Enemy::setHp(int n)
+{
+    hp=n;
+}
+void Enemy::changePos(Vector2i dire, int obj, Vector2f posi)
+{
+    anim->changePos(dire, obj, posi);
+}
+Animation Enemy::getAnim()
+{
+    return *anim;
+}
+Vector2i Enemy::getDir()
+{
+    return dir;
+}
+void Enemy::setSpr(const Sprite &sprit)
+{
+    spr = new Sprite(sprit);
+}
 

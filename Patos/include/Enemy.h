@@ -5,8 +5,7 @@
 #include <iostream>
 #include <math.h>
 #include "VertexArray.hpp"
-#include "../include/Animation.h"
-
+#include "Animation.h"
 
 using namespace std;
 using namespace sf;
@@ -16,7 +15,7 @@ class Enemy
     public:
 
         Enemy(Texture &, float, int);
-        ~Enemy();
+        virtual ~Enemy();
 
         Sprite getSprite();
         FloatRect getBounds();//Devuelve la global bounds del sprite enemigo
@@ -35,6 +34,7 @@ class Enemy
         vector<unsigned> getEnemyArround(vector<Enemy>& enemigos);
         void setVida(string);
         int getVida();
+        void setHp(int);
         void setSpr(const Sprite&);
         void changePos(Vector2i, int, Vector2f);
         Vector2i getDir();
@@ -44,20 +44,18 @@ class Enemy
 
 
 
-
-
     protected:
 
     private:
         Sprite *spr;
-        Animation *anim;
         float speed;
         int hp;
         RectangleShape *box;
-        Vector2i dir;
         //Vector2f direction;//Vector de posicion  player-enemigo.Indica la direccion que toma el enemigo para seguir al player.
         //Vector2f normalizedDir;//Vector "direction" normalizado.
         int dist_col = 50;//Distancia rquerida para la colision entre enemigos
+        Animation *anim;
+        Vector2i dir;
 
 
 

@@ -4,7 +4,7 @@
 #include <sstream>
 #include <SFML/Graphics.hpp>
 #include "Gun.h"
-#include "../include/Animation.h"
+#include "Animation.h"
 
 using namespace sf;
 using namespace std;
@@ -46,14 +46,14 @@ class Player
         void quitarBalaActiva();
         void setSpr(const Sprite&);
         Animation getAnim();
-         void changePos(Vector2i, int, Vector2f);
+        void changePos(Vector2i, int, Vector2f);
+        void empujon(int, int);
 
 
     protected:
 
     private:
         Sprite *spr;
-        Animation *anim;
         RectangleShape *box, *life_box, *shield_box;
         CircleShape *circle;//para que enemigos rodeen al player
         float speed;
@@ -66,6 +66,7 @@ class Player
         Text *txt_life, *txt_shield;
         vector<Gun> armas;
         int armaActiva;
+        Animation *anim;
 
 };
 

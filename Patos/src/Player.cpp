@@ -23,8 +23,6 @@ Player::Player(Texture &tex)
         spr->setPosition(400,300);
         spr->scale(.5,.5);
 
-        anim = new Animation(tex, 1);
-
         //Score
         font_txt = new Font();
         font_txt->loadFromFile("letra_pixel.ttf");
@@ -60,21 +58,12 @@ Player::Player(Texture &tex)
         circle->setPosition(spr->getPosition().x+2,spr->getPosition().y );
         circle->setRadius(50);
         circle->setFillColor(Color(255,0,0,120));*/
+        anim = new Animation(tex,1);
 
         speed = 2.5; dir = {1, 0};
 }
-void Player::changePos(Vector2i dire, int obj, Vector2f posi)
-{
-    anim->changePos(dire, obj, posi);
-}
-void Player::setSpr(const Sprite &sprit)
-{
-    spr = new Sprite(sprit);
-}
-Animation Player::getAnim()
-{
-    return *anim;
-}
+
+
 void Player::move(int x, int y)
 {
     float speedX;
@@ -355,5 +344,47 @@ void Player::cogerMunicion(string n, int nbalas)
 void Player::quitarBalaActiva()
 {
     armas[armaActiva].setMunicion(-1);
+}
+void Player::changePos(Vector2i dire, int obj, Vector2f posi)
+{
+    anim->changePos(dire, obj, posi);
+}
+void Player::setSpr(const Sprite &sprit)
+{
+    spr = new Sprite(sprit);
+}
+Animation Player::getAnim()
+{
+    return *anim;
+}
+void Player::empujon(int dirX, int dirY)
+{
+    float speedEm = 5, speedX, speedY;
+    switch(dirX)
+    {
+        case 1:
+            speedX = speedEm;
+        break;
+        case -1:
+            speedX = -speedEm;
+        break;
+        default:
+            speedX = 0;
+        break;
+    }
+    switch(dirY)
+    {
+        case 1:
+            speedY = speedEm;
+        break;
+        case -1:
+            speedY = -speedEm;
+        break;
+        default:
+            speedY = 0;
+        break;
+    }
+    spr->move(speedX, speedY);
+    box->move(speedX, speedY);
 }
 
