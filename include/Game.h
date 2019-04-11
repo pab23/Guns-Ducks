@@ -4,10 +4,12 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <sstream>
+#include <time.h>
+#include <stdlib.h>
+
 #include "Player.h"
 #include "Enemy.h"
 #include "Bullet.h"
-
 #include "Animation.h"
 #include "Blood.h"
 #include "Gun.h"
@@ -38,19 +40,20 @@ class Game
         void listenKeyboard();
         void draw();
         void moverEnemigos();
-        void crearEnemy(int n, float s);
+        void crearEnemy(int , float);
         void crearAnimaciones();
         void colisiones();
         void timeToString();
         void inZona();
         void crearBlood();
-        void posicionarBlood(Vector2f pos);
+        void posicionarBlood(Vector2f);
         void modoPatoON();
         void modoPatoOFF();
         void borrarBala(int);
         void playerCollisions();
         void itemCollisions();
         void update();
+        void objRandom(Vector2f);
 
 
 
@@ -77,11 +80,6 @@ class Game
         Font *font;
         RectangleShape *life_zone;
         Hud *hud;
-
-
-
-
-
 };
 
 #endif // GAME_H

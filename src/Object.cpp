@@ -2,7 +2,7 @@
 
 using namespace std;
 
-Object::Object(string type, Texture &tex)
+Object::Object(string type, Texture &tex, Vector2f pos)
 {
     spr = new Sprite(tex);
     spr->setOrigin(SPR_SIZE/2,SPR_SIZE/2);
@@ -39,11 +39,7 @@ Object::Object(string type, Texture &tex)
         spr->setTextureRect(IntRect(SPR_SIZE, SPR_SIZE*2, SPR_SIZE, SPR_SIZE));
     }
 
-
-
-    int randx = rand()%801;
-    int randy = rand()%601;
-    spr->setPosition(randx, randy);
+    spr->setPosition(pos);
 
 }
 Object::Object(const Object& obj)

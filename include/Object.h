@@ -15,7 +15,7 @@ class Object
 {
     public:
         //CANONICAS
-        Object(string type, Texture &);
+        Object(string type, Texture &, Vector2f);
         Object(const Object&);
         Object&operator=(const Object&);
         virtual ~Object();

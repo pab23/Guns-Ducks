@@ -4,10 +4,12 @@
 	<iostream>
 	"include/Game.h"
 
-1554918041 /home/fv/Escritorio/Guns-Ducks/include/Game.h
+1554999891 /home/fv/Escritorio/Guns-Ducks/include/Game.h
 	<SFML/Graphics.hpp>
 	<iostream>
 	<sstream>
+	<time.h>
+	<stdlib.h>
 	"Player.h"
 	"Enemy.h"
 	"Bullet.h"
@@ -24,7 +26,7 @@
 	"Gun.h"
 	"Animation.h"
 
-1554918384 source:/home/fv/Escritorio/Guns-Ducks/src/Game.cpp
+1555000256 source:/home/fv/Escritorio/Guns-Ducks/src/Game.cpp
 	"../include/Game.h"
 
 1554828931 source:/home/fv/Escritorio/Guns-Ducks/src/Player.cpp
@@ -124,7 +126,7 @@
 1551125035 source:/home/javifv/Escritorio/Guns-Ducks-Shots/src/Enemy.cpp
 	"../include/Enemy.h"
 
-1554831595 /home/fv/Escritorio/Guns-Ducks/include/Enemy.h
+1554998905 /home/fv/Escritorio/Guns-Ducks/include/Enemy.h
 	"SFML/Graphics.hpp"
 	<iostream>
 	<math.h>
@@ -138,7 +140,7 @@
 1554828931 source:/home/fv/Escritorio/Guns-Ducks/src/Bullet.cpp
 	"../include/Bullet.h"
 
-1554916635 source:/home/fv/Escritorio/Guns-Ducks/src/Enemy.cpp
+1554998894 source:/home/fv/Escritorio/Guns-Ducks/src/Enemy.cpp
 	"../include/Enemy.h"
 	<math.h>
 
@@ -518,7 +520,7 @@
 	"SFML/Graphics.hpp"
 	<iostream>
 
-1554918591 /home/fv/Escritorio/Guns-Ducks/include/Object.h
+1555000421 /home/fv/Escritorio/Guns-Ducks/include/Object.h
 	<iostream>
 	<ctime>
 	"SFML/Graphics.hpp"
@@ -541,6 +543,6 @@
 1554916894 source:/home/fv/Escritorio/Guns-Ducks/src/Hud.cpp
 	"Hud.h"
 
-1554918286 source:/home/fv/Escritorio/Guns-Ducks/src/Object.cpp
+1554999604 source:/home/fv/Escritorio/Guns-Ducks/src/Object.cpp
 	"../include/Object.h"
 

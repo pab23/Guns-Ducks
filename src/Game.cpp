@@ -15,6 +15,7 @@
 
 Game::Game(Vector2i win_dim)
 {
+    srand(time(NULL));
     winDim=win_dim;
     win = new RenderWindow(VideoMode(win_dim.x, win_dim.y), "Guns & Ducks");
     win->setFramerateLimit(60);
@@ -58,7 +59,7 @@ Game::Game(Vector2i win_dim)
 
     /// Object
 
-    for(unsigned i = 0; i < 4; i++)
+    /*for(unsigned i = 0; i < 4; i++)
     {
         objetos.push_back(new Object("botijola", *tex_object));
         objetos.push_back(new Object("ducknamyte", *tex_object));
@@ -66,7 +67,7 @@ Game::Game(Vector2i win_dim)
         objetos.push_back(new Object("pato", *tex_object));
         objetos.push_back(new Object("municionCarabina", *tex_object));
         objetos.push_back(new Object("municionEscopeta", *tex_object));
-    }
+    }*/
 
     modoPato=false;
 
@@ -400,11 +401,13 @@ void Game::colisiones()
                 enemigos[j].setVida(player->getArmaActiva().getNombre());
                 if(enemigos[j].getVida() <= 0)
                 {
-                    posicionarBlood(enemigos[j].getPosition());//activa y posiciona una sangre en la posicion del enemigo muerto. Falta el if(enemymuerto) para activarla solo cuando muera
+                    posicionarBlood(enemigos[j].getPosition());
+                    objRandom(enemigos[j].getPosition());//activa y posiciona una sangre en la posicion del enemigo muerto. Falta el if(enemymuerto) para activarla solo cuando muera
                     enemigos.erase(enemigos.begin()+j);
                     cont_bajas++;
                     hud->setTxtDuckdead(cont_bajas);
                     player->setScore(player->getScore()+ENEMY_REWARD);
+
 
                 }
 
@@ -661,5 +664,16 @@ void Game::timeToString()
     ss << val;
 
     txt_time->setString(ss.str());
+}
+
+void Game::objRandom(Vector2f pos)
+{
+    string ob_aux[] = {"botijola", "ducknamyte", "planchadito", "pato", "municionCarabina", "municionEscopeta"};
+    int num = floor(1+rand()%(10-1));
+    if(num == 1)
+    {
+        int type = floor(rand()%(6-1));
+        objetos.push_back(new Object(ob_aux[type], *tex_object, pos));
+    }
 }
 
