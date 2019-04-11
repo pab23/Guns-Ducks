@@ -19,10 +19,10 @@
 /** VALORES POR DEFECTO PARA EL CONTROL DE DE ENEMIGOS Y OLEADAS **/
 #define kEnemy_reward 10
 #define T_OLEADAS 5 //tiempo en segundos que transcurre antes de crear una nueva oleada de enemigos
-#define N_OLEADAS 5 //nº de oleadas que se van a crear
-#define N_ENEMIES_OLEADA 5 //nº de enemigos por oleada
+#define N_OLEADAS 0 //nº de oleadas que se van a crear
+#define N_ENEMIES_OLEADA 0 //nº de enemigos por oleada
 #define SPEED_ENEMY .5 //velocidad del enemigo
-#define N_RONDAS 4
+#define N_RONDAS 0
 
 
 using namespace sf;
@@ -76,6 +76,7 @@ class Game
         Font *font;
         RectangleShape *life_zone;
         Hud *hud;
+
 
 
 

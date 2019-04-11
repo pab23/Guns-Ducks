@@ -122,10 +122,11 @@ void Game::gameLoop()
          animation_timer = animation_clock.getElapsedTime();
 
           ///Animation
-        if(animation_timer.asSeconds() >= .2)
+        if(animation_timer.asSeconds() >= .15)
         {
             //Player
             player->changePos(player->getDir(), 1, player->getPosition());
+
             player->setSpr(player->getAnim().getSprite());
             //Enemigos
             for(unsigned i = 0; i < enemigos.size(); i++)

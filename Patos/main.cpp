@@ -8,7 +8,7 @@
 using namespace sf;
 using namespace std;
 
-const Vector2i winDim (800, 600);
+const Vector2i winDim (900, 600);
 
 
 int main()

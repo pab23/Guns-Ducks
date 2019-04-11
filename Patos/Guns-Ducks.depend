@@ -592,3 +592,101 @@
 1554880659 source:/home/fv/Documentos/GIT/Guns-Ducks/Patos/src/Object.cpp
 	"../include/Object.h"
 
+1555003647 source:/home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/Patos/main.cpp
+	<SFML/Graphics.hpp>
+	<iostream>
+	"include/Game.h"
+
+1555003916 /home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/Patos/include/Game.h
+	<SFML/Graphics.hpp>
+	<iostream>
+	<sstream>
+	"Player.h"
+	"Enemy.h"
+	"Bullet.h"
+	"Animation.h"
+	"Blood.h"
+	"Gun.h"
+	"Object.h"
+	"Hud.h"
+
+1554999761 /home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/Patos/include/Player.h
+	<iostream>
+	<sstream>
+	<SFML/Graphics.hpp>
+	"Gun.h"
+	"Animation.h"
+
+1554136449 /home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/Patos/include/Gun.h
+	<iostream>
+	<sstream>
+	<SFML/Graphics.hpp>
+
+1554999761 /home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/Patos/include/Animation.h
+	<iostream>
+	<sstream>
+	<SFML/Graphics.hpp>
+	"../include/Animation.h"
+
+1554999761 /home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/Patos/include/Enemy.h
+	"SFML/Graphics.hpp"
+	<iostream>
+	<math.h>
+	"VertexArray.hpp"
+	"Animation.h"
+
+1554136449 /home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/Patos/include/VertexArray.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Vertex.hpp>
+	<SFML/Graphics/PrimitiveType.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<vector>
+
+1554999761 /home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/Patos/include/Bullet.h
+	"SFML/Graphics.hpp"
+	<iostream>
+
+1554136449 /home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/Patos/include/Blood.h
+	"SFML/Graphics.hpp"
+	<iostream>
+
+1554136449 /home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/Patos/include/Object.h
+	<iostream>
+	<ctime>
+	"SFML/Graphics.hpp"
+
+1554999761 /home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/Patos/include/Hud.h
+	"SFML/Graphics.hpp"
+	<iostream>
+	<sstream>
+
+1555005792 source:/home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/Patos/src/Animation.cpp
+	"../include/Animation.h"
+
+1554136449 source:/home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/Patos/src/Blood.cpp
+	"../include/Blood.h"
+	"Blood.h"
+
+1554999761 source:/home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/Patos/src/Bullet.cpp
+	"../include/Bullet.h"
+
+1554999761 source:/home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/Patos/src/Enemy.cpp
+	"../include/Enemy.h"
+	<math.h>
+
+1555005950 source:/home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/Patos/src/Game.cpp
+	"../include/Game.h"
+
+1554136449 source:/home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/Patos/src/Gun.cpp
+	"Gun.h"
+
+1554999761 source:/home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/Patos/src/Hud.cpp
+	"Hud.h"
+
+1554136449 source:/home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/Patos/src/Object.cpp
+	"../include/Object.h"
+
+1554999761 source:/home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/Patos/src/Player.cpp
+	"../include/Player.h"
+
