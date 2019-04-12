@@ -78,7 +78,7 @@ Game::Game(Vector2i win_dim)
 void Game::loadTextures(){
     //player
     tex_player = new Texture();
-    tex_player->loadFromFile("resources/patos.png");
+    tex_player->loadFromFile("resources/player.png");
 
 
     //enemy
