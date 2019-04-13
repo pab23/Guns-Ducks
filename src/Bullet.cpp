@@ -1,19 +1,101 @@
 #include "../include/Bullet.h"
 
 
-Bullet::Bullet(Vector2f pos, Vector2i p_dir, float radius)
+Bullet::Bullet(Vector2f pos, Vector2i p_dir, float radius, Texture &tex, String arma)
 {
+    spr = new Sprite(tex);
     box = new CircleShape(radius);
     box->setFillColor(Color::Red);
-    box->setPosition(pos);
+
     dir = p_dir;
     speed = 50;
+    spr->setTextureRect(IntRect(0, 0, 32, 32));
+    spr->scale(0.5,0.5);
+
+
+    if(arma=="Pistola")
+    {
+        spr->setTextureRect(IntRect(0, 0, 32, 32));
+
+    }
+    else if(arma=="Carabina")
+    {
+        spr->setTextureRect(IntRect(32, 0, 32, 32));
+    }
+    else if(arma=="Escopeta")
+    {
+        spr->setTextureRect(IntRect(0, 32, 32, 32));
+    }
+
+    box->setPosition(pos);
+    spr->setPosition(pos);
+
+    //ROTACIONES MAÑANA REFACTORIZO CHAVALES
+
+    if(dir.x==0 && dir.y==1)
+    {
+        spr->setRotation(-180);
+    }
+    else if(dir.x==1 && dir.y==0)
+    {
+        spr->setRotation(90);
+    }
+    else if(dir.x==1 && dir.y==-1)
+    {
+        spr->setRotation(45);
+    }
+    else if(dir.x==1 && dir.y==1)
+    {
+        spr->setRotation(135);
+    }
+
+    else if(dir.x==-1 && dir.y==0)
+    {
+        spr->setRotation(-90);
+    }
+    else if(dir.x==-1 && dir.y==-1)
+    {
+        spr->setRotation(-45);
+    }
+    else if(dir.x==-1 && dir.y==1)
+    {
+        spr->setRotation(-135);
+    }
+
+
+
+    //spr->setOrigin(pos);
+
 
 }
 
+Bullet::Bullet(const Bullet& b)
+{
+    spr = b.spr;
+    dir = b.dir;
+    speed = b.speed;
+}
+
+Bullet & Bullet::operator=(const Bullet& b)
+{
+    if(this != &b)
+    {
+        if(spr != NULL)
+            delete spr;
+        if(b.spr != NULL)
+            *spr = *b.spr;
+        dir = b.dir;
+        speed = b.speed;
+    }
+    return *this;
+}
+
+
 Bullet::~Bullet()
 {
-    //dtor
+    delete spr;
+    dir = {0,0};
+    speed = 0;
 }
 
 void Bullet::move()
@@ -44,18 +126,28 @@ void Bullet::move()
         break;
     }
     //cout<<"Bullet: "<<speedX<<","<<speedY<<endl;
+    spr->move(speedX, speedY);
     box->move(speedX, speedY);
 
 }
 
 
-CircleShape Bullet::getSprite()
+Sprite Bullet::getSprite()
+{
+
+    return *spr;
+}
+
+CircleShape Bullet::getBox()
 {
 
     return *box;
 }
-
-FloatRect Bullet::getBounds(){
-    return box->getGlobalBounds();
+Vector2f Bullet::getPos()
+{
+    return spr->getPosition();
 }
 
+FloatRect Bullet::getBounds(){
+    return spr->getGlobalBounds();
+}

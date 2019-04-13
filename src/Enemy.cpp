@@ -13,6 +13,7 @@ Enemy::Enemy(Texture &tex, float vel, int vida)
     spr->setPosition(pos);
     spr->scale(1.5,1.5);
     hp = vida;
+    anim = new Animation(tex,0);
 
     box = new RectangleShape({spr->getTextureRect().width,spr->getTextureRect().height/4});
     box->setFillColor(Color::Red);
@@ -27,8 +28,12 @@ Enemy::Enemy(Texture &tex, float vel, int vida)
 
 Enemy::~Enemy()
 {
-    /*if(spr != NULL)
-        delete spr;*/
+    /*delete spr;
+    delete box;
+    delete anim;
+    speed = hp = dist_col = 0;
+    dir = {0, 0};*/
+
 }
 
 Sprite Enemy::getSprite()
@@ -70,7 +75,7 @@ void Enemy::move(vector<Vector2f> v_posiciones){
 
     vector<Vector2f> vectores;
     Vector2f playerPosition,position, direction, normalizedDir, currentSpeed;
-    float aux = .8;
+    float aux = .8;//peso del vector de repulsion del enemigo
 
     for(unsigned i = 0;i < v_posiciones.size();i++)
     {
@@ -89,6 +94,19 @@ void Enemy::move(vector<Vector2f> v_posiciones){
         normalizedDir.y = direction.y / (sqrt(pow(direction.x, 2) + pow(direction.y, 2)));
         currentSpeed = normalizedDir * speed;//v.unitario * escalar, ahora tenemos modulo(velocidad) y direccion (vector direction)*Creo que esa es la teoria
 
+
+        if(direction.x < 0) dir.x = -1;
+        else dir.x = 1;
+
+        if(direction.y < 0)dir.y = -1;
+        else dir.y = 1;
+
+        Vector2f posP,posE;
+        posP = v_posiciones[0];
+        posE = getPosition();
+
+        if(posE.x <= posP.x+30 && posE.x >= posP.x -30)dir.x = 0;
+        if(posE.y <= posP.y+30 && posE.y >= posP.y -30)dir.y = 0;
 
         spr->move(currentSpeed);
         box->move(currentSpeed);
@@ -221,7 +239,6 @@ Vector2f Enemy::getRandomPosition(Vector2i ventana){
 void Enemy::setVida(string gun)
 {
     int dmg = 0;
-    cout<<"Dis"<<gun<<endl;
 
     if(gun=="Carabina")
     {
@@ -243,70 +260,24 @@ int Enemy::getVida()
     return hp;
 }
 
-Vector2f Enemy::getDir(Vector2f playerPosition){
-
-    Vector2f res = playerPosition-this->getPosition();
-    if(res.x!=0) //Para pasar la dir como 1s o 0s.
-    {
-        if(res.x>0){
-            res.x=1;
-        }
-        else{
-            res.x=-1;
-        }
-    }
-
-    if(res.y!=0)
-    {
-        if(res.y>0){
-            res.y=1;
-        }
-        else{
-            res.y=-1;
-        }
-    }
-
-    return res;
-
-
-}
-
-void Enemy::move(int x, int y)
+void Enemy::setHp(int n)
 {
-    float speedX;
-    float speedY;
-
-    switch(x)
-    {
-        case 1:
-            speedX = speed;
-        break;
-        case -1:
-            speedX = -speed;
-        break;
-        default:
-            speedX = 0;
-        break;
-    }
-    switch(y)
-    {
-        case 1:
-            speedY = speed;
-        break;
-        case -1:
-            speedY = -speed;
-        break;
-        default:
-            speedY = 0;
-        break;
-    }
-
-
-    spr->move(speedX, speedY);
-    //circle->move(speedX, speedY);
-    box->move(speedX, speedY);
-
-
+    hp=n;
 }
-
+void Enemy::changePos(Vector2i dire, int obj, Vector2f posi)
+{
+    anim->changePos(dire, obj, posi);
+}
+Animation Enemy::getAnim()
+{
+    return *anim;
+}
+Vector2i Enemy::getDir()
+{
+    return dir;
+}
+void Enemy::setSpr(const Sprite &sprit)
+{
+    spr = new Sprite(sprit);
+}
 
