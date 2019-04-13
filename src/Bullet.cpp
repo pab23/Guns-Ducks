@@ -7,7 +7,7 @@ Bullet::Bullet(Vector2f pos, Vector2i p_dir, float radius)
     box->setFillColor(Color::Red);
     box->setPosition(pos);
     dir = p_dir;
-    speed = 5;
+    speed = 50;
 
 }
 
