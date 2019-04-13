@@ -5,7 +5,7 @@
 #include <iostream>
 #include <math.h>
 #include "VertexArray.hpp"
-#include "Animation.h"
+
 
 using namespace std;
 using namespace sf;
@@ -15,7 +15,9 @@ class Enemy
     public:
 
         Enemy(Texture &, float, int);
-        virtual ~Enemy();
+        ~Enemy();
+
+        void move(int, int);
 
         Sprite getSprite();
         FloatRect getBounds();//Devuelve la global bounds del sprite enemigo
@@ -25,6 +27,7 @@ class Enemy
         VertexArray getLinePlayerEnemy(Vector2f playerPosition);//devuelve las lineas dibujadas entre enemigo y player
         VertexArray getLineEnemyEnemy(Vector2f posEnemy);//devuelve las lineas dibujadas entre enemigo y enemigo
         Vector2f getRandomPosition(Vector2i ventana);//Devuelve una posicion aleatoria (fuera de los margenes) para situar al enemigo
+        Vector2f getDir(Vector2f playerPosition);
         float getDistance(Vector2f posEnemy);
         void setPosition(float x, float y);
         void setPosition(Vector2f vec);
@@ -34,11 +37,7 @@ class Enemy
         vector<unsigned> getEnemyArround(vector<Enemy>& enemigos);
         void setVida(string);
         int getVida();
-        void setHp(int);
-        void setSpr(const Sprite&);
-        void changePos(Vector2i, int, Vector2f);
-        Vector2i getDir();
-        Animation getAnim();
+
 
 
 
@@ -54,8 +53,6 @@ class Enemy
         //Vector2f direction;//Vector de posicion  player-enemigo.Indica la direccion que toma el enemigo para seguir al player.
         //Vector2f normalizedDir;//Vector "direction" normalizado.
         int dist_col = 50;//Distancia rquerida para la colision entre enemigos
-        Animation *anim;
-        Vector2i dir;
 
 
 

@@ -4,8 +4,7 @@
 #include <sstream>
 #include <SFML/Graphics.hpp>
 #include "Gun.h"
-#include "Animation.h"
-
+#include "Map.h"
 using namespace sf;
 using namespace std;
 
@@ -44,16 +43,15 @@ class Player
         void cogerMunicion(string,int);
         string infoArmaActiva(int);
         void quitarBalaActiva();
-        void setSpr(const Sprite&);
-        Animation getAnim();
-        void changePos(Vector2i, int, Vector2f);
         void empujon(int, int);
-
+        Sprite* getSpritePointer(){return spr;};
+        void setMapa(Map* mp){mapa=mp;};
 
     protected:
 
     private:
         Sprite *spr;
+        Map* mapa;
         RectangleShape *box, *life_box, *shield_box;
         CircleShape *circle;//para que enemigos rodeen al player
         float speed;
@@ -66,7 +64,6 @@ class Player
         Text *txt_life, *txt_shield;
         vector<Gun> armas;
         int armaActiva;
-        Animation *anim;
 
 };
 

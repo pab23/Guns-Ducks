@@ -20,7 +20,7 @@ Player::Player(Texture &tex)
 
         spr->setOrigin(75/2,75/2);
         spr->setTextureRect(IntRect(1*75, 0*75, 75, 75));
-        spr->setPosition(400,300);
+        spr->setPosition(800,800);
         spr->scale(.5,.5);
 
         //Score
@@ -58,7 +58,6 @@ Player::Player(Texture &tex)
         circle->setPosition(spr->getPosition().x+2,spr->getPosition().y );
         circle->setRadius(50);
         circle->setFillColor(Color(255,0,0,120));*/
-        anim = new Animation(tex,1);
 
         speed = 2.5; dir = {1, 0};
 }
@@ -345,18 +344,6 @@ void Player::quitarBalaActiva()
 {
     armas[armaActiva].setMunicion(-1);
 }
-void Player::changePos(Vector2i dire, int obj, Vector2f posi)
-{
-    anim->changePos(dire, obj, posi);
-}
-void Player::setSpr(const Sprite &sprit)
-{
-    spr = new Sprite(sprit);
-}
-Animation Player::getAnim()
-{
-    return *anim;
-}
 void Player::empujon(int dirX, int dirY)
 {
     float speedEm = 5, speedX, speedY;
@@ -384,7 +371,23 @@ void Player::empujon(int dirX, int dirY)
             speedY = 0;
         break;
     }
-    spr->move(speedX, speedY);
-    box->move(speedX, speedY);
+    // if(getPosition().y > 416 && getPosition().y < 1200 && getPosition().x > 400 && getPosition().x < 1184){
+        sf::FloatRect f = spr->getGlobalBounds();
+        f.left+=speedX;
+        f.top+=speedY;
+        //cogemos posicion global del personaje en el mapa y lo movemos a l posicion a la que deberia de estar
+        //si no colisiona a esa posicion futura lo movemos a ella
+
+        if(mapa->compruebaColision(f)==false){
+
+        spr->move(speedX, speedY);
+        box->move(speedX, speedY);
+    // }
+        }
+
+
+
+
+
 }
 

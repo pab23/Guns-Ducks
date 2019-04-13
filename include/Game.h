@@ -7,13 +7,12 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Bullet.h"
-
+#include "AnimatedSprite.h"
 #include "Animation.h"
 #include "Blood.h"
 #include "Gun.h"
 #include "Object.h"
-#include "Hud.h"
-
+#include "Map.h"
 
 
 /** VALORES POR DEFECTO PARA EL CONTROL DE DE ENEMIGOS Y OLEADAS **/
@@ -41,15 +40,15 @@ class Game
         void crearEnemy(int n, float s);
         void crearAnimaciones();
         void colisiones();
+        void playerCollisions();
+        void itemCollisions();
         void timeToString();
         void inZona();
         void crearBlood();
         void posicionarBlood(Vector2f pos);
-        void modoPatoON();
-        void modoPatoOFF();
-        void borrarBala(int);
-        void playerCollisions();
-        void itemCollisions();
+        void colisionMapPlayer(int);
+        void colisionMapEnemy(int);
+
 
 
 
@@ -59,23 +58,23 @@ class Game
     private:
 
         RenderWindow *win;
-        Texture *tex_player,*tex_bloods, *tex_enemy, *tex_map, *tex_object, *tex_ammo, *tex_icon, *tex_balas;
-        Sprite *spr_map, *spr_ammo;
+        Texture *tex_player,*tex_bloods, *tex_enemy, *tex_map, *tex_object;
         Player *player;
         Event e;
-        int cont_oleadas, cont_rondas, cont_bajas; //contador de oleadas y rondas creadas
+        int cont_oleadas, cont_rondas; //contador de oleadas y rondas creadas
         vector<Enemy> enemigos;
         vector<Blood> bloods;
-        vector<Bullet*> balas;
+        vector<Bullet> balas;
         vector<Object> objetos;
-        Clock bullet_clock, general_clock, zone_clock,  enemy_clock,frame_clock,  modoPato_clock, animation_clock;
-        Time bullet_cooldown, enemy_timer, general_timer, zone_timer, modoPato_timer,animation_timer;;
+        Clock bullet_clock, general_clock, zone_clock,  enemy_clock,frame_clock;
+        Time bullet_cooldown, enemy_timer, general_timer, zone_timer;
         Vector2i winDim;
-        bool primer, info, modoPato;
+        bool primer, info;
         Text *txt_time;
         Font *font;
         RectangleShape *life_zone;
-        Hud *hud;
+        Map *mapa;
+        View view, viewHud;
 
 
 
