@@ -624,7 +624,7 @@
 	"../include/Blood.h"
 	"Blood.h"
 
-1555174211 source:/home/javifv/Escritorio/Follow/Guns-Ducks-follow/src/Bullet.cpp
+1555272121 source:/home/javifv/Escritorio/Follow/Guns-Ducks-follow/src/Bullet.cpp
 	"../include/Bullet.h"
 
 1555092083 source:/home/javifv/Escritorio/Follow/Guns-Ducks-follow/src/Enemy.cpp
@@ -643,6 +643,6 @@
 1555092083 source:/home/javifv/Escritorio/Follow/Guns-Ducks-follow/src/Object.cpp
 	"../include/Object.h"
 
-1555172069 source:/home/javifv/Escritorio/Follow/Guns-Ducks-follow/src/Player.cpp
+1555269693 source:/home/javifv/Escritorio/Follow/Guns-Ducks-follow/src/Player.cpp
 	"../include/Player.h"
 

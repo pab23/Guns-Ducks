@@ -16,6 +16,8 @@ Player::Player(Texture &tex)
 
         armaActiva=0;
         armas.push_back(Gun("Pistola", 1));
+        armas.push_back(Gun("Carabina", 100));
+        armas.push_back(Gun("Escopeta", 100));
 
 
         spr->setOrigin(75/2,75/2);

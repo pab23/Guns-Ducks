@@ -10,7 +10,8 @@ Bullet::Bullet(Vector2f pos, Vector2i p_dir, float radius, Texture &tex, String 
     dir = p_dir;
     speed = 50;
     spr->setTextureRect(IntRect(0, 0, 32, 32));
-    spr->scale(0.5,0.5);
+    spr->setScale(1,1);
+    spr->setOrigin(spr->getGlobalBounds().width/2, spr->getGlobalBounds().height/2);
 
 
     if(arma=="Pistola")
@@ -27,44 +28,39 @@ Bullet::Bullet(Vector2f pos, Vector2i p_dir, float radius, Texture &tex, String 
         spr->setTextureRect(IntRect(0, 32, 32, 32));
     }
 
-    box->setPosition(pos);
-    spr->setPosition(pos);
-
-    //ROTACIONES MAÑANA REFACTORIZO CHAVALES
 
     if(dir.x==0 && dir.y==1)
     {
-        spr->setRotation(-180);
+        spr->rotate(180);
     }
     else if(dir.x==1 && dir.y==0)
     {
-        spr->setRotation(90);
+        spr->rotate(90);
     }
     else if(dir.x==1 && dir.y==-1)
     {
-        spr->setRotation(45);
+        spr->rotate(45);
     }
     else if(dir.x==1 && dir.y==1)
     {
-        spr->setRotation(135);
+        spr->rotate(135);
     }
 
     else if(dir.x==-1 && dir.y==0)
     {
-        spr->setRotation(-90);
+        spr->rotate(-90);
     }
     else if(dir.x==-1 && dir.y==-1)
     {
-        spr->setRotation(-45);
+        spr->rotate(-45);
     }
     else if(dir.x==-1 && dir.y==1)
     {
-        spr->setRotation(-135);
+        spr->rotate(-135);
     }
+    spr->setPosition(pos.x+spr->getGlobalBounds().width/2, pos.y+spr->getGlobalBounds().height/2 );
 
 
-
-    //spr->setOrigin(pos);
 
 
 }
