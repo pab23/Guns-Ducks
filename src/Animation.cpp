@@ -18,7 +18,7 @@ Animation::Animation(Texture tex, int obj)
     float padding;
     if(obj == 0)//enemy
     {
-         aux->setOrigin(0,0);
+         aux->setOrigin(12,12);
         aux->setTextureRect(IntRect(24,30,24,24));
         aux->setPosition(posi);
         aux->setScale(1.5,1.5);
@@ -110,7 +110,7 @@ Animation::Animation(Texture tex, int obj)
     {
         medida_sprite = 32;
         padding = 1;
-        aux->setOrigin(0,0);
+        aux->setOrigin(16,16);
         aux->setTextureRect(IntRect(0,32,32,32));
         aux->setPosition(400,300);
         aux->setScale(1.5,1.5);

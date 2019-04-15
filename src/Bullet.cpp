@@ -58,7 +58,7 @@ Bullet::Bullet(Vector2f pos, Vector2i p_dir, float radius, Texture &tex, String 
     {
         spr->rotate(-135);
     }
-    spr->setPosition(pos.x+spr->getGlobalBounds().width/2, pos.y+spr->getGlobalBounds().height/2 );
+    spr->setPosition(pos.x-spr->getGlobalBounds().width/4, pos.y-spr->getGlobalBounds().height/4);
 
 
 

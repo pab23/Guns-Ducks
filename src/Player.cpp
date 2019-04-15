@@ -20,10 +20,10 @@ Player::Player(Texture &tex)
         armas.push_back(Gun("Escopeta", 100));
 
 
-        spr->setOrigin(75/2,75/2);
-        spr->setTextureRect(IntRect(1*75, 0*75, 75, 75));
+        spr->setOrigin(0,0);
+        spr->setTextureRect(IntRect(32, 0, 32, 32));
         spr->setPosition(400,300);
-        spr->scale(.5,.5);
+
 
         //Score
         font_txt = new Font();
@@ -53,7 +53,7 @@ Player::Player(Texture &tex)
         box = new RectangleShape({spr->getScale().x*spr->getTextureRect().width,spr->getScale().y*spr->getTextureRect().height/4});
         box->setFillColor(Color::Blue);
         box->setOrigin(box->getSize().x/2,box->getSize().y/2);
-        box->setPosition(getPosition().x+box->getSize().x/2,getPosition().y+spr->getTextureRect().height/2.5);
+        box->setPosition(getPosition().x,getPosition().y+(spr->getTextureRect().height/2));
 
         /*circle = new CircleShape();
         circle->setOrigin(50,50);
