@@ -117,9 +117,31 @@ void Game::gameLoop()
 
     while(win->isOpen())
     {
-        update();
 
-          ///Animation
+        if(game_clock.getElapsedTime().asMilliseconds() > UPDATE_TIME)
+        {
+            game_timer_t = game_clock.restart();
+            game_timer =float(min(1.f, float(double(game_timer_t.asMilliseconds())/UPDATE_TIME)));
+            update();
+        }
+
+
+        draw();
+
+    }
+}
+void Game::update()
+{
+    enemy_timer = enemy_clock.getElapsedTime();
+    bullet_cooldown = bullet_clock.getElapsedTime();
+    listenKeyboard();
+    moverEnemigos();
+    colisiones();
+    playerCollisions();
+    zone_timer = zone_clock.getElapsedTime();
+    animation_timer = animation_clock.getElapsedTime();
+
+       ///Animation
         if(animation_timer.asSeconds() >= .2)
         {
             //Player
@@ -175,23 +197,6 @@ void Game::gameLoop()
             cout<<"Se acabo el modo pato"<<endl;
             modoPatoOFF();
         }
-
-
-
-        draw();
-
-    }
-}
-void Game::update()
-{
-    enemy_timer = enemy_clock.getElapsedTime();
-    bullet_cooldown = bullet_clock.getElapsedTime();
-    listenKeyboard();
-    moverEnemigos();
-    colisiones();
-    playerCollisions();
-    zone_timer = zone_clock.getElapsedTime();
-    animation_timer = animation_clock.getElapsedTime();
 }
 void Game::draw()
 {
@@ -336,7 +341,7 @@ void Game::listenKeyboard()
         if(player->getPosition().x < winDim.x)x = 1;
     }
     if(x!=0 || y!=0)
-        player->move(x, y);
+        player->move(x, y, game_timer);
 
 
   if( Keyboard::isKeyPressed(Keyboard::Space))
@@ -383,7 +388,7 @@ void Game::listenKeyboard()
     }
 
     for(unsigned i=0; i<balas.size(); i++)
-        balas[i]->move();
+        balas[i]->move(game_timer);
 
 }
 
@@ -491,7 +496,7 @@ void Game::moverEnemigos(){
 
 
         if(indices.size() < 1)//este enemigo no esta cerca de ningun otro enemigo
-           enemigos[i].move(v_vectores);//se pasa el array con solo una pos, la del player.
+           enemigos[i].move(v_vectores, game_timer);//se pasa el array con solo una pos, la del player.
 
         else
         {
@@ -500,7 +505,7 @@ void Game::moverEnemigos(){
                 v_vectores.push_back(enemigos[ind].getPosition());
 
             }
-            enemigos[i].move(v_vectores);
+            enemigos[i].move(v_vectores, game_timer);
 
         }
 
@@ -584,23 +589,24 @@ void Game::playerCollisions()
         {
             if(enemigos[i].getPosition().x > player->getPosition().x)
             {
-                player->empujon(-1,0);
+                player->empujon(-1,0, game_timer);
             }
             else
             {
-                player->empujon(1,0);
+                player->empujon(1,0, game_timer);
             }
             if(enemigos[i].getPosition().y > player->getPosition().y)
             {
-                player->empujon(0, -1);
+                player->empujon(0, -1, game_timer);
             }
             else
             {
-                player->empujon(0, 1);
+                player->empujon(0, 1, game_timer);
             }
             player->gestionaVida(-10);
-            //break;
+            break;
         }
+
     }
 
 }

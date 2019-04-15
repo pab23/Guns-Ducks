@@ -40,6 +40,7 @@ Object::Object(string type, Texture &tex, Vector2f pos)
     }
 
     spr->setPosition(pos);
+    spr->setScale(.7, .7);
 
 }
 Object::Object(const Object& obj)

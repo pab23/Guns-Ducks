@@ -20,7 +20,7 @@ class Bullet
 
         Sprite getSprite();
         CircleShape getBox();
-        void move();
+        void move(float);
         FloatRect getBounds();
         Vector2f getPos();
 

@@ -8,9 +8,9 @@ Bullet::Bullet(Vector2f pos, Vector2i p_dir, float radius, Texture &tex, String 
     box->setFillColor(Color::Red);
 
     dir = p_dir;
-    speed = 50;
+    speed = 20000;
     spr->setTextureRect(IntRect(0, 0, 32, 32));
-    spr->setScale(1,1);
+    spr->setScale(.6,.6);
     spr->setOrigin(spr->getGlobalBounds().width/2, spr->getGlobalBounds().height/2);
 
 
@@ -94,7 +94,7 @@ Bullet::~Bullet()
     speed = 0;
 }
 
-void Bullet::move()
+void Bullet::move(float time)
 {
     float speedX, speedY;
     switch(dir.x)
@@ -122,8 +122,8 @@ void Bullet::move()
         break;
     }
     //cout<<"Bullet: "<<speedX<<","<<speedY<<endl;
-    spr->move(speedX, speedY);
-    box->move(speedX, speedY);
+    spr->move(speedX * time, speedY * time);
+    box->move(speedX * time, speedY * time);
 
 }
 

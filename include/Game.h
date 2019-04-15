@@ -23,8 +23,9 @@
 #define T_OLEADAS 5 //tiempo en segundos que transcurre antes de crear una nueva oleada de enemigos
 #define N_OLEADAS 5 //nº de oleadas que se van a crear
 #define N_ENEMIES_OLEADA 5 //nº de enemigos por oleada
-#define SPEED_ENEMY .5 //velocidad del enemigo
+#define SPEED_ENEMY 1000 //velocidad del enemigo
 #define N_RONDAS 4
+#define UPDATE_TIME 1000/30
 
 
 using namespace sf;
@@ -72,14 +73,15 @@ class Game
         vector<Blood> bloods;
         vector<Bullet*> balas;
         vector<Object*> objetos;
-        Clock bullet_clock, general_clock, zone_clock,  enemy_clock,frame_clock,  modoPato_clock, animation_clock;
-        Time bullet_cooldown, enemy_timer, general_timer, zone_timer, modoPato_timer,animation_timer;;
+        Clock bullet_clock, general_clock, zone_clock,  enemy_clock,frame_clock,  modoPato_clock, animation_clock, game_clock;
+        Time bullet_cooldown, enemy_timer, general_timer, zone_timer, modoPato_timer,animation_timer, game_timer_t;
         Vector2i winDim;
         bool primer, info, modoPato;
         Text *txt_time;
         Font *font;
         RectangleShape *life_zone;
         Hud *hud;
+        float game_timer;
 };
 
 #endif // GAME_H

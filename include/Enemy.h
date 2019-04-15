@@ -29,7 +29,7 @@ class Enemy
         void setPosition(float x, float y);
         void setPosition(Vector2f vec);
         void setColor(int color);//Establecer color de la box del enemigo
-        void move(vector<Vector2f> v_posiciones);
+        void move(vector<Vector2f> v_posiciones, float);
         int RandomNumber( int inicio, int fin );//Devuelve un nº aleatorio inicio >= y <= fin
         vector<unsigned> getEnemyArround(vector<Enemy>& enemigos);
         void setVida(string);
@@ -56,6 +56,7 @@ class Enemy
         int dist_col = 50;//Distancia rquerida para la colision entre enemigos
         Animation *anim;
         Vector2i dir;
+
 
 
 

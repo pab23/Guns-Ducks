@@ -15,7 +15,7 @@ class Player
         Player(){}
         Player(Texture&);
 
-        void move(int, int);
+        void move(int, int, float);
 
         Sprite getSprite();
         Vector2f getPosition();
@@ -47,7 +47,7 @@ class Player
         void setSpr(const Sprite&);
         Animation getAnim();
         void changePos(Vector2i, int, Vector2f);
-        void empujon(int, int);
+        void empujon(int, int, float);
 
 
     protected:

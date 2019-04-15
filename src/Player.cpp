@@ -62,11 +62,11 @@ Player::Player(Texture &tex)
         circle->setFillColor(Color(255,0,0,120));*/
         anim = new Animation(tex,1);
 
-        speed = 2.5; dir = {1, 0};
+        speed = 3000; dir = {1, 0};
 }
 
 
-void Player::move(int x, int y)
+void Player::move(int x, int y, float time)
 {
     float speedX;
     float speedY;
@@ -97,9 +97,9 @@ void Player::move(int x, int y)
     }
 
     dir = {x, y};
-    spr->move(speedX, speedY);
+    spr->move(float(speedX*time), float(speedY*time));
     //circle->move(speedX, speedY);
-    box->move(speedX, speedY);
+    box->move(speedX*time, speedY*time);
 
 
 }
@@ -359,9 +359,9 @@ Animation Player::getAnim()
 {
     return *anim;
 }
-void Player::empujon(int dirX, int dirY)
+void Player::empujon(int dirX, int dirY, float time)
 {
-    float speedEm = 5, speedX, speedY;
+    float speedEm = 5000, speedX, speedY;
     switch(dirX)
     {
         case 1:
@@ -386,7 +386,7 @@ void Player::empujon(int dirX, int dirY)
             speedY = 0;
         break;
     }
-    spr->move(speedX, speedY);
-    box->move(speedX, speedY);
+    spr->move(speedX * time, speedY * time);
+    box->move(speedX * time, speedY * time);
 }
 

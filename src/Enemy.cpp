@@ -70,7 +70,7 @@ void Enemy::setPosition(Vector2f vec){
     spr->setPosition(vec.x,vec.y);
     box->setPosition(vec.x,vec.y+spr->getTextureRect().height/3);
 }
-void Enemy::move(vector<Vector2f> v_posiciones){
+void Enemy::move(vector<Vector2f> v_posiciones, float time){
 
 
     vector<Vector2f> vectores;
@@ -92,7 +92,7 @@ void Enemy::move(vector<Vector2f> v_posiciones){
 
         normalizedDir.x = direction.x / (sqrt(pow(direction.x, 2) + pow(direction.y, 2)));//Normalizamos el vector para convetirlo en unitario
         normalizedDir.y = direction.y / (sqrt(pow(direction.x, 2) + pow(direction.y, 2)));
-        currentSpeed = normalizedDir * speed;//v.unitario * escalar, ahora tenemos modulo(velocidad) y direccion (vector direction)*Creo que esa es la teoria
+        currentSpeed = normalizedDir * speed * time;//v.unitario * escalar, ahora tenemos modulo(velocidad) y direccion (vector direction)*Creo que esa es la teoria
 
 
         if(direction.x < 0) dir.x = -1;
