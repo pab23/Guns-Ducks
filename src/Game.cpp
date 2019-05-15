@@ -27,10 +27,6 @@ Game::Game(Vector2i win_dim)
     loadTextures();//Cargamos texturas
 
 
-    ///choque
-    chocando=false;
-
-
     /// mapa de prueba
     spr_map = new Sprite(*tex_map);
     spr_map->setPosition(0,0);
@@ -79,19 +75,11 @@ Game::Game(Vector2i win_dim)
         objetos.push_back(new Object("ducknamyte", *tex_object));
         objetos.push_back(new Object("planchadito", *tex_object));
         objetos.push_back(new Object("pato", *tex_object));
-        objetos.push_back(new Object("muni cionCarabina", *tex_object));
+        objetos.push_back(new Object("municionCarabina", *tex_object));
         objetos.push_back(new Object("municionEscopeta", *tex_object));
     }*/
 
     modoPato=false;
-//objetos.push_back(new Object("ducknamyte", *tex_object,{730,900}));
-objetos.push_back(new Object("botijola", *tex_object,{730,900}));
-//objetos.push_back(new Object("planchadito", *tex_object,{730,900}));
-
-//objetos.push_back(new Object("pato", *tex_object,{730,900}));
-/*
-objetos.push_back(new Object("municionCarabina", *tex_object,{700,500}));
-objetos.push_back(new Object("municiacionEscopeta", *tex_object,{700,400}));*/
 
     gameLoop();
 
@@ -229,7 +217,7 @@ void Game::draw()
     win->clear(Color::White);
       view.setCenter(player->getPosition());
     win->setView(view);
-     mapa->draw(win);
+    mapa->draw(win);
     //win->draw(*spr_map);
 
      /// BLOOD ///
@@ -240,7 +228,7 @@ void Game::draw()
         if(bloods[i].getStateDuck() == 1)  win->draw(bloods[i].getSpriteDuck());// 0 = invisible; 1 = visible
 
     }
-
+    mapa->drawBases(win);
     /// PLAYER ///
 
     win->draw(player->getSprite());
@@ -248,19 +236,21 @@ void Game::draw()
 
     /// LIFE ZONE ///
 
-    win->draw(*life_zone);
+    //win->draw(*life_zone);
 
 
     /// ENEMY ///
 
-    for(unsigned i = 0; i < enemigos.size(); i++){
+    for(unsigned i = 0; i < enemigos.size(); i++)
+    {
         win->draw(enemigos[i].getSprite());//Dibuja sprite del enemigo
         if(info)win->draw(enemigos[i].getLinePlayerEnemy(player->getPosition()));//DibuJa la linea entre enemigo y player
 
-        for(int j = 0; j < enemigos.size();j++){
+        for(int j = 0; j < enemigos.size();j++)
+        {
             if(enemigos[i].getPosition() != enemigos[j].getPosition())
                if(info) win->draw(enemigos[i].getLineEnemyEnemy(enemigos[j].getPosition()));//Dibula la linea entre enemigo y enemigo
-             }
+        }
 
     }
 
@@ -268,9 +258,11 @@ void Game::draw()
 
 
     for( unsigned j = 0; j < balas.size(); j++)
-
+    {
         win->draw(balas[j]->getSprite());
-        //win->draw(balas[j]->getBox());
+        if(info)
+            win->draw(balas[j]->getBox());
+    }
 
     //////////////////////////////////////////////////////////////////////////
     for(unsigned i=0; i<enemigos.size(); i++)
@@ -287,9 +279,9 @@ void Game::draw()
         }
 
     }
-    //win->draw(player->getSprite());
+    win->draw(player->getSprite());
     if(info)
-       // win->draw(player->getRect());
+        win->draw(player->getRect());
 
     for(unsigned i=0; i<enemigos.size(); i++)
     {
@@ -303,21 +295,19 @@ void Game::draw()
     }
 
     //////////////////////////////////////////////////////////////////////////
-mapa->drawSuperior(win);
+    mapa->drawSuperior(win);
 
-
-cout<<chocando<<endl;
  /// OBJECT ///
 
     for( unsigned j = 0; j < objetos.size(); j++)
         win->draw(objetos[j]->getSprite());
 
-win->setView(viewHud);
+    win->setView(viewHud);
 
     timeToString();
     win->draw(*txt_time);
     win->draw(player->getScoreTxt());
-   win->draw(player->getLifeBox());
+    win->draw(player->getLifeBox());
     win->draw(player->getLifeTxt());
     win->draw(player->getShieldBox());
     win->draw(player->getShieldTxt());
@@ -380,6 +370,7 @@ void Game::listenKeyboard()
     if(x!=0 || y!=0)
         player->move(x, y, game_timer);
 
+
   if( Keyboard::isKeyPressed(Keyboard::Space))
     {
         if(player->getArmaActiva().getNombre()=="Pistola" && bullet_cooldown.asSeconds() >= .5f)
@@ -435,10 +426,10 @@ void Game::colisiones()
     for(unsigned i=0; i<balas.size(); i++)
     {
         Vector2f aux = balas[i]->getPos();
-       // if(aux.x < 0 || aux.x > winDim.x || aux.y < 0 || aux.y > winDim.y)
-       // {
-           // borrarBala(i);
-       // }
+       if(aux.x < 0 || aux.x > 1600 || aux.y < 0 || aux.y > 1600)
+       {
+           borrarBala(i);
+       }
     }
 
      for(unsigned i = 0; i < balas.size();i++)
@@ -490,14 +481,8 @@ void Game::colisionMapPlayer(int i){
 
                     if(mapa->getMapaSprites()[i][fil][col]->getGlobalBounds().contains(player->getPosition()))
                     {
-                       player->move(player->getDir().x*-1, player->getDir().y*-1,game_timer);
-
-
-                      //  cout<<"chocando con mapa"<<endl;
-                        chocando=true;
-
+                        player->move(player->getDir().x*-1, player->getDir().y*-1,game_timer);
                     }
-
             }
         }
     }
@@ -524,8 +509,6 @@ void Game::colisionMapEnemy(int i){ //para las capas que colisionan
                         {
                             Vector2f enemydir = enemigos[j].getDir(player->getPosition());
                            enemigos[j].move(enemigos[j].getDir(player->getPosition()).x*-1, enemigos[j].getDir(player->getPosition()).y*-1,game_timer);
-
-
                         }
                     }
 
@@ -566,7 +549,7 @@ void Game::crearEnemy(int n, float s){
  for( unsigned i = 0; i < n; i++)
     {
 
-        Enemy aux(*tex_enemy,s, (int)40);
+        Enemy aux(*tex_enemy,s, (int)100);
         enemigos.push_back(aux);
         crearBlood();
     }
@@ -685,39 +668,29 @@ void Game::inZona()
 
 void Game::playerCollisions()
 {
-
-
     for(unsigned i = 0; i < enemigos.size(); i++)
     {
-
-
-
         if(enemigos[i].getBounds().intersects(player->getBounds()))
         {
-
-
-
-                if(enemigos[i].getPosition().x > player->getPosition().x)
-                {
-                    player->empujon(-1,0, game_timer);
-                }
-                else
-                {
-                    player->empujon(1,0, game_timer);
-                }
-                if(enemigos[i].getPosition().y > player->getPosition().y)
-                {
-                    player->empujon(0, -1, game_timer);
-                }
-                else
-                {
-                    player->empujon(0, 1, game_timer);
-                }
-                player->gestionaVida(-10);
-                break;
+            if(enemigos[i].getPosition().x > player->getPosition().x)
+            {
+                player->empujon(-1,0, game_timer);
             }
-
-
+            else
+            {
+                player->empujon(1,0, game_timer);
+            }
+            if(enemigos[i].getPosition().y > player->getPosition().y)
+            {
+                player->empujon(0, -1, game_timer);
+            }
+            else
+            {
+                player->empujon(0, 1, game_timer);
+            }
+            player->gestionaVida(-10);
+            break;
+        }
 
     }
 

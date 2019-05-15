@@ -198,7 +198,7 @@ for(int cap=0; cap<numCapas; cap++){
                 //window->draw(tsetSprites[0]);
                 //cout<<"pintando sprites ahor si"<<mapaSprites[cap][fil][col]<<endl;
 
-                        if(cap!=3){
+                        if(cap!=3 && cap!=1){
                             window->draw(*(mapaSprites[cap][fil][col]));
                         }
 
@@ -233,7 +233,26 @@ void Map::drawSuperior(sf::RenderWindow* window){
         }
     }
 
+void Map::drawBases(sf::RenderWindow* window){
 
+     for(int fil=0; fil<altura; fil++){
+
+        for(int col=0; col<anchura; col++){
+            // cout<<"pintando sprites"<<endl;
+            if(mapaSprites[1][fil][col]!=NULL){
+                //window->draw(tsetSprites[0]);
+                //cout<<"pintando sprites ahor si"<<mapaSprites[cap][fil][col]<<endl;
+
+
+                            window->draw(*(mapaSprites[1][fil][col]));
+                        }
+
+
+
+
+            }
+        }
+    }
 
 
 bool Map::compruebaColision(sf::FloatRect &fr){

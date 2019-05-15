@@ -15,6 +15,7 @@ class Map
         void leerMap(int map);
         void draw(sf::RenderWindow *window);
         void drawSuperior(sf::RenderWindow *window);
+	void drawBases(sf::RenderWindow *window);
         int getAltura();
         int getAnchura();
         Sprite ****getMapaSprites();
