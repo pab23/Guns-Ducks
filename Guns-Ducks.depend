@@ -863,7 +863,7 @@
 	<ctime>
 	"SFML/Graphics.hpp"
 
-1555328765 /home/pab23/Guns-Ducks/include/Hud.h
+1557908359 /home/pab23/Guns-Ducks/include/Hud.h
 	"SFML/Graphics.hpp"
 	<iostream>
 	<sstream>
@@ -882,13 +882,13 @@
 	"../include/Enemy.h"
 	<math.h>
 
-1557906517 source:/home/pab23/Guns-Ducks/src/Game.cpp
+1557907279 source:/home/pab23/Guns-Ducks/src/Game.cpp
 	"../include/Game.h"
 
 1555328765 source:/home/pab23/Guns-Ducks/src/Gun.cpp
 	"Gun.h"
 
-1556963657 source:/home/pab23/Guns-Ducks/src/Hud.cpp
+1557908364 source:/home/pab23/Guns-Ducks/src/Hud.cpp
 	"Hud.h"
 
 1557906532 source:/home/pab23/Guns-Ducks/src/Map.cpp
@@ -917,7 +917,7 @@
 1555328765 source:/home/pab23/Guns-Ducks/src/Object.cpp
 	"../include/Object.h"
 
-1556367429 source:/home/pab23/Guns-Ducks/src/Player.cpp
+1557909055 source:/home/pab23/Guns-Ducks/src/Player.cpp
 	"../include/Player.h"
 
 1555137588 source:/home/pab23/Guns-Ducks/src/tinystr.cpp

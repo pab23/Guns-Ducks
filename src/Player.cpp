@@ -36,19 +36,19 @@ Player::Player(Texture &tex)
         //Life
         life = 100;
         life_box = new RectangleShape({200, 10});
-        life_box->setPosition(0, 590);
+        life_box->setPosition(507+42,457+24);
         life_box->setFillColor(Color::Green);
         txt_life = new Text("100", *font_txt, 10);
-        txt_life->setPosition(life_box->getSize().x/2,590);
+        txt_life->setPosition(life_box->getPosition().x + life_box->getSize().x/2,life_box->getPosition().y);
         txt_life->setColor(Color::Black);
 
         //shield
         shield = 100;
         shield_box = new RectangleShape({200, 10});
-        shield_box->setPosition(0, 570);
+        shield_box->setPosition(507+42,457+5);
         shield_box->setFillColor(Color::Blue);
         txt_shield = new Text("100", *font_txt, 10);
-        txt_shield->setPosition(shield_box->getSize().x/2,570);
+        txt_shield->setPosition(shield_box->getPosition().x + shield_box->getSize().x/2,shield_box->getPosition().y);
         txt_shield->setColor(Color::Black);
 
         box = new RectangleShape({spr->getScale().x*spr->getTextureRect().width,spr->getScale().y*spr->getTextureRect().height/4});
@@ -152,7 +152,7 @@ void Player::setLife(int x)
             std::stringstream ss;
             ss << life;
             txt_life->setString(ss.str());
-            txt_life->setPosition(life_box->getSize().x/2,txt_life->getPosition().y);
+            txt_life->setPosition(life_box->getPosition().x + life_box->getSize().x/2,life_box->getPosition().y);
         }
         else
         {
@@ -160,7 +160,7 @@ void Player::setLife(int x)
             Vector2f nuevo({0, life_box->getSize().y});
             life_box->setSize(nuevo);
             txt_life->setString("0");
-            txt_life->setPosition(life_box->getSize().x/2,txt_life->getPosition().y);
+            txt_life->setPosition(life_box->getPosition().x + life_box->getSize().x/2,life_box->getPosition().y);
         }
     }
     else//Si suma
@@ -174,7 +174,7 @@ void Player::setLife(int x)
             std::stringstream ss;
             ss << life;
             txt_life->setString(ss.str());
-            txt_life->setPosition(life_box->getSize().x/2,txt_life->getPosition().y);
+            txt_life->setPosition(life_box->getPosition().x + life_box->getSize().x/2,life_box->getPosition().y);
         }
     }
 
@@ -223,7 +223,7 @@ void Player::setShield(int x)
             std::stringstream ss;
             ss << shield;
             txt_shield->setString(ss.str());
-            txt_shield->setPosition(shield_box->getSize().x/2,txt_shield->getPosition().y);
+            txt_shield->setPosition(shield_box->getPosition().x + shield_box->getSize().x/2,shield_box->getPosition().y);
         }
         else
         {
@@ -231,7 +231,7 @@ void Player::setShield(int x)
             Vector2f nuevo({0, shield_box->getSize().y});
             shield_box->setSize(nuevo);
             txt_shield->setString("0");
-            txt_shield->setPosition(shield_box->getSize().x/2,txt_shield->getPosition().y);
+            txt_shield->setPosition(shield_box->getPosition().x + shield_box->getSize().x/2,shield_box->getPosition().y);
         }
     }
     else//Si suma
@@ -245,7 +245,7 @@ void Player::setShield(int x)
             std::stringstream ss;
             ss << shield;
             txt_shield->setString(ss.str());
-            txt_shield->setPosition(shield_box->getSize().x/2,txt_shield->getPosition().y);
+            txt_shield->setPosition(shield_box->getPosition().x + shield_box->getSize().x/2,shield_box->getPosition().y);
         }
     }
 

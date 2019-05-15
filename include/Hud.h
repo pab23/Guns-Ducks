@@ -22,7 +22,7 @@ class Hud
     protected:
     private:
         Texture *tex_ammo;;
-        Sprite *spr_ammo, *spr_duckdead;
+        Sprite *spr_ammo, *spr_duckdead, *spr_life;
         string *str_gun;
         Font *font;
         Text *txt_bullet, *txt_duckdead;

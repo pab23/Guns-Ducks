@@ -11,6 +11,13 @@ Hud::Hud(Texture tex)
     spr_ammo->setPosition(500,500);
 
 
+    spr_life = new Sprite(*tex_ammo);
+    spr_life->setTextureRect(IntRect(94,313,265,40));
+    spr_life->setPosition(507,457);
+
+
+
+
     txt_bullet = new Text();
     txt_bullet->setFont(*font);
     txt_bullet->setCharacterSize(45);
@@ -40,6 +47,7 @@ void Hud::drawHud(RenderWindow* win){
     win->draw(*spr_duckdead);
     win->draw(*txt_duckdead);
 
+    win->draw(*spr_life);
     win->draw(*spr_ammo);
     if(*str_gun == "Carabina" || *str_gun == "Escopeta")win->draw(*txt_bullet);
 }

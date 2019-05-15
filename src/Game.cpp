@@ -306,11 +306,7 @@ void Game::draw()
 
     timeToString();
     win->draw(*txt_time);
-    win->draw(player->getScoreTxt());
-    win->draw(player->getLifeBox());
-    win->draw(player->getLifeTxt());
-    win->draw(player->getShieldBox());
-    win->draw(player->getShieldTxt());
+
 
 
 
@@ -318,6 +314,13 @@ void Game::draw()
     /// HUD (AMMO DISPLAY, RONDAS, ETC
 
     hud->drawHud(win);
+
+    win->draw(player->getScoreTxt());
+    win->draw(player->getLifeBox());
+    win->draw(player->getLifeTxt());
+    win->draw(player->getShieldBox());
+    win->draw(player->getShieldTxt());
+
     hud->setTxtAmmo(player->getArmaActiva().getMunicion());
 
 
