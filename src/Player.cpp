@@ -7,7 +7,6 @@
     * getters y setters necesarios
 
 
-    *@author Pablo Amoros Becerra Javier Ramirez de la Cal
 
 */
 Player::Player(Texture &tex)
@@ -16,12 +15,16 @@ Player::Player(Texture &tex)
 
         armaActiva=0;
         armas.push_back(Gun("Pistola", 1));
+        armas.push_back(Gun("Carabina", 100));
+        armas.push_back(Gun("Escopeta", 100));
 
 
         spr->setOrigin(75/2,75/2);
-        spr->setTextureRect(IntRect(1*75, 0*75, 75, 75));
-        spr->setPosition(400,300);
-        spr->scale(.5,.5);
+       // spr->setTextureRect(IntRect(32, 0, 32, 32));
+        //spr->setTextureRect(IntRect(1*75, 0*75, 75, 75));
+
+        spr->setPosition(800,800);
+
 
         //Score
         font_txt = new Font();
@@ -51,7 +54,7 @@ Player::Player(Texture &tex)
         box = new RectangleShape({spr->getScale().x*spr->getTextureRect().width,spr->getScale().y*spr->getTextureRect().height/4});
         box->setFillColor(Color::Blue);
         box->setOrigin(box->getSize().x/2,box->getSize().y/2);
-        box->setPosition(getPosition().x+3,getPosition().y+spr->getTextureRect().height/3);
+        box->setPosition(getPosition().x,getPosition().y+(spr->getTextureRect().height/2));
 
         /*circle = new CircleShape();
         circle->setOrigin(50,50);
@@ -60,11 +63,11 @@ Player::Player(Texture &tex)
         circle->setFillColor(Color(255,0,0,120));*/
         anim = new Animation(tex,1);
 
-        speed = 2.5; dir = {1, 0};
+        speed = 3000; dir = {1, 0};
 }
 
 
-void Player::move(int x, int y)
+void Player::move(int x, int y, float time)
 {
     float speedX;
     float speedY;
@@ -95,9 +98,9 @@ void Player::move(int x, int y)
     }
 
     dir = {x, y};
-    spr->move(speedX, speedY);
+    spr->move(float(speedX*time), float(speedY*time));
     //circle->move(speedX, speedY);
-    box->move(speedX, speedY);
+    box->move(speedX*time, speedY*time);
 
 
 }
@@ -356,5 +359,47 @@ void Player::setSpr(const Sprite &sprit)
 Animation Player::getAnim()
 {
     return *anim;
+}
+void Player::empujon(int dirX, int dirY, float time)
+{
+    float speedEm = 5000, speedX, speedY;
+    switch(dirX)
+    {
+        case 1:
+            speedX = speedEm;
+        break;
+        case -1:
+            speedX = -speedEm;
+        break;
+        default:
+            speedX = 0;
+        break;
+    }
+    switch(dirY)
+    {
+        case 1:
+            speedY = speedEm;
+        break;
+        case -1:
+            speedY = -speedEm;
+        break;
+        default:
+            speedY = 0;
+        break;
+    }
+    //spr->move(speedX * time, speedY * time);
+    //box->move(speedX * time, speedY * time);
+    sf::FloatRect f = spr->getGlobalBounds();
+        f.left+=speedX;
+        f.top+=speedY;
+        //cogemos posicion global del personaje en el mapa y lo movemos a l posicion a la que deberia de estar
+        //si no colisiona a esa posicion futura lo movemos a ella
+
+        //if(mapa->compruebaColision(f)==false){
+
+        spr->move(speedX * time, speedY * time);
+        box->move(speedX * time, speedY * time);
+    // }
+       // }
 }
 

@@ -14,7 +14,7 @@ class Animation
 {
 public:
     Animation(Texture, int);
-
+    virtual ~Animation();
     Sprite getSprite();
 
     Vector2f getRandomPosition(Vector2i ventana);

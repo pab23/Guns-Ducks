@@ -10,18 +10,25 @@ using namespace std;
 class Bullet
 {
     public:
-        Bullet(Vector2f, Vector2i, float);
+        Bullet(Vector2f, Vector2i, float, Texture&, String arma);
+        Bullet(const Bullet&);
+
+        Bullet & operator=(const Bullet&);
+
         virtual ~Bullet();
 
 
-        CircleShape getSprite();
-        void move();
+        Sprite getSprite();
+        CircleShape getBox();
+        void move(float);
         FloatRect getBounds();
+        Vector2f getPos();
+
 
     protected:
 
     private:
-        //Sprite *spr;
+        Sprite *spr;
         CircleShape *box;
         Vector2i dir;
         float speed;

@@ -2,58 +2,69 @@
 
 using namespace std;
 
-Object::Object(string type, Texture &tex)
+Object::Object(string type, Texture &tex, Vector2f pos)
 {
     spr = new Sprite(tex);
-    spr->setOrigin(32,32);
+    spr->setOrigin(SPR_SIZE/2,SPR_SIZE/2);
     if(type=="botijola")
     {
         tipo="b";
-        spr->setTextureRect(IntRect(64, 64, 64, 64));
+        spr->setTextureRect(IntRect(SPR_SIZE, SPR_SIZE, SPR_SIZE, SPR_SIZE));
 
     }
     else if(type=="planchadito")
     {
         tipo="p";
-        spr->setTextureRect(IntRect(0, 0, 64, 64));
+        spr->setTextureRect(IntRect(0, 0, SPR_SIZE, SPR_SIZE));
     }
     else if(type=="ducknamyte")
     {
         tipo="d";
-        spr->setTextureRect(IntRect(64,0, 64, 64));
+        spr->setTextureRect(IntRect(SPR_SIZE,0, SPR_SIZE, SPR_SIZE));
     }
     else if(type=="pato")
     {
         tipo="m";
-        spr->setTextureRect(IntRect(0, 64, 64, 64));
+        spr->setTextureRect(IntRect(0, SPR_SIZE, SPR_SIZE, SPR_SIZE));
     }
     else if(type=="municionCarabina")
     {
         tipo="ammoC";
-        spr->setTextureRect(IntRect(0, 128, 64, 64));
+        spr->setTextureRect(IntRect(0, SPR_SIZE*2, SPR_SIZE, SPR_SIZE));
     }
 
     else if(type=="municionEscopeta")
     {
         tipo="ammoE";
-        spr->setTextureRect(IntRect(64, 128, 64, 64));
+        spr->setTextureRect(IntRect(SPR_SIZE, SPR_SIZE*2, SPR_SIZE, SPR_SIZE));
     }
 
+    spr->setPosition(pos);
+    spr->setScale(.7, .7);
 
-
-    int randx = rand()%801;
-    int randy = rand()%601;
-    spr->setPosition(randx, randy);
-
-    box = new RectangleShape({54,76/4});
-    box->setFillColor(Color::Red);
-    box->setOrigin(84/2,76/2);
-    box->setPosition(randx, randy+76/1.8);
 }
+Object::Object(const Object& obj)
+{
+    tipo = obj.tipo;
+    spr = obj.spr;
 
+}
+Object & Object::operator=(const Object& obj)
+{
+    if(this != &obj)
+    {
+        if(spr != NULL)
+            delete spr;
+        tipo = obj.tipo;
+        spr = obj.spr;
+    }
+    return *this;
+}
 Object::~Object()
 {
-    //dtor
+    tipo = "";
+    if(spr != NULL)
+        delete spr;
 }
 
 Sprite Object::getSprite()
@@ -61,10 +72,6 @@ Sprite Object::getSprite()
     return *spr;
 }
 
-RectangleShape Object::getRect()
-{
-    return *box;
-}
 
 Vector2f Object::getPosition()
 {
@@ -76,17 +83,7 @@ FloatRect Object::getBounds()
     return spr->getGlobalBounds();
 }
 
-FloatRect Object::getBoundsBox(){
-    return box->getGlobalBounds();
-}
 
-void Object::setColor(int color)
-{
-    if(color == 0)
-    box->setFillColor(Color::Green);
-    else
-    box->setFillColor(Color::Red);
-}
 
 /*int Object::actua()
 {

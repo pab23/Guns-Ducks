@@ -15,7 +15,7 @@ class Enemy
     public:
 
         Enemy(Texture &, float, int);
-        ~Enemy();
+        virtual ~Enemy();
 
         Sprite getSprite();
         FloatRect getBounds();//Devuelve la global bounds del sprite enemigo
@@ -26,10 +26,12 @@ class Enemy
         VertexArray getLineEnemyEnemy(Vector2f posEnemy);//devuelve las lineas dibujadas entre enemigo y enemigo
         Vector2f getRandomPosition(Vector2i ventana);//Devuelve una posicion aleatoria (fuera de los margenes) para situar al enemigo
         float getDistance(Vector2f posEnemy);
+      Vector2f getDir(Vector2f playerPosition);
+    void move(int x, int y,float time);
         void setPosition(float x, float y);
         void setPosition(Vector2f vec);
         void setColor(int color);//Establecer color de la box del enemigo
-        void move(vector<Vector2f> v_posiciones);
+        void move(vector<Vector2f> v_posiciones, float);
         int RandomNumber( int inicio, int fin );//Devuelve un nº aleatorio inicio >= y <= fin
         vector<unsigned> getEnemyArround(vector<Enemy>& enemigos);
         void setVida(string);
@@ -56,6 +58,7 @@ class Enemy
         int dist_col = 50;//Distancia rquerida para la colision entre enemigos
         Animation *anim;
         Vector2i dir;
+
 
 
 

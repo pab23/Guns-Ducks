@@ -5,6 +5,7 @@
 #include <SFML/Graphics.hpp>
 #include "Gun.h"
 #include "Animation.h"
+#include "Map.h"
 
 using namespace sf;
 using namespace std;
@@ -15,7 +16,7 @@ class Player
         Player(){}
         Player(Texture&);
 
-        void move(int, int);
+        void move(int, int, float);
 
         Sprite getSprite();
         Vector2f getPosition();
@@ -47,12 +48,17 @@ class Player
         void setSpr(const Sprite&);
         Animation getAnim();
         void changePos(Vector2i, int, Vector2f);
+        void empujon(int, int, float);
+        Sprite* getSpritePointer(){return spr;};
+        void setMapa(Map* mp){mapa=mp;};
+
 
 
     protected:
 
     private:
         Sprite *spr;
+        Map* mapa;
         RectangleShape *box, *life_box, *shield_box;
         CircleShape *circle;//para que enemigos rodeen al player
         float speed;

@@ -45,7 +45,6 @@ void Hud::drawHud(RenderWindow* win){
 }
 
 void Hud::setGun(string gun){
-
     if(gun=="Pistola")
         spr_ammo->setTextureRect(IntRect(0,0,400,100));
     else if(gun=="Carabina")

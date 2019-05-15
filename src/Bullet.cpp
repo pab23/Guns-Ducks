@@ -1,22 +1,100 @@
 #include "../include/Bullet.h"
 
 
-Bullet::Bullet(Vector2f pos, Vector2i p_dir, float radius)
+Bullet::Bullet(Vector2f pos, Vector2i p_dir, float radius, Texture &tex, String arma)
 {
+    spr = new Sprite(tex);
     box = new CircleShape(radius);
     box->setFillColor(Color::Red);
-    box->setPosition(pos);
+
     dir = p_dir;
-    speed = 5;
+    speed = 20000;
+    spr->setTextureRect(IntRect(0, 0, 32, 32));
+    spr->setScale(.6,.6);
+    spr->setOrigin(spr->getGlobalBounds().width/2, spr->getGlobalBounds().height/2);
+
+
+    if(arma=="Pistola")
+    {
+        spr->setTextureRect(IntRect(0, 0, 32, 32));
+
+    }
+    else if(arma=="Carabina")
+    {
+        spr->setTextureRect(IntRect(32, 0, 32, 32));
+    }
+    else if(arma=="Escopeta")
+    {
+        spr->setTextureRect(IntRect(0, 32, 32, 32));
+    }
+
+
+    if(dir.x==0 && dir.y==1)
+    {
+        spr->rotate(180);
+    }
+    else if(dir.x==1 && dir.y==0)
+    {
+        spr->rotate(90);
+    }
+    else if(dir.x==1 && dir.y==-1)
+    {
+        spr->rotate(45);
+    }
+    else if(dir.x==1 && dir.y==1)
+    {
+        spr->rotate(135);
+    }
+
+    else if(dir.x==-1 && dir.y==0)
+    {
+        spr->rotate(-90);
+    }
+    else if(dir.x==-1 && dir.y==-1)
+    {
+        spr->rotate(-45);
+    }
+    else if(dir.x==-1 && dir.y==1)
+    {
+        spr->rotate(-135);
+    }
+    spr->setPosition(pos.x-spr->getGlobalBounds().width/4, pos.y-spr->getGlobalBounds().height/4);
+
+
+
 
 }
+
+Bullet::Bullet(const Bullet& b)
+{
+    spr = b.spr;
+    dir = b.dir;
+    speed = b.speed;
+}
+
+Bullet & Bullet::operator=(const Bullet& b)
+{
+    if(this != &b)
+    {
+        if(spr != NULL)
+            delete spr;
+        if(b.spr != NULL)
+            *spr = *b.spr;
+        dir = b.dir;
+        speed = b.speed;
+    }
+    return *this;
+}
+
 
 Bullet::~Bullet()
 {
-    //dtor
+    delete spr;
+    dir = {0,0};
+    speed = 0;
 }
 
-void Bullet::move()
+void Bullet::move(float time)
 {
     float speedX, speedY;
     switch(dir.x)
@@ -44,18 +122,28 @@ void Bullet::move()
         break;
     }
     //cout<<"Bullet: "<<speedX<<","<<speedY<<endl;
-    box->move(speedX, speedY);
+    spr->move(speedX * time, speedY * time);
+    box->move(speedX * time, speedY * time);
 
 }
 
 
-CircleShape Bullet::getSprite()
+Sprite Bullet::getSprite()
+{
+
+    return *spr;
+}
+
+CircleShape Bullet::getBox()
 {
 
     return *box;
 }
-
-FloatRect Bullet::getBounds(){
-    return box->getGlobalBounds();
+Vector2f Bullet::getPos()
+{
+    return spr->getPosition();
 }
 
+FloatRect Bullet::getBounds(){
+    return spr->getGlobalBounds();
+}
