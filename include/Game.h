@@ -59,6 +59,8 @@ class Game
         void itemCollisions();
         void update();
         void objRandom(Vector2f);
+        void updateRondaTxt();
+        void updateObjetoTxt(int);
 
 
 
@@ -72,7 +74,7 @@ class Game
         Sprite *spr_map, *spr_ammo;
         Player *player;
         Event e;
-        int cont_oleadas, cont_rondas, cont_bajas; //contador de oleadas y rondas creadas
+        int cont_oleadas, cont_rondas, cont_bajas, control_rondas, control_obj; //contador de oleadas y rondas creadas
         vector<Enemy> enemigos;
         vector<Blood> bloods;
         vector<Bullet*> balas;
@@ -81,7 +83,7 @@ class Game
         Time bullet_cooldown, enemy_timer, general_timer, zone_timer, modoPato_timer,animation_timer, game_timer_t;
         Vector2i winDim;
         bool primer, info, modoPato;
-        Text *txt_time;
+        Text *txt_time, *txt_ronda, *txt_objetos;
         Font *font;
         RectangleShape *life_zone;
         Hud *hud;
