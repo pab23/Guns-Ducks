@@ -207,9 +207,8 @@ void Player::gestionaVida(int x)
         this->setShield(x);
     else
         this->setLife(x);
-<<<<<<< HEAD
-}
 
+}
 void Player::setShield(int x)
 {
 
@@ -265,65 +264,7 @@ void Player::setShield(int x)
 
 }
 
-=======
-}
 
-void Player::setShield(int x)
-{
-
-    if(x < 0)//Si resta
-    {
-        if((shield+x) > 0)
-        {
-            shield += x;
-            Vector2f nuevo({shield_box->getSize().x+2*x, shield_box->getSize().y});
-            shield_box->setSize(nuevo);
-
-            std::stringstream ss;
-            ss << shield;
-            txt_shield->setString(ss.str());
-            txt_shield->setPosition(shield_box->getPosition().x + shield_box->getSize().x/2,shield_box->getPosition().y);
-        }
-        else
-        {
-            shield = 0;
-            Vector2f nuevo({0, shield_box->getSize().y});
-            shield_box->setSize(nuevo);
-            txt_shield->setString("0");
-            txt_shield->setPosition(shield_box->getPosition().x + shield_box->getSize().x/2,shield_box->getPosition().y);
-        }
-    }
-    else//Si suma
-    {
-        if(shield + x <= 100)
-        {
-            shield += x;
-            Vector2f nuevo({shield_box->getSize().x+2*x, shield_box->getSize().y});
-            shield_box->setSize(nuevo);
-
-            std::stringstream ss;
-            ss << shield;
-            txt_shield->setString(ss.str());
-            txt_shield->setPosition(shield_box->getPosition().x + shield_box->getSize().x/2,shield_box->getPosition().y);
-        }
-    }
-
-
-    if (life >= 50)
-    {
-        life_box->setFillColor(Color::Green);
-    }else if (life < 50 && life >= 20)
-    {
-        life_box->setFillColor(Color(255, 102, 0));
-    }else
-    {
-        life_box->setFillColor(Color::Red);
-    }
-
-
-}
-
->>>>>>> Shots
 
 
 Sprite Player::getSprite()
@@ -456,24 +397,24 @@ void Player::empujon(int dirX, int dirY, float time)
         //si no colisiona a esa posicion futura lo movemos a ella
 
         //if(mapa->compruebaColision(f)==false){
-<<<<<<< HEAD
 
-=======
+
+
         dir = {dirX, dirY};
->>>>>>> Shots
+
         spr->move(speedX * time, speedY * time);
         box->move(speedX * time, speedY * time);
     // }
        // }
 }
-<<<<<<< HEAD
-=======
+
+
 
 void Player::setDir(Vector2i d)
 {
     dir=d;
 }
->>>>>>> Shots
+
 
 void Player::collisionMove(int dirX, int dirY, float time)
 {

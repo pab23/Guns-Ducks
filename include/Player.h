@@ -37,10 +37,7 @@ class Player
         int getShield();
         void setLife(int);
         void setShield(int);
-<<<<<<< HEAD
-=======
         void setDir(Vector2i dir);
->>>>>>> Shots
         Text getLifeTxt();
         Text getShieldTxt();
         void gestionaVida(int);
