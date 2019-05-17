@@ -13,9 +13,9 @@ const Vector2i winDim (800, 600);
 
 
 
-void empezarJuego(RenderWindow &ventana)
+void empezarJuego(RenderWindow &ventana, int select)
 {
-    Game juego(ventana, 1);
+    Game juego(ventana, select);
 }
 
 
@@ -36,30 +36,56 @@ int main()
             switch(e.type)
             {
             case Event::KeyReleased:
-                switch(e.key.code)
-                {
-                    case Keyboard::Up:
-                        menu->moveUp();
-                        break;
-                    case Keyboard::Down:
-                        menu->moveDown();
-                        break;
-                    case Keyboard::Return:
-                        switch(menu->getSelected())
-                        {
-                        case 0:
-                            delete menu;
-                            empezarJuego(*ventana);
-                            break;
-                        case 1:
-                            break;
-                        case 2:
-                            ventana->close();
-                            break;
 
+                    if(menu->getState() == 0)
+                    {
+                        switch(e.key.code)
+                        {
+                            case Keyboard::Up:
+                                menu->moveUp();
+                            break;
+                            case Keyboard::Down:
+                                menu->moveDown();
+                            break;
                         }
-                        break;
-                }
+                    }
+                    else if(menu->getState() == 1)
+                    {
+                        switch(e.key.code)
+                        {
+                            case Keyboard::Right:
+                                menu->moveRight();
+                            break;
+                            case Keyboard::Left:
+                                menu->moveLeft();
+                            break;
+                        }
+                    }
+
+                    if(e.key.code ==Keyboard::Return)
+                    {
+                        if(menu->getState() == 0)
+                        {
+                            switch(menu->getSelected())
+                            {
+                            case 0:
+                                menu->setState(1);
+                                break;
+                            case 1:
+                                break;
+                            case 2:
+                                ventana->close();
+                                break;
+
+                            }
+                        }
+                        else if(menu->getState() == 1)
+                        {
+                            empezarJuego(*ventana, menu->getMapSelected()+1);
+                        }
+                    }
+
+
             default: break;
             }
 
