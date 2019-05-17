@@ -1076,32 +1076,33 @@ void Game::updateObjetoTxt(int objj)
 {
     //0 planchadito  -  1 botijola  - 2 duknamite  - 3 amo carabina  - 4 amo escopeta  - 5 PATO
 
-    if(objj == 0)
+    switch(objj)
     {
-        txt_objetos->setString("Planchadito: Recuperas la Vida");
-        control_obj = general_clock.getElapsedTime().asSeconds();
-    }else if(objj == 1)
-    {
-        txt_objetos->setString("Botijola: Recuperas el Escudo");
-        control_obj = general_clock.getElapsedTime().asSeconds();
-    }else if(objj == 2)
-    {
-        txt_objetos->setString("Ducknamite: kabooom");
-        control_obj = general_clock.getElapsedTime().asSeconds();
-    }else if(objj == 3)
-    {
-        txt_objetos->setString("Municion: +50 balas de Carabina");
-        control_obj = general_clock.getElapsedTime().asSeconds();
+        case 0:
+            txt_objetos->setString("Planchadito: Recuperas la Vida");
+        break;
 
-    }else if(objj == 4)
-    {
-        txt_objetos->setString("Municion: +10 balas de Escopeta");
-        control_obj = general_clock.getElapsedTime().asSeconds();
-    }else if(objj == 5)
-    {
-        txt_objetos->setString("Modo P.A.T.O: Insta Kill");
-        control_obj = general_clock.getElapsedTime().asSeconds();
+        case 1:
+            txt_objetos->setString("Botijola: Recuperas el Escudo");
+        break;
+
+        case 2:
+            txt_objetos->setString("Ducknamite: kabooom");
+        break;
+
+        case 3:
+            txt_objetos->setString("Municion: +50 balas de Carabina");
+        break;
+
+        case 4:
+            txt_objetos->setString("Municion: +10 balas de Escopeta");
+        break;
+
+        case 5:
+            txt_objetos->setString("Modo P.A.T.O: Insta Kill");
+        break;
     }
+    control_obj = general_clock.getElapsedTime().asSeconds();
 
 
 }
