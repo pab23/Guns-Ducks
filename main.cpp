@@ -35,7 +35,7 @@ int main()
         {
             switch(e.type)
             {
-            case Event::KeyReleased:
+            case Event::KeyPressed:
 
                     if(menu->getState() == 0)
                     {
