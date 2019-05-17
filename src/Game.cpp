@@ -36,6 +36,7 @@ Game::Game(Vector2i win_dim)
 
     fondo_sound.setBuffer(fondo_buffer);
     fondo_sound.setLoop(true);
+    fondo_sound.setVolume(46);
     fondo_sound.play();
 
     if(!pistola_buffer.loadFromFile("resources/pistola.wav")){
@@ -43,6 +44,18 @@ Game::Game(Vector2i win_dim)
     }
 
     pistola_sound.setBuffer(pistola_buffer);
+
+    if(!carbine_buffer.loadFromFile("resources/lamachina.wav")){
+        cout<<"Error"<<endl;
+    }
+
+    carbine_sound.setBuffer(carbine_buffer);
+
+    if(!shotgun_buffer.loadFromFile("resources/escupeta.wav")){
+        cout<<"Error"<<endl;
+    }
+
+    shotgun_sound.setBuffer(shotgun_buffer);
 
     /// mapa de prueba
     spr_map = new Sprite(*tex_map);
@@ -457,6 +470,7 @@ void Game::listenKeyboard()
         {
             if(player->getArmaActiva().getMunicion()>0)
             {
+                carbine_sound.play();
                 bullet_clock.restart();
                 balas.push_back(new Bullet(player->getPosition(), player->getDir(), 3, *tex_balas, "Carabina"));//ultimo parametro radio a falta de implementar diferentes tipos de bala
                 player->quitarBalaActiva();
@@ -473,6 +487,7 @@ void Game::listenKeyboard()
         {
             if(player->getArmaActiva().getMunicion()>0)
             {
+                 shotgun_sound.play();
                  bullet_clock.restart();
                  balas.push_back(new Bullet(player->getPosition(), player->getDir(), 7, *tex_balas, "Escopeta"));//ultimo parametro radio a falta de implementar diferentes tipos de bala
                  player->quitarBalaActiva();

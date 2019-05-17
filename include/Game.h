@@ -93,8 +93,8 @@ class Game
         Map *mapa;
         bool chocando;
         //Sonido
-        SoundBuffer pistola_buffer, fondo_buffer;
-        Sound pistola_sound, fondo_sound;
+        SoundBuffer pistola_buffer,carbine_buffer, shotgun_buffer, fondo_buffer;
+        Sound pistola_sound, carbine_sound, shotgun_sound, fondo_sound;
 
 
 };

@@ -19,7 +19,6 @@
 					<Add library="sfml-graphics" />
 					<Add library="sfml-window" />
 					<Add library="sfml-system" />
-					<Add library="sfml-audio" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -36,7 +35,6 @@
 					<Add library="sfml-graphics" />
 					<Add library="sfml-window" />
 					<Add library="sfml-system" />
-					<Add library="sfml-audio" />
 				</Linker>
 			</Target>
 		</Build>
@@ -52,6 +50,7 @@
 		<Unit filename="include/Gun.h" />
 		<Unit filename="include/Hud.h" />
 		<Unit filename="include/Map.h" />
+		<Unit filename="include/Menu.h" />
 		<Unit filename="include/Object.h" />
 		<Unit filename="include/Player.h" />
 		<Unit filename="include/VertexArray.hpp" />
@@ -66,6 +65,7 @@
 		<Unit filename="src/Gun.cpp" />
 		<Unit filename="src/Hud.cpp" />
 		<Unit filename="src/Map.cpp" />
+		<Unit filename="src/Menu.cpp" />
 		<Unit filename="src/Object.cpp" />
 		<Unit filename="src/Player.cpp" />
 		<Unit filename="src/tinystr.cpp" />
