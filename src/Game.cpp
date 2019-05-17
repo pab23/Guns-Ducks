@@ -53,7 +53,7 @@ Game::Game(RenderWindow &window)
     ///mapa
 
     mapa = new Map();
-    mapa->leerMap((int)1);
+    mapa->leerMap(2);
 
     /// info del juego
     primer = true;
