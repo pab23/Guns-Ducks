@@ -15,8 +15,12 @@
 
 Game::Game(Vector2i win_dim)
 {
+
     srand(time(NULL));
     winDim=win_dim;
+
+      view.reset(sf::FloatRect(0,0,win_dim.x, win_dim.y));
+      viewHud.reset(sf::FloatRect(0,0,win_dim.x, win_dim.y));
     win = new RenderWindow(VideoMode(win_dim.x, win_dim.y), "Guns & Ducks");
     win->setFramerateLimit(60);
 
@@ -38,19 +42,41 @@ Game::Game(Vector2i win_dim)
 
     ///player
     player = new Player(*tex_player);
+    player->setMapa(mapa);
 
     ///enemy
     enemy_clock.restart();
     cont_oleadas = 0;//contador de oleadas
 
+    ///mapa
+
+    mapa = new Map();
+    mapa->leerMap((int)1);
+
     /// info del juego
     primer = true;
     info = false;
+    control_rondas = 0;
 
     font = new Font();
+    font_zombie = new Font();
     font->loadFromFile("letra_pixel.ttf");
+    font_zombie->loadFromFile("edosz.ttf");
     txt_time = new Text("0",*font);
     txt_time->setPosition(10,10);
+    txt_ronda = new Text("1", *font);
+    txt_ronda->setPosition(400,100);
+    txt_ronda->setColor(Color::Red);
+
+    txt_nrondas = new Text("Ronda 1",*font_zombie);
+    txt_nrondas->setCharacterSize(38);
+    txt_nrondas->setPosition(600,10);
+    txt_nrondas->setColor(Color::Red);
+
+    txt_objetos = new Text("", *font);
+    txt_objetos->setPosition(200,150);
+
+
 
     ///zona
     life_zone = new RectangleShape({100,100});
@@ -68,8 +94,6 @@ Game::Game(Vector2i win_dim)
         objetos.push_back(new Object("municionCarabina", *tex_object));
         objetos.push_back(new Object("municionEscopeta", *tex_object));
     }*/
-
-    modoPato=false;
 
     gameLoop();
 
@@ -132,14 +156,44 @@ void Game::gameLoop()
 }
 void Game::update()
 {
+
     enemy_timer = enemy_clock.getElapsedTime();
     bullet_cooldown = bullet_clock.getElapsedTime();
-    listenKeyboard();
+     listenKeyboard();
+    //GameOver
+    if(player->getLife() > 0)
+    {
+
+
     moverEnemigos();
     colisiones();
     playerCollisions();
+    colisionMapPlayer(2); //player con agua
+    colisionMapPlayer(1); //player con mano arbustos y piedras
+   colisionMapEnemy(1); //enemigo con mano arbustos y piedras
     zone_timer = zone_clock.getElapsedTime();
     animation_timer = animation_clock.getElapsedTime();
+
+
+        ///Rondas
+
+        if(control_rondas > 0)
+        {
+            if(general_clock.getElapsedTime().asSeconds() >= control_rondas+4)
+                control_rondas = 0;
+        }
+        stringstream ss;
+        ss<<cont_rondas+1;
+        strnr="Ronda "+ss.str();
+        txt_nrondas->setString(strnr);
+
+        ///Obj Txt
+
+        if(control_obj > 0)
+        {
+            if(general_clock.getElapsedTime().asSeconds() >= control_obj+4)
+                control_obj = 0;
+        }
 
        ///Animation
         if(animation_timer.asSeconds() >= .2)
@@ -177,6 +231,7 @@ void Game::update()
             enemy_clock.restart();
             }
         else if(cont_oleadas == N_OLEADAS && enemigos.size()==0 && cont_rondas < N_RONDAS ){//Nueva ronda
+
             for(unsigned i = 0; i< bloods.size();i++)
             {
                //Quito cadaveres, cambio el color de la sangre
@@ -188,22 +243,44 @@ void Game::update()
             enemy_clock.restart();
             cont_oleadas=0;
             cont_rondas++;
+            updateRondaTxt();
+
         }
 
         ///Modo Pato///
+        if(modoPato)
+        {
+            hud->setModoPato(true);
+        }
+        else
+        {
+           hud->setModoPato(false);
+        }
         modoPato_timer=modoPato_clock.getElapsedTime();
+
         if(modoPato && modoPato_timer.asSeconds()>=15)
         {
             cout<<"Se acabo el modo pato"<<endl;
             modoPatoOFF();
         }
+
+    }else{
+        cout<<"Muerto"<<endl;
+    }
+
+
+
 }
 void Game::draw()
 {
 
     win->clear(Color::White);
+      view.setCenter(player->getPosition());
+    win->setView(view);
+    mapa->draw(win);
+    //win->draw(*spr_map);
 
-    win->draw(*spr_map);
+
 
      /// BLOOD ///
 
@@ -213,7 +290,7 @@ void Game::draw()
         if(bloods[i].getStateDuck() == 1)  win->draw(bloods[i].getSpriteDuck());// 0 = invisible; 1 = visible
 
     }
-
+    mapa->drawBases(win);
     /// PLAYER ///
 
     win->draw(player->getSprite());
@@ -221,19 +298,21 @@ void Game::draw()
 
     /// LIFE ZONE ///
 
-    win->draw(*life_zone);
+    //win->draw(*life_zone);
 
 
     /// ENEMY ///
 
-    for(unsigned i = 0; i < enemigos.size(); i++){
+    for(unsigned i = 0; i < enemigos.size(); i++)
+    {
         win->draw(enemigos[i].getSprite());//Dibuja sprite del enemigo
         if(info)win->draw(enemigos[i].getLinePlayerEnemy(player->getPosition()));//DibuJa la linea entre enemigo y player
 
-        for(int j = 0; j < enemigos.size();j++){
+        for(int j = 0; j < enemigos.size();j++)
+        {
             if(enemigos[i].getPosition() != enemigos[j].getPosition())
                if(info) win->draw(enemigos[i].getLineEnemyEnemy(enemigos[j].getPosition()));//Dibula la linea entre enemigo y enemigo
-             }
+        }
 
     }
 
@@ -241,9 +320,11 @@ void Game::draw()
 
 
     for( unsigned j = 0; j < balas.size(); j++)
-
+    {
         win->draw(balas[j]->getSprite());
-        //win->draw(balas[j]->getBox());
+        if(info)
+            win->draw(balas[j]->getBox());
+    }
 
     //////////////////////////////////////////////////////////////////////////
     for(unsigned i=0; i<enemigos.size(); i++)
@@ -275,28 +356,42 @@ void Game::draw()
         }
     }
 
-
     //////////////////////////////////////////////////////////////////////////
+    mapa->drawSuperior(win);
+
+ /// OBJECT ///
+
+    for( unsigned j = 0; j < objetos.size(); j++)
+        win->draw(objetos[j]->getSprite());
+
+    win->setView(viewHud);
 
     timeToString();
     win->draw(*txt_time);
+    win->draw(*txt_nrondas);
+
+
+
+
+
+    /// HUD (AMMO DISPLAY, RONDAS, ETC
+
+    hud->drawHud(win);
+
     win->draw(player->getScoreTxt());
     win->draw(player->getLifeBox());
     win->draw(player->getLifeTxt());
     win->draw(player->getShieldBox());
     win->draw(player->getShieldTxt());
 
-    /// OBJECT ///
-
-    for( unsigned j = 0; j < objetos.size(); j++)
-        win->draw(objetos[j]->getSprite());
-
-
-    /// HUD (AMMO DISPLAY, RONDAS, ETC
-
-    hud->drawHud(win);
     hud->setTxtAmmo(player->getArmaActiva().getMunicion());
 
+        /// RONDAS ///
+        if(control_rondas > 0)
+            win->draw(*txt_ronda);
+        ///TXT objetos///
+        if(control_obj > 0)
+            win->draw(*txt_objetos);
 
     win->display();
 }
@@ -326,19 +421,23 @@ void Game::listenKeyboard()
     }
     if( Keyboard::isKeyPressed(Keyboard::W))
     {
-        if(player->getPosition().y > 0)y = -1;
+       // if(player->getPosition().y > 0)
+            y = -1;
     }
     else if( Keyboard::isKeyPressed(Keyboard::S))
     {
-        if(player->getPosition().y < winDim.y)y = 1;
+       //) if(player->getPosition().y < winDim.y)
+            y = 1;
     }
     if( Keyboard::isKeyPressed(Keyboard::A))
     {
-        if(player->getPosition().x > 0)x = -1;
+      //  if(player->getPosition().x > 0)
+            x = -1;
     }
     else if( Keyboard::isKeyPressed(Keyboard::D))
     {
-        if(player->getPosition().x < winDim.x)x = 1;
+        //if(player->getPosition().x < winDim.x)
+            x = 1;
     }
     if(x!=0 || y!=0)
         player->move(x, y, game_timer);
@@ -390,6 +489,8 @@ void Game::listenKeyboard()
     for(unsigned i=0; i<balas.size(); i++)
         balas[i]->move(game_timer);
 
+
+
 }
 
 
@@ -399,10 +500,10 @@ void Game::colisiones()
     for(unsigned i=0; i<balas.size(); i++)
     {
         Vector2f aux = balas[i]->getPos();
-        if(aux.x < 0 || aux.x > winDim.x || aux.y < 0 || aux.y > winDim.y)
-        {
-            borrarBala(i);
-        }
+       if(aux.x < 0 || aux.x > 1600 || aux.y < 0 || aux.y > 1600)
+       {
+           borrarBala(i);
+       }
     }
 
      for(unsigned i = 0; i < balas.size();i++)
@@ -437,7 +538,67 @@ void Game::colisiones()
 }
 
 
-///MODO PATO///
+
+void Game::colisionMapPlayer(int i){
+
+    /*Este metodo hace que la capa i sea colisionable tanto con emeigos como con el player, si al final decidimos que los enemigos no colisionan con nada
+    se comenta el bucle for de enemigos y listo.*/
+
+    for(int fil=0; fil<mapa->getAltura(); fil++)
+    {
+        for(int col=0; col<mapa->getAnchura(); col++)
+        {
+            if(mapa->getMapaSprites()[i][fil][col]!=NULL)
+            {
+
+                    if(mapa->getMapaSprites()[i][fil][col]->getGlobalBounds().intersects(player->getBounds()))
+                    {
+                        //player->move(player->getDir().x*-1, player->getDir().y*-1,game_timer);
+                        //player->setDir({player->getDir().x*-1, player->getDir().y*-1});
+                        player->collisionMove(player->getDir().x*-1, player->getDir().y*-1, game_timer);
+                    }
+            }
+
+        }
+    }
+}
+
+void Game::colisionMapEnemy(int i){ //para las capas que colisionan
+
+    for(int fil=0; fil<mapa->getAltura(); fil++)
+    {
+        for(int col=0; col<mapa->getAnchura(); col++)
+        {
+            if(mapa->getMapaSprites()[i][fil][col]!=NULL)
+            {
+
+                for(int j=0; j<enemigos.size(); j++) //este
+                {
+                    if(mapa->getMapaSprites()[i][fil][col]->getGlobalBounds().intersects(enemigos[j].getBounds()))
+                    {
+                        Vector2f enemydir = enemigos[j].getDir(player->getPosition());
+                        enemigos[j].move(enemigos[j].getDir(player->getPosition()).x*-1, enemigos[j].getDir(player->getPosition()).y*-1,game_timer);
+                    }
+
+                    for(unsigned z=0; z<balas.size();z++)
+                        if(mapa->getMapaSprites()[i][fil][col]->getGlobalBounds().intersects(balas[z]->getBounds()))
+                        {
+                            borrarBala(z);
+                            cout<<"c"<<endl;
+                        }
+                }
+
+            }
+
+        }
+    }
+
+
+}
+
+
+
+    ///MODO PATO///
 void Game::modoPatoON()
 {
     modoPato_clock.restart();
@@ -587,22 +748,25 @@ void Game::playerCollisions()
     {
         if(enemigos[i].getBounds().intersects(player->getBounds()))
         {
+            int x=0;
+            int y=0;
             if(enemigos[i].getPosition().x > player->getPosition().x)
             {
-                player->empujon(-1,0, game_timer);
+                x=-1;
             }
             else
             {
-                player->empujon(1,0, game_timer);
+                x=1;
             }
             if(enemigos[i].getPosition().y > player->getPosition().y)
             {
-                player->empujon(0, -1, game_timer);
+                y=-1;
             }
             else
             {
-                player->empujon(0, 1, game_timer);
+                y=1;
             }
+            player->empujon(x, y, game_timer);
             player->gestionaVida(-10);
             break;
         }
@@ -630,6 +794,7 @@ void Game::itemCollisions()
             {
                 //cout<<"Botijola: recuperamos todo el escudo"<<endl;
                 player->setShield(100-player->getShield());
+                updateObjetoTxt(1);
             }
             else if(aux=="d")
             {
@@ -642,31 +807,38 @@ void Game::itemCollisions()
                 }
                 hud->setTxtDuckdead(cont_bajas);
                 enemigos.erase(enemigos.begin(), enemigos.begin()+enemigos.size());
+                updateObjetoTxt(2);
             }
             else if(aux=="p")
             {
                 //cout<<"Planchadito: Recuperamos toda la vida"<<endl;
                 player->setLife(100-player->getLife());
+                updateObjetoTxt(0);
             }
             else if(aux=="m")
             {
                 //cout<<"Modo PaTo: matas a todos de un tiro"<<endl;
                 //player->getSprite().setColor(Color::Red);
+                modoPatoON();
+                updateObjetoTxt(5);
             }
             else if(aux=="ammoC")
             {
                 player->cogerMunicion("Carabina", 50);
+                updateObjetoTxt(3);
 
             }
 
             else if(aux=="ammoE")
             {
                 player->cogerMunicion("Escopeta", 10);
+                updateObjetoTxt(4);
 
             }
             Object* obau = objetos[i];
             objetos.erase(objetos.begin()+i);
             delete obau;
+
 
         }
     }
@@ -684,6 +856,7 @@ void Game::timeToString()
 
 void Game::objRandom(Vector2f pos)
 {
+
     string ob_aux[] = {"botijola", "ducknamyte", "planchadito", "pato", "municionCarabina", "municionEscopeta"};
     int num = floor(1+rand()%(10-1));
     if(num == 1)
@@ -691,5 +864,49 @@ void Game::objRandom(Vector2f pos)
         int type = floor(rand()%(6-1));
         objetos.push_back(new Object(ob_aux[type], *tex_object, pos));
     }
+}
+void Game::updateRondaTxt()
+{
+
+    std::string out_string;
+    std::stringstream ss;
+    ss << cont_rondas;
+    out_string = ss.str();
+    txt_ronda->setString("Ronda: "+out_string);
+    control_rondas = general_clock.getElapsedTime().asSeconds();
+    cout<<"Muero y control: "<<control_rondas+1<<endl;
+}
+void Game::updateObjetoTxt(int objj)
+{
+    //0 planchadito  -  1 botijola  - 2 duknamite  - 3 amo carabina  - 4 amo escopeta  - 5 PATO
+
+    if(objj == 0)
+    {
+        txt_objetos->setString("Planchadito: Recuperas la Vida");
+        control_obj = general_clock.getElapsedTime().asSeconds();
+    }else if(objj == 1)
+    {
+        txt_objetos->setString("Botijola: Recuperas el Escudo");
+        control_obj = general_clock.getElapsedTime().asSeconds();
+    }else if(objj == 2)
+    {
+        txt_objetos->setString("Ducknamite: kabooom");
+        control_obj = general_clock.getElapsedTime().asSeconds();
+    }else if(objj == 3)
+    {
+        txt_objetos->setString("Municion: +50 balas de Carabina");
+        control_obj = general_clock.getElapsedTime().asSeconds();
+
+    }else if(objj == 4)
+    {
+        txt_objetos->setString("Municion: +10 balas de Escopeta");
+        control_obj = general_clock.getElapsedTime().asSeconds();
+    }else if(objj == 5)
+    {
+        txt_objetos->setString("Modo P.A.T.O: Insta Kill");
+        control_obj = general_clock.getElapsedTime().asSeconds();
+    }
+
+
 }
 

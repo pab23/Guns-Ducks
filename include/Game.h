@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include <SFML/Graphics.hpp>
+
 #include <iostream>
 #include <sstream>
 #include <time.h>
@@ -15,16 +16,17 @@
 #include "Gun.h"
 #include "Object.h"
 #include "Hud.h"
+#include "Map.h"
 
 
 
 /** VALORES POR DEFECTO PARA EL CONTROL DE DE ENEMIGOS Y OLEADAS **/
 #define ENEMY_REWARD 10
 #define T_OLEADAS 5 //tiempo en segundos que transcurre antes de crear una nueva oleada de enemigos
-#define N_OLEADAS 5 //nº de oleadas que se van a crear
-#define N_ENEMIES_OLEADA 5 //nº de enemigos por oleada
-#define SPEED_ENEMY 1000 //velocidad del enemigo
-#define N_RONDAS 4
+#define N_OLEADAS 1 //nº de oleadas que se van a crear
+#define N_ENEMIES_OLEADA 20 //nº de enemigos por oleada
+#define SPEED_ENEMY 800 //velocidad del enemigo
+#define N_RONDAS 1
 #define UPDATE_TIME 1000/30
 
 
@@ -52,9 +54,13 @@ class Game
         void modoPatoOFF();
         void borrarBala(int);
         void playerCollisions();
+        void colisionMapPlayer(int);
+        void colisionMapEnemy(int);
         void itemCollisions();
         void update();
         void objRandom(Vector2f);
+        void updateRondaTxt();
+        void updateObjetoTxt(int);
 
 
 
@@ -68,7 +74,7 @@ class Game
         Sprite *spr_map, *spr_ammo;
         Player *player;
         Event e;
-        int cont_oleadas, cont_rondas, cont_bajas; //contador de oleadas y rondas creadas
+        int cont_oleadas, cont_rondas, cont_bajas, control_rondas, control_obj; //contador de oleadas y rondas creadas
         vector<Enemy> enemigos;
         vector<Blood> bloods;
         vector<Bullet*> balas;
@@ -77,11 +83,16 @@ class Game
         Time bullet_cooldown, enemy_timer, general_timer, zone_timer, modoPato_timer,animation_timer, game_timer_t;
         Vector2i winDim;
         bool primer, info, modoPato;
-        Text *txt_time;
-        Font *font;
+        Text *txt_time, *txt_ronda, *txt_objetos, *txt_nrondas;
+        Font *font, *font_zombie;
         RectangleShape *life_zone;
         Hud *hud;
         float game_timer;
+        View view, viewHud;
+        Map *mapa;
+        bool chocando;
+        string strnr;
+
 };
 
 #endif // GAME_H

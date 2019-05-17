@@ -26,6 +26,8 @@ class Enemy
         VertexArray getLineEnemyEnemy(Vector2f posEnemy);//devuelve las lineas dibujadas entre enemigo y enemigo
         Vector2f getRandomPosition(Vector2i ventana);//Devuelve una posicion aleatoria (fuera de los margenes) para situar al enemigo
         float getDistance(Vector2f posEnemy);
+        Vector2f getDir(Vector2f playerPosition);
+        void move(int x, int y,float time);
         void setPosition(float x, float y);
         void setPosition(Vector2f vec);
         void setColor(int color);//Establecer color de la box del enemigo

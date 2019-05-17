@@ -4,7 +4,7 @@
 Enemy::Enemy(Texture &tex, float vel, int vida)
 {
 
-    Vector2i ventana(800,600);
+    Vector2i ventana(784,784);
     Vector2f pos = this->getRandomPosition(ventana);
     speed = vel;
     spr = new Sprite(tex);
@@ -280,4 +280,70 @@ void Enemy::setSpr(const Sprite &sprit)
 {
     spr = new Sprite(sprit);
 }
+Vector2f Enemy::getDir(Vector2f playerPosition){
+
+    Vector2f res = playerPosition-this->getPosition();
+    if(res.x!=0) //Para pasar la dir como 1s o 0s.
+    {
+        if(res.x>0){
+            res.x=1;
+        }
+        else{
+            res.x=-1;
+        }
+    }
+
+    if(res.y!=0)
+    {
+        if(res.y>0){
+            res.y=1;
+        }
+        else{
+            res.y=-1;
+        }
+    }
+
+    return res;
+
+
+}
+void Enemy::move(int x, int y,float time)
+{
+    float speedX;
+    float speedY;
+
+    switch(x)
+    {
+        case 1:
+            speedX = speed;
+        break;
+        case -1:
+            speedX = -speed;
+        break;
+        default:
+            speedX = 0;
+        break;
+    }
+    switch(y)
+    {
+        case 1:
+            speedY = speed;
+        break;
+        case -1:
+            speedY = -speed;
+        break;
+        default:
+            speedY = 0;
+        break;
+    }
+
+
+    spr->move(speedX * time, speedY * time);
+    //circle->move(speedX, speedY);
+    box->move(speedX * time, speedY * time);
+
+
+}
+
+
 

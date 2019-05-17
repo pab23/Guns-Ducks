@@ -18,14 +18,16 @@ class Hud
         void setGun(string);
         void setTxtAmmo(int n);
         void setTxtDuckdead(int n);
+        void setModoPato(bool );
 
     protected:
     private:
         Texture *tex_ammo;;
-        Sprite *spr_ammo, *spr_duckdead;
+        Sprite *spr_ammo, *spr_duckdead, *spr_life, *spr_instakill;
         string *str_gun;
         Font *font;
         Text *txt_bullet, *txt_duckdead;
+        bool modopato;
 
 };
 
