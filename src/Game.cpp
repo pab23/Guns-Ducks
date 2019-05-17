@@ -14,7 +14,7 @@
 */
 
 
-Game::Game(RenderWindow &window)
+Game::Game(RenderWindow &window, int nivel)
 {
     srand(time(NULL));
     winDim = Vector2i(window.getSize());
@@ -53,7 +53,36 @@ Game::Game(RenderWindow &window)
     ///mapa
 
     mapa = new Map();
-    mapa->leerMap(2);
+    mapa->leerMap(nivel);
+
+    ///Sonido
+
+    if(!fondo_buffer.loadFromFile("resources/fondo.wav")){
+        cout<<"Error"<<endl;
+    }
+
+    fondo_sound.setBuffer(fondo_buffer);
+    fondo_sound.setLoop(true);
+    fondo_sound.setVolume(46);
+    fondo_sound.play();
+
+    if(!pistola_buffer.loadFromFile("resources/pistola.wav")){
+        cout<<"Error"<<endl;
+    }
+
+    pistola_sound.setBuffer(pistola_buffer);
+
+    if(!carbine_buffer.loadFromFile("resources/lamachina.wav")){
+        cout<<"Error"<<endl;
+    }
+
+    carbine_sound.setBuffer(carbine_buffer);
+
+    if(!shotgun_buffer.loadFromFile("resources/escupeta.wav")){
+        cout<<"Error"<<endl;
+    }
+
+    shotgun_sound.setBuffer(shotgun_buffer);
 
     /// info del juego
     primer = true;
@@ -61,10 +90,9 @@ Game::Game(RenderWindow &window)
     control_rondas = 0;
 
     font = new Font();
-    font->loadFromFile("letra_pixel.ttf");
+    font->loadFromFile("resources/letra_pixel.ttf");
     font_zombie = new Font();
-    font->loadFromFile("letra_pixel.ttf");
-    font_zombie->loadFromFile("edosz.ttf");
+    font_zombie->loadFromFile("resources/edosz.ttf");
     txt_time = new Text("0",*font);
     txt_time->setPosition(10,10);
     txt_ronda = new Text("1", *font);
@@ -506,6 +534,7 @@ void Game::listenKeyboard()
     {
         if(player->getArmaActiva().getNombre()=="Pistola" && bullet_cooldown.asSeconds() >= .5f)
         {
+            pistola_sound.play();
             bullet_clock.restart();
             balas.push_back(new Bullet(player->getPosition(), player->getDir(), 5, *tex_balas, "Pistola"));//ultimo parametro radio a falta de implementar diferentes tipos de bala
             //cout<<player->getArmaActiva().getNombre()<<": "<<player->getArmaActiva().getMunicion()<<endl;
@@ -515,6 +544,7 @@ void Game::listenKeyboard()
         {
             if(player->getArmaActiva().getMunicion()>0)
             {
+                carbine_sound.play();
                 bullet_clock.restart();
                 balas.push_back(new Bullet(player->getPosition(), player->getDir(), 3, *tex_balas, "Carabina"));//ultimo parametro radio a falta de implementar diferentes tipos de bala
                 player->quitarBalaActiva();
@@ -531,6 +561,7 @@ void Game::listenKeyboard()
         {
             if(player->getArmaActiva().getMunicion()>0)
             {
+                 shotgun_sound.play();
                  bullet_clock.restart();
                  balas.push_back(new Bullet(player->getPosition(), player->getDir(), 7, *tex_balas, "Escopeta"));//ultimo parametro radio a falta de implementar diferentes tipos de bala
                  player->quitarBalaActiva();

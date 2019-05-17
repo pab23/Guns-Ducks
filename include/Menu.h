@@ -25,7 +25,7 @@ class Menu
     protected:
 
     private:
-        int selected;
+        int selected, state;
         Sprite *items[3];
         Text *texto[3];
         Font *fuente;

@@ -1,8 +1,12 @@
 #ifndef PLAYER_H
 #define PLAYER_H
+
 #include <iostream>
 #include <sstream>
+
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
+
 #include "Gun.h"
 #include "Animation.h"
 #include "Map.h"
@@ -53,6 +57,7 @@ class Player
         void empujon(int, int, float);
         Sprite* getSpritePointer(){return spr;};
         void setMapa(Map* mp){mapa=mp;};
+        void playDead();
 
 
 
@@ -74,6 +79,8 @@ class Player
         vector<Gun> armas;
         int armaActiva;
         Animation *anim;
+        SoundBuffer dead_buffer;
+        Sound dead_sound;
 
 };
 

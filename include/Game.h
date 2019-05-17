@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 #include <iostream>
 #include <sstream>
@@ -36,7 +37,7 @@ using namespace std;
 class Game
 {
     public:
-        Game(RenderWindow&);
+        Game(RenderWindow&, int);
 
         void gameLoop();
         void loadTextures();
@@ -92,6 +93,8 @@ class Game
         Map *mapa;
         bool chocando;
         string strnr;
+        SoundBuffer pistola_buffer,carbine_buffer, shotgun_buffer, fondo_buffer;
+        Sound pistola_sound, carbine_sound, shotgun_sound, fondo_sound;
 
 };
 

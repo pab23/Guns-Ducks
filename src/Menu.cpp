@@ -2,12 +2,12 @@
 
 Menu::Menu(Vector2i dim)
 {
-    selected = 0;
+    selected = state = 0;
     bg = new Texture();
     bg->loadFromFile("resources/portada.png");
     sp = new Sprite(*bg);
     fuente = new Font();
-    fuente->loadFromFile("letra_pixel.ttf");
+    fuente->loadFromFile("resources/letra_pixel.ttf");
     tx = new Texture();
     tx->loadFromFile("resources/menu-item.png");
     int it = 0;
@@ -68,9 +68,16 @@ void Menu::draw(RenderWindow &win)
     win.draw(*sp);
     for(unsigned i = 0; i < 3; i++)
     {
+        if(state == 0)
+        {
+            win.draw(*items[i]);
+            win.draw(*texto[i]);
+        }
+        else
+        {
 
-        win.draw(*items[i]);
-        win.draw(*texto[i]);
+        }
+
     }
 
 

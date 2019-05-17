@@ -15,7 +15,7 @@ const Vector2i winDim (800, 600);
 
 void empezarJuego(RenderWindow &ventana)
 {
-    Game juego(ventana);
+    Game juego(ventana, 1);
 }
 
 

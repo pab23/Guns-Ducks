@@ -1,12 +1,13 @@
 # depslib dependency file v1.0
-1558104218 source:/home/fv/Escritorio/Guns-Ducks/main.cpp
+1558109654 source:/home/fv/Escritorio/Guns-Ducks/main.cpp
 	<SFML/Graphics.hpp>
 	<iostream>
 	"include/Game.h"
 	"include/Menu.h"
 
-1558106116 /home/fv/Escritorio/Guns-Ducks/include/Game.h
+1558109592 /home/fv/Escritorio/Guns-Ducks/include/Game.h
 	<SFML/Graphics.hpp>
+	<SFML/Audio.hpp>
 	<iostream>
 	<sstream>
 	<time.h>
@@ -21,10 +22,11 @@
 	"Hud.h"
 	"Map.h"
 
-1558104552 /home/fv/Escritorio/Guns-Ducks/include/Player.h
+1558108778 /home/fv/Escritorio/Guns-Ducks/include/Player.h
 	<iostream>
 	<sstream>
 	<SFML/Graphics.hpp>
+	<SFML/Audio.hpp>
 	"Gun.h"
 	"Animation.h"
 	"Map.h"
@@ -43,7 +45,7 @@
 1558103884 /home/fv/Escritorio/Guns-Ducks/include/Map.h
 	"SFML/Graphics.hpp"
 
-1558106016 /home/fv/Escritorio/Guns-Ducks/include/Enemy.h
+1558108323 /home/fv/Escritorio/Guns-Ducks/include/Enemy.h
 	"SFML/Graphics.hpp"
 	<iostream>
 	<math.h>
@@ -71,17 +73,17 @@
 	<ctime>
 	"SFML/Graphics.hpp"
 
-1558104192 /home/fv/Escritorio/Guns-Ducks/include/Hud.h
+1558108323 /home/fv/Escritorio/Guns-Ducks/include/Hud.h
 	"SFML/Graphics.hpp"
 	<iostream>
 	<sstream>
 
-1558104058 /home/fv/Escritorio/Guns-Ducks/include/Menu.h
+1558109995 /home/fv/Escritorio/Guns-Ducks/include/Menu.h
 	<iostream>
 	<vector>
 	"SFML/Graphics.hpp"
 
-1558106076 source:/home/fv/Escritorio/Guns-Ducks/src/Animation.cpp
+1558108323 source:/home/fv/Escritorio/Guns-Ducks/src/Animation.cpp
 	"../include/Animation.h"
 
 1558103885 source:/home/fv/Escritorio/Guns-Ducks/src/Blood.cpp
@@ -91,20 +93,20 @@
 1558103885 source:/home/fv/Escritorio/Guns-Ducks/src/Bullet.cpp
 	"../include/Bullet.h"
 
-1558106034 source:/home/fv/Escritorio/Guns-Ducks/src/Enemy.cpp
+1558108323 source:/home/fv/Escritorio/Guns-Ducks/src/Enemy.cpp
 	"../include/Enemy.h"
 	<math.h>
 
-1558107120 source:/home/fv/Escritorio/Guns-Ducks/src/Game.cpp
+1558109583 source:/home/fv/Escritorio/Guns-Ducks/src/Game.cpp
 	"../include/Game.h"
 
 1558103885 source:/home/fv/Escritorio/Guns-Ducks/src/Gun.cpp
 	"Gun.h"
 
-1558105248 source:/home/fv/Escritorio/Guns-Ducks/src/Hud.cpp
+1558109059 source:/home/fv/Escritorio/Guns-Ducks/src/Hud.cpp
 	"Hud.h"
 
-1558107160 source:/home/fv/Escritorio/Guns-Ducks/src/Map.cpp
+1558108323 source:/home/fv/Escritorio/Guns-Ducks/src/Map.cpp
 	"Map.h"
 	"tinyxml.h"
 	"tinystr.h"
@@ -130,10 +132,10 @@
 1558103885 source:/home/fv/Escritorio/Guns-Ducks/src/Object.cpp
 	"../include/Object.h"
 
-1558104058 source:/home/fv/Escritorio/Guns-Ducks/src/Menu.cpp
+1558109033 source:/home/fv/Escritorio/Guns-Ducks/src/Menu.cpp
 	"Menu.h"
 
-1558105274 source:/home/fv/Escritorio/Guns-Ducks/src/Player.cpp
+1558109503 source:/home/fv/Escritorio/Guns-Ducks/src/Player.cpp
 	"../include/Player.h"
 
 1558103885 source:/home/fv/Escritorio/Guns-Ducks/src/tinystr.cpp

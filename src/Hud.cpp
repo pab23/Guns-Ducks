@@ -7,7 +7,7 @@ Hud::Hud(Texture tex)
     modopato = false;
 
     font = new Font();
-    font->loadFromFile("MYRIADPRO-BOLD.OTF");
+    font->loadFromFile("resources/MYRIADPRO-BOLD.OTF");
 
     tex_ammo = new Texture(tex);
     spr_ammo = new Sprite(*tex_ammo);

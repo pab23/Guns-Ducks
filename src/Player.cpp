@@ -28,7 +28,7 @@ Player::Player(Texture &tex)
 
         //Score
         font_txt = new Font();
-        font_txt->loadFromFile("letra_pixel.ttf");
+        font_txt->loadFromFile("resources/letra_pixel.ttf");
         txt_score = new Text("0",*font_txt);
         txt_score->setPosition(10, 40);
         txt_score->setColor(Color::Yellow);
@@ -64,6 +64,12 @@ Player::Player(Texture &tex)
         anim = new Animation(tex,1);
 
         speed = 3000; dir = {1, 0};
+
+        if(!dead_buffer.loadFromFile("resources/dead_player.wav")){
+            cout<<"Error"<<endl;
+        }
+
+        dead_sound.setBuffer(dead_buffer);
 }
 
 
@@ -449,3 +455,4 @@ void Player::collisionMove(int dirX, int dirY, float time)
     // }
        // }
 }
+void Player::playDead(){dead_sound.play();}
