@@ -83,14 +83,15 @@ class Game
         Time bullet_cooldown, enemy_timer, general_timer, zone_timer, modoPato_timer,animation_timer, game_timer_t;
         Vector2i winDim;
         bool primer, info, modoPato;
-        Text *txt_time, *txt_ronda, *txt_objetos;
-        Font *font;
+        Text *txt_time, *txt_ronda, *txt_objetos, *txt_nrondas;
+        Font *font, *font_zombie;
         RectangleShape *life_zone;
         Hud *hud;
         float game_timer;
         View view, viewHud;
         Map *mapa;
         bool chocando;
+        string strnr;
 
 };
 

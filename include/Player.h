@@ -17,6 +17,7 @@ class Player
         Player(Texture&);
 
         void move(int, int, float);
+        void collisionMove(int, int, float);
 
         Sprite getSprite();
         Vector2f getPosition();
@@ -36,6 +37,10 @@ class Player
         int getShield();
         void setLife(int);
         void setShield(int);
+<<<<<<< HEAD
+=======
+        void setDir(Vector2i dir);
+>>>>>>> Shots
         Text getLifeTxt();
         Text getShieldTxt();
         void gestionaVida(int);
