@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Guns-Ducks" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/Guns-Ducks" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add directory="include" />
+				</Compiler>
+				<Linker>
+					<Add library="sfml-graphics" />
+					<Add library="sfml-window" />
+					<Add library="sfml-system" />
+					<Add library="sfml-audio" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/Guns-Ducks" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add directory="include" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="sfml-graphics" />
+					<Add library="sfml-window" />
+					<Add library="sfml-system" />
+					<Add library="sfml-audio" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="cb.bmp" />
+		<Unit filename="include/Animation.h" />
+		<Unit filename="include/Blood.h" />
+		<Unit filename="include/Bullet.h" />
+		<Unit filename="include/Enemy.h" />
+		<Unit filename="include/Game.h" />
+		<Unit filename="include/Gun.h" />
+		<Unit filename="include/Hud.h" />
+		<Unit filename="include/Map.h" />
+		<Unit filename="include/Object.h" />
+		<Unit filename="include/Player.h" />
+		<Unit filename="include/VertexArray.hpp" />
+		<Unit filename="include/tinystr.h" />
+		<Unit filename="include/tinyxml.h" />
+		<Unit filename="main.cpp" />
+		<Unit filename="src/Animation.cpp" />
+		<Unit filename="src/Blood.cpp" />
+		<Unit filename="src/Bullet.cpp" />
+		<Unit filename="src/Enemy.cpp" />
+		<Unit filename="src/Game.cpp" />
+		<Unit filename="src/Gun.cpp" />
+		<Unit filename="src/Hud.cpp" />
+		<Unit filename="src/Map.cpp" />
+		<Unit filename="src/Object.cpp" />
+		<Unit filename="src/Player.cpp" />
+		<Unit filename="src/tinystr.cpp" />
+		<Unit filename="src/tinyxml.cpp" />
+		<Unit filename="src/tinyxmlerror.cpp" />
+		<Unit filename="src/tinyxmlparser.cpp" />
+		<Extensions>
+			<envvars />
+			<code_completion />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
