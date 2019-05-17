@@ -13,15 +13,15 @@
 
 */
 
-Game::Game(Vector2i win_dim)
+Game::Game(RenderWindow &window)
 {
     srand(time(NULL));
-    winDim=win_dim;
+    winDim = Vector2i(window.getSize());
 
-      view.reset(sf::FloatRect(0,0,win_dim.x, win_dim.y));
-      viewHud.reset(sf::FloatRect(0,0,win_dim.x, win_dim.y));
-    win = new RenderWindow(VideoMode(win_dim.x, win_dim.y), "Guns & Ducks");
-    win->setFramerateLimit(60);
+      view.reset(sf::FloatRect(0,0,winDim.x, winDim.y));
+      viewHud.reset(sf::FloatRect(0,0,winDim.x, winDim.y));
+
+    win = &window;
 
 
     loadTextures();//Cargamos texturas
@@ -161,7 +161,7 @@ void Game::update()
     playerCollisions();
     colisionMapPlayer(2); //player con agua
     colisionMapPlayer(1); //player con mano
-   colisionMapEnemy(1); //enemigo con mano
+    colisionMapEnemy(1); //enemigo con mano
     zone_timer = zone_clock.getElapsedTime();
     animation_timer = animation_clock.getElapsedTime();
 

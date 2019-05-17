@@ -36,7 +36,7 @@ using namespace std;
 class Game
 {
     public:
-        Game(Vector2i);
+        Game(RenderWindow&);
 
         void gameLoop();
         void loadTextures();
