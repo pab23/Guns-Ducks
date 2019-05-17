@@ -70,7 +70,7 @@ class Game
     private:
 
         RenderWindow *win;
-        Texture *tex_player,*tex_bloods, *tex_enemy, *tex_map, *tex_object, *tex_ammo, *tex_icon, *tex_balas;
+        Texture *tex_player,*tex_bloods, *tex_enemy, *tex_map, *tex_object, *tex_ammo, *tex_icon, *tex_balas, *tex_enemy_perro;
         Sprite *spr_map, *spr_ammo;
         Player *player;
         Event e;

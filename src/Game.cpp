@@ -143,8 +143,9 @@ void Game::loadTextures(){
     tex_ammo = new Texture;
     tex_ammo->loadFromFile("resources/ammo-display.png");
 
-
-
+    //PERROS MALIGNOS
+    tex_enemy_perro = new Texture();
+    tex_enemy_perro->loadFromFile("resources/perros.png");
 
 }
 void Game::gameLoop()
@@ -685,10 +686,14 @@ void Game::crearEnemy(int n, float s){
 
  for( unsigned i = 0; i < n; i++)
     {
-
-        Enemy aux(*tex_enemy,s, (int)100);
+        if(cont_rondas!=0 && cont_rondas%2!=0){
+        Enemy aux(*tex_enemy_perro,s, (int)60, 2);
         enemigos.push_back(aux);
         crearBlood();
+        } else{ // Si quitas el else, mezclas en una misma ronda diferentes enemigos
+        Enemy aux(*tex_enemy,s, (int)100, 0);
+        enemigos.push_back(aux);
+        crearBlood();}
     }
     cont_oleadas++;
 
@@ -938,11 +943,10 @@ void Game::updateRondaTxt()
 
     std::string out_string;
     std::stringstream ss;
-    ss << cont_rondas;
+    ss << cont_rondas+1;
     out_string = ss.str();
     txt_ronda->setString("Ronda: "+out_string);
     control_rondas = general_clock.getElapsedTime().asSeconds();
-    cout<<"Muero y control: "<<control_rondas+1<<endl;
 }
 void Game::updateObjetoTxt(int objj)
 {

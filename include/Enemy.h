@@ -14,7 +14,7 @@ class Enemy
 {
     public:
 
-        Enemy(Texture &, float, int);
+         Enemy(Texture &, float, int, int);
         virtual ~Enemy();
 
         Sprite getSprite();
