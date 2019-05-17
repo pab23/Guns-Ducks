@@ -150,12 +150,12 @@ void Game::update()
 {
     enemy_timer = enemy_clock.getElapsedTime();
     bullet_cooldown = bullet_clock.getElapsedTime();
-
+     listenKeyboard();
     //GameOver
     if(player->getLife() > 0)
     {
 
-        listenKeyboard();
+
     moverEnemigos();
     colisiones();
     playerCollisions();

@@ -1084,3 +1084,79 @@
 1558000381 source:/home/sbm72/Escritorio/git/Guns-Ducks/src/Game.cpp
 	"../include/Game.h"
 
+1558083348 source:/home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/main.cpp
+	<SFML/Graphics.hpp>
+	<iostream>
+	"include/Game.h"
+
+1558083348 /home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/include/Game.h
+	<SFML/Graphics.hpp>
+	<iostream>
+	<sstream>
+	<time.h>
+	<stdlib.h>
+	"Player.h"
+	"Enemy.h"
+	"Bullet.h"
+	"Animation.h"
+	"Blood.h"
+	"Gun.h"
+	"Object.h"
+	"Hud.h"
+	"Map.h"
+
+1558083348 /home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/include/Player.h
+	<iostream>
+	<sstream>
+	<SFML/Graphics.hpp>
+	"Gun.h"
+	"Animation.h"
+	"Map.h"
+
+1558083348 /home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/include/Gun.h
+	<iostream>
+	<sstream>
+	<SFML/Graphics.hpp>
+
+1558083348 /home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/include/Animation.h
+	<iostream>
+	<sstream>
+	<SFML/Graphics.hpp>
+	"../include/Animation.h"
+
+1558083348 /home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/include/Map.h
+	"SFML/Graphics.hpp"
+
+1558083348 /home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/include/Enemy.h
+	"SFML/Graphics.hpp"
+	<iostream>
+	<math.h>
+	"VertexArray.hpp"
+	"Animation.h"
+
+1558083348 /home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/include/VertexArray.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Vertex.hpp>
+	<SFML/Graphics/PrimitiveType.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<vector>
+
+1558083348 /home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/include/Bullet.h
+	"SFML/Graphics.hpp"
+	<iostream>
+
+1558083348 /home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/include/Blood.h
+	"SFML/Graphics.hpp"
+	<iostream>
+
+1558083348 /home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/include/Object.h
+	<iostream>
+	<ctime>
+	"SFML/Graphics.hpp"
+
+1558083348 /home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/include/Hud.h
+	"SFML/Graphics.hpp"
+	<iostream>
+	<sstream>
+
