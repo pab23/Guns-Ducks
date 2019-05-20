@@ -25,10 +25,7 @@ class Player
 
         Sprite getSprite();
         Vector2f getPosition();
-<<<<<<< HEAD
-=======
         Vector2f getPositionBox();
->>>>>>> score-health
         Vector2i getDir();
         CircleShape getCircle();
         FloatRect getBounds();
@@ -63,12 +60,6 @@ class Player
         void setMapa(Map* mp){mapa=mp;};
         void playDead();
 
-
-
-<<<<<<< HEAD
-=======
-
->>>>>>> score-health
     protected:
 
     private:

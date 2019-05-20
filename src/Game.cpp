@@ -26,14 +26,11 @@ Game::Game(RenderWindow &window, int nivel)
     win->setFramerateLimit(60);
 
 
-<<<<<<< HEAD
     filter = new RectangleShape(Vector2f(winDim));
     filter->setPosition(0, 0);
     filter->setFillColor(Color(0, 0, 0, 200));
 
     state = 0;
-=======
->>>>>>> score-health
 
     loadTextures();//Cargamos texturas
 
@@ -53,11 +50,9 @@ Game::Game(RenderWindow &window, int nivel)
     ///player
     player = new Player(*tex_player);
     player->setMapa(mapa);
-<<<<<<< HEAD
-=======
     player->setPosition({900, 500});
 
->>>>>>> score-health
+
 
     ///enemy
     enemy_clock.restart();
@@ -76,11 +71,7 @@ Game::Game(RenderWindow &window, int nivel)
 
     fondo_sound.setBuffer(fondo_buffer);
     fondo_sound.setLoop(true);
-<<<<<<< HEAD
-    fondo_sound.setVolume(46);
-=======
     fondo_sound.setVolume(35);
->>>>>>> score-health
     fondo_sound.play();
 
     if(!pistola_buffer.loadFromFile("resources/pistola.wav")){
@@ -148,7 +139,6 @@ Game::Game(RenderWindow &window, int nivel)
     }*/
 
 
-<<<<<<< HEAD
     /// MENU
     selected = 0;
 
@@ -174,10 +164,6 @@ Game::Game(RenderWindow &window, int nivel)
     }
     item_text[0]->setColor(Color::Black);
 
-
-
-=======
->>>>>>> score-health
     modoPato=false;
 
 
@@ -222,12 +208,9 @@ void Game::loadTextures(){
     tex_enemy_perro = new Texture();
     tex_enemy_perro->loadFromFile("resources/perros.png");
 
-<<<<<<< HEAD
     tex_menu = new Texture();
     tex_menu->loadFromFile("resources/menu-item.png");
 
-=======
->>>>>>> score-health
 }
 void Game::gameLoop()
 {
@@ -250,7 +233,6 @@ void Game::gameLoop()
 void Game::update()
 {
 
-<<<<<<< HEAD
 
      listenKeyboard();
      if(state == 0)
@@ -289,47 +271,8 @@ void Game::update()
 
 
             ///Rondas
-=======
-    enemy_timer = enemy_clock.getElapsedTime();
-    bullet_cooldown = bullet_clock.getElapsedTime();
-     listenKeyboard();
-    //GameOver
-    if(player->getLife() > 0)
-    {
 
 
-
-    enemy_timer = enemy_clock.getElapsedTime();
-    bullet_cooldown = bullet_clock.getElapsedTime();
-     listenKeyboard();
-    //GameOver
-    if(player->getLife() > 0)
-    {
-
-
-
-    moverEnemigos();
-    colisiones();
-    playerCollisions();
-    colisionMapPlayer(2); //player con agua
-
-    colisionMapPlayer(1); //player con mano
-    colisionMapEnemy(1); //enemigo con mano
-
-    colisionMapPlayer(1); //player con mano arbustos y piedras
-    colisionMapEnemy(1); //enemigo con mano arbustos y piedras
-
-    zone_timer = zone_clock.getElapsedTime();
-    animation_timer = animation_clock.getElapsedTime();
-
-
-        ///Rondas
->>>>>>> score-health
-
-
-
-
-<<<<<<< HEAD
             if(control_rondas > 0)
             {
                 if(general_clock.getElapsedTime().asSeconds() >= control_rondas+4)
@@ -427,104 +370,6 @@ void Game::update()
         }else{
             cout<<"Muerto"<<endl;
         }
-=======
-        if(control_rondas > 0)
-        {
-            if(general_clock.getElapsedTime().asSeconds() >= control_rondas+4)
-                control_rondas = 0;
-        }
-
-
-        stringstream ss;
-        ss<<cont_rondas+1;
-        strnr="Ronda "+ss.str();
-        txt_nrondas->setString(strnr);
-
-
-        ///Obj Txt
-
-        if(control_obj > 0)
-        {
-            if(general_clock.getElapsedTime().asSeconds() >= control_obj+4)
-                control_obj = 0;
-        }
-
-       ///Animation
-        if(animation_timer.asSeconds() >= .2)
-        {
-            //Player
-            player->changePos(player->getDir(), 1, player->getPosition());
-            player->setSpr(player->getAnim().getSprite());
-            //Enemigos
-            for(unsigned i = 0; i < enemigos.size(); i++)
-            {
-                enemigos[i].changePos(enemigos[i].getDir(), 0, enemigos[i].getPosition());
-                enemigos[i].setSpr(enemigos[i].getAnim().getSprite());
-            }
-
-            animation_clock.restart();
-        }
-
-        if(zone_timer.asSeconds() >= 1)
-        {
-            inZona();
-            zone_clock.restart();
-        }
-
-
-        /** T_OLEADAS, N_OLEADAS y N_ENEMIES_OLEADA se definen en game.h
-            Nº ENEMIGOS A CREAR = valor por defecto (5) + nº de oleadas que se han creado hasta el momento
-            Ejemplo: Oleada 1 = 5 + 0; Oleada 2 = 5 + 1; Oleada 3 = 5 + 2; Oleada 4 = 5 + 3;      **/
-
-        if(enemy_timer.asSeconds() > T_OLEADAS && cont_oleadas < N_OLEADAS ){//Nueva oleada
-
-            int n = N_ENEMIES_OLEADA + cont_oleadas;
-            float s = SPEED_ENEMY + ((float)cont_rondas/10);
-            //cout << "Ronda " << cont_rondas << ". Velocidad de enemigo: " << s <<". Enemigos creados: " << n << endl;
-            crearEnemy(n,s);//crea x enemigos y hace cont_oleadas++
-            enemy_clock.restart();
-            }
-        else if(cont_oleadas == N_OLEADAS && enemigos.size()==0 && cont_rondas < N_RONDAS ){//Nueva ronda
-
-            for(unsigned i = 0; i< bloods.size();i++)
-            {
-               //Quito cadaveres, cambio el color de la sangre
-               bloods[i].setStateBlood(2);
-               bloods[i].setStateDuck(0);
-
-            }
-            //Reinicio el crono de enemigos y las oleadas
-            enemy_clock.restart();
-            cont_oleadas=0;
-            cont_rondas++;
-            updateRondaTxt();
-
-        }
-
-        ///Modo Pato///
-
-        modoPato_timer=modoPato_clock.getElapsedTime();
-
-        if(modoPato)
-        {
-            hud->setModoPato(true);
-        }
-        else
-        {
-           hud->setModoPato(false);
-        }
-        modoPato_timer=modoPato_clock.getElapsedTime();
-
-
-        if(modoPato && modoPato_timer.asSeconds()>=15)
-        {
-            cout<<"Se acabo el modo pato"<<endl;
-            modoPatoOFF();
-        }
-
-    }else{
-        cout<<"Muerto"<<endl;
->>>>>>> score-health
     }
 
 
@@ -554,10 +399,6 @@ void Game::draw()
     /// PLAYER ///
 
     win->draw(player->getSprite());
-<<<<<<< HEAD
-=======
-
->>>>>>> score-health
     //win->draw(player->getCircle());
 
     /// LIFE ZONE ///
@@ -605,18 +446,9 @@ void Game::draw()
         }
 
     }
-<<<<<<< HEAD
-=======
-
->>>>>>> score-health
     win->draw(player->getSprite());
     if(info)
         win->draw(player->getRect());
-
-<<<<<<< HEAD
-=======
-
->>>>>>> score-health
     for(unsigned i=0; i<enemigos.size(); i++)
     {
         if(player->getPosition().y<=enemigos[i].getPosition().y)
@@ -631,10 +463,6 @@ void Game::draw()
     //////////////////////////////////////////////////////////////////////////
     mapa->drawSuperior(win);
 
-<<<<<<< HEAD
-
-=======
->>>>>>> score-health
  /// OBJECT ///
 
     for( unsigned j = 0; j < objetos.size(); j++)
@@ -672,7 +500,6 @@ void Game::draw()
         if(control_obj > 0)
             win->draw(*txt_objetos);
 
-<<<<<<< HEAD
     if(state == 1)
     {
         win->draw(*filter);
@@ -684,8 +511,6 @@ void Game::draw()
         }
     }
 
-=======
->>>>>>> score-health
     win->display();
 }
 
@@ -700,7 +525,6 @@ void Game::listenKeyboard()
 
         }
 
-<<<<<<< HEAD
         if(e.type == Event::KeyPressed && e.key.code == Keyboard::I)
         {
             info = !info;
@@ -748,22 +572,10 @@ void Game::listenKeyboard()
                         break;
                 }
             }
-=======
-          if(e.type == Event::KeyPressed && e.key.code == Keyboard::I)
-        {
-            info = !info;
-        }
-          if(e.type == Event::KeyPressed && e.key.code == Keyboard::C)
-        {
-            player->cambiarArma();
-            hud->setGun(player->getArmaActiva().getNombre());
-
->>>>>>> score-health
         }
 
 
     }
-<<<<<<< HEAD
     if(state == 0)
     {
 
@@ -858,100 +670,6 @@ void Game::listenKeyboard()
             balas[i]->move(game_timer);
 
     }
-=======
-    if( Keyboard::isKeyPressed(Keyboard::W))
-    {
-       // if(player->getPosition().y > 0)
-            y = -1;
-    }
-    else if( Keyboard::isKeyPressed(Keyboard::S))
-    {
-       //) if(player->getPosition().y < winDim.y)
-            y = 1;
-    }
-    if( Keyboard::isKeyPressed(Keyboard::A))
-    {
-      //  if(player->getPosition().x > 0)
-            x = -1;
-    }
-
-    if( Keyboard::isKeyPressed(Keyboard::W))
-    {
-       // if(player->getPosition().y > 0)
-            y = -1;
-    }
-    else if( Keyboard::isKeyPressed(Keyboard::S))
-    {
-       //) if(player->getPosition().y < winDim.y)
-            y = 1;
-    }
-    if( Keyboard::isKeyPressed(Keyboard::A))
-    {
-      //  if(player->getPosition().x > 0)
-            x = -1;
-    }
-
-    else if( Keyboard::isKeyPressed(Keyboard::D))
-    {
-        //if(player->getPosition().x < winDim.x)
-            x = 1;
-    }
-    if(x!=0 || y!=0)
-        player->move(x, y, game_timer);
-
-
-  if( Keyboard::isKeyPressed(Keyboard::Space))
-    {
-        if(player->getArmaActiva().getNombre()=="Pistola" && bullet_cooldown.asSeconds() >= .5f)
-        {
-            pistola_sound.play();
-            bullet_clock.restart();
-            balas.push_back(new Bullet(player->getPosition(), player->getDir(), 5, *tex_balas, "Pistola"));//ultimo parametro radio a falta de implementar diferentes tipos de bala
-            //cout<<player->getArmaActiva().getNombre()<<": "<<player->getArmaActiva().getMunicion()<<endl;
-
-        }
-        if(player->getArmaActiva().getNombre()=="Carabina" && bullet_cooldown.asSeconds() >= .2f)
-        {
-            if(player->getArmaActiva().getMunicion()>0)
-            {
-                carbine_sound.play();
-                bullet_clock.restart();
-                balas.push_back(new Bullet(player->getPosition(), player->getDir(), 3, *tex_balas, "Carabina"));//ultimo parametro radio a falta de implementar diferentes tipos de bala
-                player->quitarBalaActiva();
-            }
-            else
-            {
-                    //cout<<player->getArmaActiva().getNombre()<<": SIN MUNICION"<<endl;
-                    player->cambiarArma();
-                    hud->setGun(player->getArmaActiva().getNombre());//cambiar arma en el hud del ammo
-            }
-
-        }
-        if(player->getArmaActiva().getNombre()=="Escopeta" && bullet_cooldown.asSeconds() >= .9f)
-        {
-            if(player->getArmaActiva().getMunicion()>0)
-            {
-                 shotgun_sound.play();
-                 bullet_clock.restart();
-                 balas.push_back(new Bullet(player->getPosition(), player->getDir(), 7, *tex_balas, "Escopeta"));//ultimo parametro radio a falta de implementar diferentes tipos de bala
-                 player->quitarBalaActiva();
-                //cout<<player->getArmaActiva().getNombre()<<": "<<player->getArmaActiva().getMunicion()<<endl;
-            }
-            else
-            {
-                   // cout<<player->getArmaActiva().getNombre()<<": SIN MUNICION"<<endl;
-                   player->cambiarArma();
-                   hud->setGun(player->getArmaActiva().getNombre());//cambiar arma en el hud del ammo
-            }
-        }
-    }
-
-    for(unsigned i=0; i<balas.size(); i++)
-        balas[i]->move(game_timer);
-
-
->>>>>>> score-health
-
 }
 
 
@@ -1004,27 +722,6 @@ void Game::colisionMapPlayer(int i){
 
     /*Este metodo hace que la capa i sea colisionable tanto con emeigos como con el player, si al final decidimos que los enemigos no colisionan con nada
     se comenta el bucle for de enemigos y listo.*/
-<<<<<<< HEAD
-
-    for(int fil=0; fil<mapa->getAltura(); fil++)
-    {
-        for(int col=0; col<mapa->getAnchura(); col++)
-        {
-
-            if(mapa->getMapaSprites()[i][fil][col]!=NULL)
-            {
-
-                    if(mapa->getMapaSprites()[i][fil][col]->getGlobalBounds().intersects(player->getBounds()))
-                    {
-                        //player->move(player->getDir().x*-1, player->getDir().y*-1,game_timer);
-                        //player->setDir({player->getDir().x*-1, player->getDir().y*-1});
-                        player->collisionMove(player->getDir().x*-1, player->getDir().y*-1, game_timer);
-                    }
-            }
-
-        }
-    }
-=======
     if(i == 1)
     {
         for(int fil=0; fil<mapa->getAltura(); fil++)
@@ -1055,25 +752,19 @@ void Game::colisionMapPlayer(int i){
 
                 if(mapa->getMapaSprites()[i][fil][col]!=NULL)
                 {
-                        FloatRect extra = player->getBoundsBox();
-
-                        if(mapa->getMapaSprites()[i][fil][col]->getGlobalBounds().intersects(extra))
-                        {
-                                cout<<extra.width<<endl;
+                    FloatRect extra = player->getBoundsBox();
+                    if(mapa->getMapaSprites()[i][fil][col]->getGlobalBounds().intersects(extra))
+                    {
+                        cout<<extra.width<<endl;
                         cout<<extra.height<<endl;
-                            //player->move(player->getDir().x*-1, player->getDir().y*-1,game_timer);
-                            //player->setDir({player->getDir().x*-1, player->getDir().y*-1});
-                            player->collisionMove(player->getDir().x*-1, player->getDir().y*-1, game_timer);
-                        }
+                        //player->move(player->getDir().x*-1, player->getDir().y*-1,game_timer);
+                        //player->setDir({player->getDir().x*-1, player->getDir().y*-1});
+                        player->collisionMove(player->getDir().x*-1, player->getDir().y*-1, game_timer);
+                    }
                 }
-
             }
         }
-
     }
-
-
->>>>>>> score-health
 }
 
 void Game::colisionMapEnemy(int i){ //para las capas que colisionan
@@ -1404,8 +1095,6 @@ void Game::updateRondaTxt()
 void Game::updateObjetoTxt(int objj)
 {
     //0 planchadito  -  1 botijola  - 2 duknamite  - 3 amo carabina  - 4 amo escopeta  - 5 PATO
-
-<<<<<<< HEAD
     switch(objj)
     {
         case 0:
@@ -1433,35 +1122,6 @@ void Game::updateObjetoTxt(int objj)
         break;
     }
     control_obj = general_clock.getElapsedTime().asSeconds();
-=======
-    if(objj == 0)
-    {
-        txt_objetos->setString("Planchadito: Recuperas la Vida");
-        control_obj = general_clock.getElapsedTime().asSeconds();
-    }else if(objj == 1)
-    {
-        txt_objetos->setString("Botijola: Recuperas el Escudo");
-        control_obj = general_clock.getElapsedTime().asSeconds();
-    }else if(objj == 2)
-    {
-        txt_objetos->setString("Ducknamite: kabooom");
-        control_obj = general_clock.getElapsedTime().asSeconds();
-    }else if(objj == 3)
-    {
-        txt_objetos->setString("Municion: +50 balas de Carabina");
-        control_obj = general_clock.getElapsedTime().asSeconds();
-
-    }else if(objj == 4)
-    {
-        txt_objetos->setString("Municion: +10 balas de Escopeta");
-        control_obj = general_clock.getElapsedTime().asSeconds();
-    }else if(objj == 5)
-    {
-        txt_objetos->setString("Modo P.A.T.O: Insta Kill");
-        control_obj = general_clock.getElapsedTime().asSeconds();
-    }
->>>>>>> score-health
-
 
 }
 
