@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1558366754 source:/home/fv/Escritorio/Guns-Ducks/main.cpp
+1558370433 source:/home/fv/Escritorio/Guns-Ducks/main.cpp
 	<SFML/Graphics.hpp>
 	<iostream>
 	"include/Game.h"
@@ -78,10 +78,11 @@
 	<iostream>
 	<sstream>
 
-1558366601 /home/fv/Escritorio/Guns-Ducks/include/Menu.h
+1558370405 /home/fv/Escritorio/Guns-Ducks/include/Menu.h
 	<iostream>
 	<vector>
 	"SFML/Graphics.hpp"
+	"SFML/Audio.hpp"
 
 1558366601 source:/home/fv/Escritorio/Guns-Ducks/src/Animation.cpp
 	"../include/Animation.h"
@@ -132,7 +133,7 @@
 1558366601 source:/home/fv/Escritorio/Guns-Ducks/src/Object.cpp
 	"../include/Object.h"
 
-1558366601 source:/home/fv/Escritorio/Guns-Ducks/src/Menu.cpp
+1558370477 source:/home/fv/Escritorio/Guns-Ducks/src/Menu.cpp
 	"Menu.h"
 
 1558367016 source:/home/fv/Escritorio/Guns-Ducks/src/Player.cpp

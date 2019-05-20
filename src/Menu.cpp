@@ -10,6 +10,25 @@ Menu::Menu(Vector2i dim)
     fuente->loadFromFile("resources/letra_pixel.ttf");
     tx = new Texture();
     tx->loadFromFile("resources/menu-item.png");
+    binding = new Texture();
+    binding->loadFromFile("resources/how_to.png");
+    key = new Sprite(*binding);
+    key->setOrigin(binding->getSize().x/2, binding->getSize().y/2);
+    key->setPosition(400, 300);
+    key->setScale(0.8, 0.8);
+
+    music = new Sound();
+    music_buffer = new SoundBuffer();
+
+    if(!music_buffer->loadFromFile("resources/musica_menu.wav"))
+        cout<<"Error"<<endl;
+
+    music->setBuffer(*music_buffer);
+    music->setLoop(true);
+    music->setVolume(25);
+    music->play();
+
+
     int it = 0;
     texto[0] = new Text("PLAY GAME", *fuente);
     texto[1] = new Text("HOW TO PLAY", *fuente);
@@ -100,6 +119,11 @@ void Menu::moveRight()
 }
 
 
+void Menu::muteMusic()
+{
+    music->stop();
+}
+
 void Menu::draw(RenderWindow &win)
 {
 
@@ -120,6 +144,7 @@ void Menu::draw(RenderWindow &win)
             }
             break;
         case 2:
+            win.draw(*key);
             break;
         }
 

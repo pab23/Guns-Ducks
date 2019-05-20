@@ -63,26 +63,33 @@ int main()
                         }
                     }
 
-                    if(e.key.code ==Keyboard::Return)
+                    if(e.key.code == Keyboard::Return)
                     {
-                        if(menu->getState() == 0)
+                        switch(menu->getState() )
                         {
+                            case 0:
                             switch(menu->getSelected())
                             {
                             case 0:
                                 menu->setState(1);
                                 break;
                             case 1:
+                                menu->setState(2);
                                 break;
                             case 2:
                                 ventana->close();
                                 break;
 
                             }
-                        }
-                        else if(menu->getState() == 1)
-                        {
+                            break;
+
+                        case 1:
+                            menu->muteMusic();
                             empezarJuego(*ventana, menu->getMapSelected()+1);
+                            break;
+                        case 2:
+                            menu->setState(0);
+                            break;
                         }
                     }
 
