@@ -1,7 +1,7 @@
 #include "../include/Blood.h"
 #include "Blood.h"
 
-Blood::Blood(Texture &tex)
+Blood::Blood(Texture &tex, string s)
 {
     aux = AUX;//variable que es el ancho y alto de cada sprite. De momento es 120px
     spr = new Sprite(tex);
@@ -19,7 +19,8 @@ Blood::Blood(Texture &tex)
 
     /// spr de cadaver de pato ///
     spr_duck = new Sprite(tex);
-    spr_duck->setTextureRect(IntRect(RandomNumber(0,4)*aux, 120, aux, aux));
+    if(s == "duck")spr_duck->setTextureRect(IntRect(RandomNumber(0,4)*aux, 120, aux, aux));
+    else if (s == "dog")spr_duck->setTextureRect(IntRect(RandomNumber(0,4)*aux, 240, aux, aux));
     spr_duck->setOrigin(aux/2, aux/2);
     spr_duck->setScale(1.5,1.5);
     spr_duck->setColor(Color(130,130,130));

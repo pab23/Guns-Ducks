@@ -24,7 +24,7 @@ class Enemy
         FloatRect getBoundsBox();//Devuelve la global bounds de la box del enemigo
         VertexArray getLinePlayerEnemy(Vector2f playerPosition);//devuelve las lineas dibujadas entre enemigo y player
         VertexArray getLineEnemyEnemy(Vector2f posEnemy);//devuelve las lineas dibujadas entre enemigo y enemigo
-        Vector2f getRandomPosition(Vector2i ventana);//Devuelve una posicion aleatoria (fuera de los margenes) para situar al enemigo
+       Vector2f getRandomPosition(Vector2i origin, Vector2i sizeV);//Devuelve una posicion aleatoria (fuera de los margenes) para situar al enemigo
         float getDistance(Vector2f posEnemy);
         Vector2f getDir(Vector2f playerPosition);
         void move(int x, int y,float time);

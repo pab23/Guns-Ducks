@@ -923,7 +923,11 @@ void Game::moverEnemigos(){
     /// BLOOD ///
 
 void Game::crearBlood(){
-    bloods.push_back(Blood(*tex_bloods));
+    string s = "duck";;
+     if(cont_rondas!=0 && cont_rondas%2!=0) s = "dog";//impares
+
+     bloods.push_back(Blood(*tex_bloods,s));
+
 
 }
 void Game::posicionarBlood(Vector2f pos){

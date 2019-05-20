@@ -12,7 +12,7 @@ using namespace sf;
 class Blood
 {
     public:
-    Blood(Texture &);
+    Blood(Texture &, string s);
     void setPosition(Vector2f vec);
     void setStateBlood(int s);
     void setStateDuck(int s);

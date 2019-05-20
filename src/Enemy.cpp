@@ -4,8 +4,8 @@
 Enemy::Enemy(Texture &tex, float vel, int vida, int tipo)
 {
 
-    Vector2i ventana(784,784);
-    Vector2f pos = this->getRandomPosition(ventana);
+    Vector2i origen(400,420); Vector2i sizeVentana(800,800);
+    Vector2f pos = this->getRandomPosition(origen, sizeVentana);
     speed = vel*tipo;
     if(speed==0){
         speed=vel;
@@ -208,29 +208,31 @@ int Enemy::RandomNumber( int inicio, int fin ){
 
      return resultado;
 }
-Vector2f Enemy::getRandomPosition(Vector2i ventana){
+Vector2f Enemy::getRandomPosition(Vector2i origin, Vector2i sizeV){
 
-    int vx = ventana.x; int vy = ventana.y;
+    int ox,oy,width,height;
+    ox = origin.x; oy = origin.y;
+    width = sizeV.x;  height = sizeV.y;
 
     //Establecemos de que pared sale. 1=left, 2=down, 3=right,4=up
     int a = RandomNumber(1,4);
     int posx,posy;
     switch(a)
     {
-        case 1: posx =-100;
-                posy = RandomNumber(0,vy);
+        case 1: posx = ox -50;
+                posy = oy + RandomNumber(0,height);
         break;
 
-        case 2: posy=vy+100;
-                posx = RandomNumber(0,vx);
+        case 2: posy=oy+height+50;
+                posx = ox + RandomNumber(0,width);
         break;
 
-        case 3: posx= vx +100;
-                posy=RandomNumber(0,vy);
+        case 3: posx= ox + width + 50;
+                posy=oy + RandomNumber(0,height);
         break;
 
-        case 4: posy= -100;
-                posx = RandomNumber(0,vx);
+        case 4: posy= oy -50;
+                posx = ox + RandomNumber(0,width);
         break;
 
     }
