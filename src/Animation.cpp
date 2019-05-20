@@ -198,7 +198,97 @@ Animation::Animation(Texture tex, int obj)
 
         spr = new Sprite(matrix[pos][col]);
 
-    }
+    }else if(obj==2) //perro
+        {
+
+
+        aux->setOrigin(12,12);
+        aux->setTextureRect(IntRect(24,30,24,24));
+        aux->setPosition(posi);
+        aux->setScale(1.5,1.5);
+        //uu
+
+        aux->setTextureRect(IntRect(5,36,24,32));
+        matrix[0][0] = *aux;
+        aux->setTextureRect(IntRect(32,37,24,32));
+        matrix[1][0] = *aux;
+        aux->setTextureRect(IntRect(62,37,24,32));
+        matrix[2][0] = *aux;
+        aux->setTextureRect(IntRect(32,37,24,32));
+        matrix[3][0] = *aux;
+        //ur
+
+        aux->setTextureRect(IntRect(10,226,24,32));
+        matrix[0][1] = *aux;
+        aux->setTextureRect(IntRect(37,228,24,32));
+        matrix[1][1] = *aux;
+        aux->setTextureRect(IntRect(74,225,24,32));
+        matrix[2][1] = *aux;
+        aux->setTextureRect(IntRect(37,228,24,32));
+        matrix[3][1] = *aux;
+        //rr
+
+        aux->setTextureRect(IntRect(4,100,29,29));
+        matrix[0][2] = *aux;
+        aux->setTextureRect(IntRect(35,99,27,27));
+        matrix[1][2] = *aux;
+        aux->setTextureRect(IntRect(66,99,29,29));
+        matrix[2][2] = *aux;
+        aux->setTextureRect(IntRect(35,99,27,27));
+        matrix[3][2] = *aux;
+        //rd
+
+        aux->setTextureRect(IntRect(8,163,24,30));
+        matrix[0][3] = *aux;
+        aux->setTextureRect(IntRect(36,163,25,30));
+        matrix[1][3] = *aux;
+        aux->setTextureRect(IntRect(68,162,25,29));
+        matrix[2][3] = *aux;
+        aux->setTextureRect(IntRect(36,163,25,30));
+        matrix[3][3] = *aux;
+        //dd
+
+        aux->setTextureRect(IntRect(2,2,24,32));
+        matrix[0][4] = *aux;
+        aux->setTextureRect(IntRect(30,0,25,32));
+        matrix[1][4] = *aux;
+        aux->setTextureRect(IntRect(59,0,24,32));
+        matrix[2][4] = *aux;
+        aux->setTextureRect(IntRect(30,0,25,32));
+        matrix[3][4] = *aux;
+        //dl
+
+        aux->setTextureRect(IntRect(7,133,24,30));
+        matrix[0][5] = *aux;
+        aux->setTextureRect(IntRect(37,132,24,31));
+        matrix[1][5] = *aux;
+        aux->setTextureRect(IntRect(69,131,24,29));
+        matrix[2][5] = *aux;
+        aux->setTextureRect(IntRect(37,132,24,31));
+        matrix[3][5] = *aux;
+        //ll
+
+        aux->setTextureRect(IntRect(0,70,27,30));
+        matrix[0][6] = *aux;
+        aux->setTextureRect(IntRect(32,68,29,29));
+        matrix[1][6] = *aux;
+        aux->setTextureRect(IntRect(65,72,26,26));
+        matrix[2][6] = *aux;
+        aux->setTextureRect(IntRect(32,68,29,29));
+        matrix[3][6] = *aux;
+        //lu
+
+        aux->setTextureRect(IntRect(9,195,26,30));
+        matrix[0][7] = *aux;
+        aux->setTextureRect(IntRect(37,197,23,30));
+        matrix[1][7] = *aux;
+        aux->setTextureRect(IntRect(72,195,24,31));
+        matrix[2][7] = *aux;
+        aux->setTextureRect(IntRect(37,197,23,30));
+        matrix[3][7] = *aux;
+
+        spr = new Sprite(matrix[pos][col]);
+}
 
 
 }

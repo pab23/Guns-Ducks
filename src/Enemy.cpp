@@ -1,19 +1,22 @@
 #include "../include/Enemy.h"
 #include <math.h>
 
-Enemy::Enemy(Texture &tex, float vel, int vida)
+Enemy::Enemy(Texture &tex, float vel, int vida, int tipo)
 {
 
     Vector2i ventana(784,784);
     Vector2f pos = this->getRandomPosition(ventana);
-    speed = vel;
+    speed = vel*tipo;
+    if(speed==0){
+        speed=vel;
+    }
     spr = new Sprite(tex);
     spr->setOrigin(24/2,24/2);
     spr->setTextureRect(IntRect(0*75, 0*75, 24, 24));
     spr->setPosition(pos);
     spr->scale(1.5,1.5);
     hp = vida;
-    anim = new Animation(tex,0);
+    anim = new Animation(tex,tipo);
 
     box = new RectangleShape({spr->getTextureRect().width,spr->getTextureRect().height/4});
     box->setFillColor(Color::Red);
@@ -22,8 +25,6 @@ Enemy::Enemy(Texture &tex, float vel, int vida)
 
 
     //direction = {0,0};
-
-
 }
 
 Enemy::~Enemy()

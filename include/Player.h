@@ -1,9 +1,12 @@
 #ifndef PLAYER_H
 #define PLAYER_H
+
 #include <iostream>
 #include <sstream>
+
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+
 #include "Gun.h"
 #include "Animation.h"
 #include "Map.h"
@@ -18,9 +21,11 @@ class Player
         Player(Texture&);
 
         void move(int, int, float);
+        void collisionMove(int, int, float);
 
         Sprite getSprite();
         Vector2f getPosition();
+        Vector2f getPositionBox();
         Vector2i getDir();
         CircleShape getCircle();
         FloatRect getBounds();
@@ -37,6 +42,7 @@ class Player
         int getShield();
         void setLife(int);
         void setShield(int);
+        void setDir(Vector2i dir);
         Text getLifeTxt();
         Text getShieldTxt();
         void gestionaVida(int);
@@ -53,6 +59,7 @@ class Player
         Sprite* getSpritePointer(){return spr;};
         void setMapa(Map* mp){mapa=mp;};
         void playDead();
+
 
 
 

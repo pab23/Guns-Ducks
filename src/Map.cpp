@@ -31,11 +31,17 @@ Map::Map (const Map& aux) {
 }
 
 void Map::leerMap(int nn){
-nn=1;
 TiXmlDocument doc;
 //En el caso de tener varios mapas que se pasarian por parametro se carga uno u otro
-if(nn==1){
-   doc.LoadFile("resources/MapaManoCesped.tmx");
+if(nn==1)
+    {
+    doc.LoadFile("resources/MapaManoCesped.tmx");
+    cout<<"entro mal"<<endl;
+}
+else if(nn==2)
+{
+    cout<<"entro bien"<<endl;
+    doc.LoadFile("resources/MapaManoTierra.tmx");
 }
 TiXmlElement* mapaxml=doc.FirstChildElement("map");
 

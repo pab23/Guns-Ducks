@@ -37,7 +37,7 @@ using namespace std;
 class Game
 {
     public:
-        Game(Vector2i);
+        Game(RenderWindow&, int);
 
         void gameLoop();
         void loadTextures();
@@ -71,7 +71,7 @@ class Game
     private:
 
         RenderWindow *win;
-        Texture *tex_player,*tex_bloods, *tex_enemy, *tex_map, *tex_object, *tex_ammo, *tex_icon, *tex_balas;
+        Texture *tex_player,*tex_bloods, *tex_enemy, *tex_map, *tex_object, *tex_ammo, *tex_icon, *tex_balas, *tex_enemy_perro;
         Sprite *spr_map, *spr_ammo;
         Player *player;
         Event e;
@@ -84,18 +84,17 @@ class Game
         Time bullet_cooldown, enemy_timer, general_timer, zone_timer, modoPato_timer,animation_timer, game_timer_t;
         Vector2i winDim;
         bool primer, info, modoPato;
-        Text *txt_time, *txt_ronda, *txt_objetos;
-        Font *font;
+        Text *txt_time, *txt_ronda, *txt_objetos, *txt_nrondas;
+        Font *font, *font_zombie;
         RectangleShape *life_zone;
         Hud *hud;
         float game_timer;
         View view, viewHud;
         Map *mapa;
         bool chocando;
-        //Sonido
+        string strnr;
         SoundBuffer pistola_buffer,carbine_buffer, shotgun_buffer, fondo_buffer;
         Sound pistola_sound, carbine_sound, shotgun_sound, fondo_sound;
-
 
 };
 

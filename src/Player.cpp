@@ -28,7 +28,7 @@ Player::Player(Texture &tex)
 
         //Score
         font_txt = new Font();
-        font_txt->loadFromFile("letra_pixel.ttf");
+        font_txt->loadFromFile("resources/letra_pixel.ttf");
         txt_score = new Text("0",*font_txt);
         txt_score->setPosition(10, 40);
         txt_score->setColor(Color::Yellow);
@@ -51,10 +51,10 @@ Player::Player(Texture &tex)
         txt_shield->setPosition(shield_box->getPosition().x + shield_box->getSize().x/2,shield_box->getPosition().y);
         txt_shield->setColor(Color::Black);
 
-        box = new RectangleShape({spr->getScale().x*spr->getTextureRect().width,spr->getScale().y*spr->getTextureRect().height/4});
+        box = new RectangleShape({20,20});
         box->setFillColor(Color::Blue);
         box->setOrigin(box->getSize().x/2,box->getSize().y/2);
-        box->setPosition(getPosition().x,getPosition().y+(spr->getTextureRect().height/2));
+        box->setPosition(0,0);
 
         /*circle = new CircleShape();
         circle->setOrigin(50,50);
@@ -63,16 +63,13 @@ Player::Player(Texture &tex)
         circle->setFillColor(Color(255,0,0,120));*/
         anim = new Animation(tex,1);
 
-        //Sonido
+        speed = 3000; dir = {1, 0};
 
         if(!dead_buffer.loadFromFile("resources/dead_player.wav")){
             cout<<"Error"<<endl;
         }
 
         dead_sound.setBuffer(dead_buffer);
-
-
-        speed = 3000; dir = {1, 0};
 }
 
 
@@ -216,8 +213,8 @@ void Player::gestionaVida(int x)
         this->setShield(x);
     else
         this->setLife(x);
-}
 
+}
 void Player::setShield(int x)
 {
 
@@ -275,6 +272,7 @@ void Player::setShield(int x)
 
 
 
+
 Sprite Player::getSprite()
 {
     return *spr;
@@ -303,7 +301,7 @@ FloatRect Player::getBoundsBox(){
 
 void Player::setPosition(Vector2f vec){
     spr->setPosition(vec);
-    box->setPosition(vec.x, vec.y);
+    box->setPosition(vec.x, vec.y+6);
 }
 
 
@@ -353,6 +351,10 @@ void Player::cogerMunicion(string n, int nbalas)
     }
 }
 
+Vector2f Player::getPositionBox()
+{
+    return box->getPosition();
+}
 void Player::quitarBalaActiva()
 {
     armas[armaActiva].setMunicion(-1);
@@ -406,16 +408,55 @@ void Player::empujon(int dirX, int dirY, float time)
 
         //if(mapa->compruebaColision(f)==false){
 
+
+
+        dir = {dirX, dirY};
+
         spr->move(speedX * time, speedY * time);
         box->move(speedX * time, speedY * time);
     // }
        // }
 }
 
-void Player::playDead()
-{
 
-    cout<<"entro"<<endl;
-    dead_sound.play();
+
+void Player::setDir(Vector2i d)
+{
+    dir=d;
 }
 
+
+void Player::collisionMove(int dirX, int dirY, float time)
+{
+    float speedX, speedY;
+    switch(dirX)
+    {
+        case 1:
+            speedX = speed;
+        break;
+        case -1:
+            speedX = -speed;
+        break;
+        default:
+            speedX = 0;
+        break;
+    }
+    switch(dirY)
+    {
+        case 1:
+            speedY = speed;
+        break;
+        case -1:
+            speedY = -speed;
+        break;
+        default:
+            speedY = 0;
+        break;
+    }
+
+        spr->move(speedX * time, speedY * time);
+        box->move(speedX * time, speedY * time);
+    // }
+       // }
+}
+void Player::playDead(){dead_sound.play();}
