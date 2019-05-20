@@ -5,7 +5,7 @@
 	"include/Game.h"
 	"include/Menu.h"
 
-1558366743 /home/fv/Escritorio/Guns-Ducks/include/Game.h
+1558374020 /home/fv/Escritorio/Guns-Ducks/include/Game.h
 	<SFML/Graphics.hpp>
 	<SFML/Audio.hpp>
 	<iostream>
@@ -98,7 +98,7 @@
 	"../include/Enemy.h"
 	<math.h>
 
-1558367695 source:/home/fv/Escritorio/Guns-Ducks/src/Game.cpp
+1558372923 source:/home/fv/Escritorio/Guns-Ducks/src/Game.cpp
 	"../include/Game.h"
 
 1558366601 source:/home/fv/Escritorio/Guns-Ducks/src/Gun.cpp

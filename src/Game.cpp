@@ -150,6 +150,9 @@ Game::Game(RenderWindow &window, int nivel)
     item_text[0] = new Text("RESUME", *font);
     item_text[1] = new Text("MENU", *font);
     item_text[2] = new Text("QUIT", *font);
+
+    text_over = new Text("QUIT", *font);
+
     int it = 0;
     for(unsigned i = 0; i < 3; i++)
     {
@@ -162,9 +165,23 @@ Game::Game(RenderWindow &window, int nivel)
 
         it += 60;
     }
+
+    items_over = new Sprite(*tex_menu);
+    items_over->setOrigin(150, 25);
+    items_over->setPosition(400, winDim.y/1.5);
+    text_over->setOrigin(150,25);
+    text_over->setPosition(510, winDim.y/1.5+6);
+    text_over->setColor(Color::Black);
+
+    over_selected = 0;
+
     item_text[0]->setColor(Color::Black);
 
+
     modoPato=false;
+
+    spr_over = new Sprite(*tex_over);
+    spr_over->setPosition(0, 0);
 
 
     gameLoop();
@@ -211,6 +228,9 @@ void Game::loadTextures(){
     tex_menu = new Texture();
     tex_menu->loadFromFile("resources/menu-item.png");
 
+    tex_over = new Texture();
+    tex_over->loadFromFile("resources/GAME-OVER.png");
+
 }
 void Game::gameLoop()
 {
@@ -230,6 +250,7 @@ void Game::gameLoop()
 
     }
 }
+
 void Game::update()
 {
 
@@ -238,11 +259,6 @@ void Game::update()
      if(state == 0)
      {
         //GameOver
-
-        enemy_timer = enemy_clock.getElapsedTime();
-        bullet_cooldown = bullet_clock.getElapsedTime();
-        if(player->getLife() > 0)
-        {
 
 
 
@@ -259,13 +275,8 @@ void Game::update()
         colisiones();
         playerCollisions();
         colisionMapPlayer(2); //player con agua
-
         colisionMapPlayer(1); //player con mano
         colisionMapEnemy(1); //enemigo con mano
-
-        colisionMapPlayer(1); //player con mano arbustos y piedras
-       colisionMapEnemy(1); //enemigo con mano arbustos y piedras
-
         zone_timer = zone_clock.getElapsedTime();
         animation_timer = animation_clock.getElapsedTime();
 
@@ -367,149 +378,162 @@ void Game::update()
                 modoPatoOFF();
             }
 
-        }else{
+        }else
+        {
             cout<<"Muerto"<<endl;
+            state = 2;
         }
     }
 
 
 
-}
 }
 void Game::draw()
 {
 
     win->clear(Color::White);
-      view.setCenter(player->getPosition());
-    win->setView(view);
-    mapa->draw(win);
-    //win->draw(*spr_map);
-
-
-
-     /// BLOOD ///
-
-    for(unsigned i = 0; i< bloods.size();i++)
+    if(state != 2)
     {
-        if(bloods[i].getStateBlood() == 1 || bloods[i].getStateBlood() == 2) win->draw(bloods[i].getSpriteBlood());// 0 = invisible; 1 = visible; 3 = vieja (la sangre se ve con menos color)
-        if(bloods[i].getStateDuck() == 1)  win->draw(bloods[i].getSpriteDuck());// 0 = invisible; 1 = visible
-
-    }
-    mapa->drawBases(win);
-    /// PLAYER ///
-
-    win->draw(player->getSprite());
-    //win->draw(player->getCircle());
-
-    /// LIFE ZONE ///
-
-    //win->draw(*life_zone);
+        view.setCenter(player->getPosition());
+        win->setView(view);
+        mapa->draw(win);
+        //win->draw(*spr_map);
 
 
-    /// ENEMY ///
 
-    for(unsigned i = 0; i < enemigos.size(); i++)
-    {
-        win->draw(enemigos[i].getSprite());//Dibuja sprite del enemigo
-        if(info)win->draw(enemigos[i].getLinePlayerEnemy(player->getPosition()));//DibuJa la linea entre enemigo y player
+         /// BLOOD ///
 
-        for(int j = 0; j < enemigos.size();j++)
+        for(unsigned i = 0; i< bloods.size();i++)
         {
-            if(enemigos[i].getPosition() != enemigos[j].getPosition())
-               if(info) win->draw(enemigos[i].getLineEnemyEnemy(enemigos[j].getPosition()));//Dibula la linea entre enemigo y enemigo
+            if(bloods[i].getStateBlood() == 1 || bloods[i].getStateBlood() == 2) win->draw(bloods[i].getSpriteBlood());// 0 = invisible; 1 = visible; 3 = vieja (la sangre se ve con menos color)
+            if(bloods[i].getStateDuck() == 1)  win->draw(bloods[i].getSpriteDuck());// 0 = invisible; 1 = visible
+
+        }
+        mapa->drawBases(win);
+        /// PLAYER ///
+
+        win->draw(player->getSprite());
+        //win->draw(player->getCircle());
+
+        /// LIFE ZONE ///
+
+        //win->draw(*life_zone);
+
+
+        /// ENEMY ///
+
+        for(unsigned i = 0; i < enemigos.size(); i++)
+        {
+            win->draw(enemigos[i].getSprite());//Dibuja sprite del enemigo
+            if(info)win->draw(enemigos[i].getLinePlayerEnemy(player->getPosition()));//DibuJa la linea entre enemigo y player
+
+            for(int j = 0; j < enemigos.size();j++)
+            {
+                if(enemigos[i].getPosition() != enemigos[j].getPosition())
+                   if(info) win->draw(enemigos[i].getLineEnemyEnemy(enemigos[j].getPosition()));//Dibula la linea entre enemigo y enemigo
+            }
+
         }
 
-    }
-
-  /// BULLET ///
+      /// BULLET ///
 
 
-    for( unsigned j = 0; j < balas.size(); j++)
-    {
-        win->draw(balas[j]->getSprite());
+        for( unsigned j = 0; j < balas.size(); j++)
+        {
+            win->draw(balas[j]->getSprite());
+            if(info)
+                win->draw(balas[j]->getBox());
+        }
+
+        //////////////////////////////////////////////////////////////////////////
+        for(unsigned i=0; i<enemigos.size(); i++)
+        {
+
+
+            if(player->getPosition().y>enemigos[i].getPosition().y) //Cuando el player esta por encima del enemigo las box enemigas son rojas
+            {
+                enemigos[i].setColor(0);
+                win->draw(enemigos[i].getSprite());
+                if(info)
+                    win->draw(enemigos[i].getRect());
+
+            }
+
+        }
+        win->draw(player->getSprite());
         if(info)
-            win->draw(balas[j]->getBox());
-    }
-
-    //////////////////////////////////////////////////////////////////////////
-    for(unsigned i=0; i<enemigos.size(); i++)
-    {
-
-
-        if(player->getPosition().y>enemigos[i].getPosition().y) //Cuando el player esta por encima del enemigo las box enemigas son rojas
+            win->draw(player->getRect());
+        for(unsigned i=0; i<enemigos.size(); i++)
         {
-            enemigos[i].setColor(0);
-            win->draw(enemigos[i].getSprite());
-            if(info)
-                win->draw(enemigos[i].getRect());
-
+            if(player->getPosition().y<=enemigos[i].getPosition().y)
+            {
+                enemigos[i].setColor(1);
+                win->draw(enemigos[i].getSprite());
+                if(info)
+                    win->draw(enemigos[i].getRect());
+            }
         }
 
-    }
-    win->draw(player->getSprite());
-    if(info)
-        win->draw(player->getRect());
-    for(unsigned i=0; i<enemigos.size(); i++)
-    {
-        if(player->getPosition().y<=enemigos[i].getPosition().y)
+        //////////////////////////////////////////////////////////////////////////
+        mapa->drawSuperior(win);
+
+     /// OBJECT ///
+
+        for( unsigned j = 0; j < objetos.size(); j++)
+            win->draw(objetos[j]->getSprite());
+
+        win->setView(viewHud);
+
+        timeToString();
+        win->draw(*txt_time);
+
+
+        win->draw(*txt_nrondas);
+
+
+
+
+
+
+        /// HUD (AMMO DISPLAY, RONDAS, ETC
+
+        hud->drawHud(win);
+
+        win->draw(player->getScoreTxt());
+        win->draw(player->getLifeBox());
+        win->draw(player->getLifeTxt());
+        win->draw(player->getShieldBox());
+        win->draw(player->getShieldTxt());
+
+        hud->setTxtAmmo(player->getArmaActiva().getMunicion());
+
+            /// RONDAS ///
+            if(control_rondas > 0)
+                win->draw(*txt_ronda);
+            ///TXT objetos///
+            if(control_obj > 0)
+                win->draw(*txt_objetos);
+
+        if(state == 1)
         {
-            enemigos[i].setColor(1);
-            win->draw(enemigos[i].getSprite());
-            if(info)
-                win->draw(enemigos[i].getRect());
+            win->draw(*filter);
+            for(unsigned i = 0; i < 3; i++)
+            {
+                win->draw(*items[i]);
+                win->draw(*item_text[i]);
+                win->draw(*pause_text);
+            }
         }
     }
-
-    //////////////////////////////////////////////////////////////////////////
-    mapa->drawSuperior(win);
-
- /// OBJECT ///
-
-    for( unsigned j = 0; j < objetos.size(); j++)
-        win->draw(objetos[j]->getSprite());
-
-    win->setView(viewHud);
-
-    timeToString();
-    win->draw(*txt_time);
-
-
-    win->draw(*txt_nrondas);
-
-
-
-
-
-
-    /// HUD (AMMO DISPLAY, RONDAS, ETC
-
-    hud->drawHud(win);
-
-    win->draw(player->getScoreTxt());
-    win->draw(player->getLifeBox());
-    win->draw(player->getLifeTxt());
-    win->draw(player->getShieldBox());
-    win->draw(player->getShieldTxt());
-
-    hud->setTxtAmmo(player->getArmaActiva().getMunicion());
-
-        /// RONDAS ///
-        if(control_rondas > 0)
-            win->draw(*txt_ronda);
-        ///TXT objetos///
-        if(control_obj > 0)
-            win->draw(*txt_objetos);
-
-    if(state == 1)
+    else
     {
-        win->draw(*filter);
-        for(unsigned i = 0; i < 3; i++)
-        {
-            win->draw(*items[i]);
-            win->draw(*item_text[i]);
-            win->draw(*pause_text);
-        }
+        fondo_sound.stop();
+        win->draw(*spr_over);
+        win->draw(*items_over);
+        win->draw(*text_over);
+
     }
+
 
     win->display();
 }
@@ -573,7 +597,11 @@ void Game::listenKeyboard()
                 }
             }
         }
-
+        if(state == 2)
+        {
+            if( e.type == Event::KeyPressed && e.key.code == Keyboard::Return)
+                win->close();
+        }
 
     }
     if(state == 0)
