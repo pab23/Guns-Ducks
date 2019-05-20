@@ -82,6 +82,7 @@ class Player
         SoundBuffer dead_buffer;
         Sound dead_sound;
 
+
 };
 
 #endif // PLAYER_H

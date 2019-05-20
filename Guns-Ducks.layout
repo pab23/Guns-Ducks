@@ -2,24 +2,14 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="src/Player.cpp" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src/Game.cpp" open="1" top="1" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="8246" topLine="424" />
-		</Cursor>
-	</File>
-	<File name="src/Game.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="31590" topLine="1000" />
+			<Cursor1 position="15575" topLine="564" />
 		</Cursor>
 	</File>
 	<File name="include/Player.h" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1559" topLine="46" />
-		</Cursor>
-	</File>
-	<File name="src/Menu.cpp" open="1" top="1" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3026" topLine="102" />
+			<Cursor1 position="2102" topLine="48" />
 		</Cursor>
 	</File>
 	<File name="include/Menu.h" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -27,14 +17,24 @@
 			<Cursor1 position="513" topLine="4" />
 		</Cursor>
 	</File>
+	<File name="include/Game.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2562" topLine="67" />
+		</Cursor>
+	</File>
 	<File name="main.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="2415" topLine="60" />
 		</Cursor>
 	</File>
-	<File name="include/Game.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src/Player.cpp" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2082" topLine="65" />
+			<Cursor1 position="8246" topLine="424" />
+		</Cursor>
+	</File>
+	<File name="src/Menu.cpp" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3026" topLine="69" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

@@ -81,13 +81,13 @@ class Game
         vector<Blood> bloods;
         vector<Bullet*> balas;
         vector<Object*> objetos;
-        Sprite *items[3], *items_over;
+        Sprite *items[2], *items_over;
         Clock bullet_clock, general_clock, zone_clock,  enemy_clock,frame_clock,  modoPato_clock, animation_clock, game_clock;
         Time bullet_cooldown, enemy_timer, general_timer, zone_timer, modoPato_timer,animation_timer, game_timer_t;
         Vector2i winDim;
         bool primer, info, modoPato;
 
-        Text *txt_time, *txt_ronda, *txt_objetos, *txt_nrondas, *item_text[3], *pause_text, *text_over;
+        Text *txt_time, *txt_ronda, *txt_objetos, *txt_nrondas, *item_text[2], *pause_text, *text_over;
         Font *font, *font_zombie;
         RectangleShape *life_zone, *filter;
 
@@ -99,6 +99,7 @@ class Game
         string strnr;
         SoundBuffer pistola_buffer,carbine_buffer, shotgun_buffer, fondo_buffer;
         Sound pistola_sound, carbine_sound, shotgun_sound, fondo_sound;
+        bool godMode;
 
 };
 

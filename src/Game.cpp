@@ -153,13 +153,13 @@ Game::Game(RenderWindow &window, int nivel)
     pause_text->setColor(Color::White);
 
     item_text[0] = new Text("RESUME", *font);
-    item_text[1] = new Text("MENU", *font);
-    item_text[2] = new Text("QUIT", *font);
+   // item_text[1] = new Text("MENU", *font);
+    item_text[1] = new Text("QUIT", *font);
 
     text_over = new Text("QUIT", *font);
 
     int it = 0;
-    for(unsigned i = 0; i < 3; i++)
+    for(unsigned i = 0; i < 2; i++)
     {
         items[i] = new Sprite(*tex_menu);
         items[i]->setOrigin(150, 25);
@@ -188,6 +188,7 @@ Game::Game(RenderWindow &window, int nivel)
     spr_over = new Sprite(*tex_over);
     spr_over->setPosition(0, 0);
 
+    godMode=false;
 
     gameLoop();
 
@@ -525,7 +526,7 @@ void Game::draw()
         if(state == 1)
         {
             win->draw(*filter);
-            for(unsigned i = 0; i < 3; i++)
+            for(unsigned i = 0; i < 2; i++)
             {
                 win->draw(*items[i]);
                 win->draw(*item_text[i]);
@@ -566,6 +567,11 @@ void Game::listenKeyboard()
             player->cambiarArma();
             hud->setGun(player->getArmaActiva().getNombre());
         }
+        if(e.type == Event::KeyPressed && e.key.code == Keyboard::G)
+        {
+           godMode=!godMode;
+
+        }
         if(e.type == Event::KeyPressed && e.key.code == Keyboard::P)
         {
             state = 1;
@@ -583,7 +589,7 @@ void Game::listenKeyboard()
             }
             if(  e.type == Event::KeyPressed && e.key.code == Keyboard::Down)
             {
-                if(selected + 1 <= 2)
+                if(selected + 1 <= 1)
                 {
                     item_text[selected]->setColor(Color::White);
                     selected++;
@@ -598,10 +604,9 @@ void Game::listenKeyboard()
                         state = 0;
                         break;
                     case 1:
+                         win->close();
                         break;
-                    case 2:
-                        win->close();
-                        break;
+
                 }
             }
         }
@@ -1018,6 +1023,7 @@ void Game::playerCollisions()
             }
             player->empujon(x, y, game_timer);
 
+            if(!godMode)
             player->gestionaVida(-10);
             break;
         }
