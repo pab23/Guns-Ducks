@@ -63,6 +63,11 @@ Game::Game(RenderWindow &window, int nivel)
     mapa = new Map();
     mapa->leerMap(nivel);
 
+    heridoSan= new Texture;
+    heridoSan->loadFromFile("resources/blood.png");
+    heridaca = new Sprite(*heridoSan);
+    heridaca->setPosition(0,0);
+
     ///Sonido
 
     if(!fondo_buffer.loadFromFile("resources/fondo.wav")){
@@ -491,7 +496,10 @@ void Game::draw()
         win->draw(*txt_nrondas);
 
 
-
+        ///sangre jugador
+    if(player->muriendo()){
+        win->draw(*heridaca);
+    }
 
 
 

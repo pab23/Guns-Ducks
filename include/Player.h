@@ -59,6 +59,7 @@ class Player
         Sprite* getSpritePointer(){return spr;};
         void setMapa(Map* mp){mapa=mp;};
         void playDead();
+        bool muriendo();
 
     protected:
 

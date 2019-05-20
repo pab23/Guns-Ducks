@@ -71,8 +71,8 @@ class Game
     private:
 
         RenderWindow *win;
-        Texture *tex_player,*tex_bloods, *tex_enemy, *tex_map, *tex_object, *tex_ammo, *tex_icon, *tex_balas, *tex_enemy_perro, *tex_menu, *tex_over;
-        Sprite *spr_map, *spr_ammo, *spr_over;
+        Texture *tex_player,*tex_bloods, *tex_enemy, *tex_map, *tex_object, *tex_ammo, *tex_icon, *tex_balas, *tex_enemy_perro, *tex_menu, *tex_over, *heridoSan;
+        Sprite *spr_map, *spr_ammo, *spr_over,*heridaca;
         Player *player;
         Event e;
         int cont_oleadas, cont_rondas, cont_bajas, control_rondas, control_obj, state, selected, over_selected; //contador de oleadas y rondas creadas

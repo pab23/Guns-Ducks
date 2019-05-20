@@ -461,4 +461,13 @@ void Player::collisionMove(int dirX, int dirY, float time)
     // }
        // }
 }
+
+bool Player::muriendo(){
+    bool casi=false;
+        if(life<40){
+            casi=true;
+        }
+        return casi;
+}
+
 void Player::playDead(){dead_sound.play();}
