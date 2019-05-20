@@ -35,7 +35,11 @@ int main()
         {
             switch(e.type)
             {
+<<<<<<< HEAD
             case Event::KeyPressed:
+=======
+            case Event::KeyReleased:
+>>>>>>> score-health
 
                     if(menu->getState() == 0)
                     {

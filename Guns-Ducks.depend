@@ -1,11 +1,19 @@
 # depslib dependency file v1.0
+<<<<<<< HEAD
 1558113299 source:/home/fv/Escritorio/Guns-Ducks/main.cpp
+=======
+1558113199 source:/home/fv/Escritorio/Guns-Ducks/main.cpp
+>>>>>>> score-health
 	<SFML/Graphics.hpp>
 	<iostream>
 	"include/Game.h"
 	"include/Menu.h"
 
+<<<<<<< HEAD
 1558115604 /home/fv/Escritorio/Guns-Ducks/include/Game.h
+=======
+1558109592 /home/fv/Escritorio/Guns-Ducks/include/Game.h
+>>>>>>> score-health
 	<SFML/Graphics.hpp>
 	<SFML/Audio.hpp>
 	<iostream>
@@ -97,7 +105,11 @@
 	"../include/Enemy.h"
 	<math.h>
 
+<<<<<<< HEAD
 1558116059 source:/home/fv/Escritorio/Guns-Ducks/src/Game.cpp
+=======
+1558109583 source:/home/fv/Escritorio/Guns-Ducks/src/Game.cpp
+>>>>>>> score-health
 	"../include/Game.h"
 
 1558103885 source:/home/fv/Escritorio/Guns-Ducks/src/Gun.cpp
@@ -106,7 +118,11 @@
 1558109059 source:/home/fv/Escritorio/Guns-Ducks/src/Hud.cpp
 	"Hud.h"
 
+<<<<<<< HEAD
 1558114542 source:/home/fv/Escritorio/Guns-Ducks/src/Map.cpp
+=======
+1558109670 source:/home/fv/Escritorio/Guns-Ducks/src/Map.cpp
+>>>>>>> score-health
 	"Map.h"
 	"tinyxml.h"
 	"tinystr.h"
@@ -156,3 +172,163 @@
 	"tinyxml.h"
 	<windows.h>
 
+<<<<<<< HEAD
+=======
+1558113428 source:/home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/main.cpp
+	<SFML/Graphics.hpp>
+	<iostream>
+	"include/Game.h"
+	"include/Menu.h"
+
+1558113428 /home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/include/Game.h
+	<SFML/Graphics.hpp>
+	<SFML/Audio.hpp>
+	<iostream>
+	<sstream>
+	<time.h>
+	<stdlib.h>
+	"Player.h"
+	"Enemy.h"
+	"Bullet.h"
+	"Animation.h"
+	"Blood.h"
+	"Gun.h"
+	"Object.h"
+	"Hud.h"
+	"Map.h"
+
+1558364804 /home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/include/Player.h
+	<iostream>
+	<sstream>
+	<SFML/Graphics.hpp>
+	<SFML/Audio.hpp>
+	"Gun.h"
+	"Animation.h"
+	"Map.h"
+
+1558083348 /home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/include/Gun.h
+	<iostream>
+	<sstream>
+	<SFML/Graphics.hpp>
+
+1558083348 /home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/include/Animation.h
+	<iostream>
+	<sstream>
+	<SFML/Graphics.hpp>
+	"../include/Animation.h"
+
+1558083348 /home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/include/Map.h
+	"SFML/Graphics.hpp"
+
+1558113428 /home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/include/Enemy.h
+	"SFML/Graphics.hpp"
+	<iostream>
+	<math.h>
+	"VertexArray.hpp"
+	"Animation.h"
+
+1558083348 /home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/include/VertexArray.hpp
+	<SFML/Graphics/Export.hpp>
+	<SFML/Graphics/Vertex.hpp>
+	<SFML/Graphics/PrimitiveType.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/Drawable.hpp>
+	<vector>
+
+1558083348 /home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/include/Bullet.h
+	"SFML/Graphics.hpp"
+	<iostream>
+
+1558083348 /home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/include/Blood.h
+	"SFML/Graphics.hpp"
+	<iostream>
+
+1558083348 /home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/include/Object.h
+	<iostream>
+	<ctime>
+	"SFML/Graphics.hpp"
+
+1558113428 /home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/include/Hud.h
+	"SFML/Graphics.hpp"
+	<iostream>
+	<sstream>
+
+1558113428 /home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/include/Menu.h
+	<iostream>
+	<vector>
+	"SFML/Graphics.hpp"
+
+1558083349 source:/home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/src/Blood.cpp
+	"../include/Blood.h"
+	"Blood.h"
+
+1558083349 source:/home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/src/Bullet.cpp
+	"../include/Bullet.h"
+
+1558083349 source:/home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/src/Gun.cpp
+	"Gun.h"
+
+1558083349 source:/home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/src/Object.cpp
+	"../include/Object.h"
+
+1558083349 source:/home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/src/tinystr.cpp
+	"tinystr.h"
+
+1558083348 /home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/include/tinystr.h
+	<assert.h>
+	<string.h>
+
+1558083349 source:/home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/src/tinyxml.cpp
+	<ctype.h>
+	<sstream>
+	<iostream>
+	"tinyxml.h"
+
+1558083348 /home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/include/tinyxml.h
+	<ctype.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<assert.h>
+	<string>
+	<iostream>
+	<sstream>
+	"tinystr.h"
+
+1558083349 source:/home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/src/tinyxmlerror.cpp
+	"tinyxml.h"
+
+1558083349 source:/home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/src/tinyxmlparser.cpp
+	<ctype.h>
+	<stddef.h>
+	"tinyxml.h"
+	<windows.h>
+
+1558113430 source:/home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/src/Animation.cpp
+	"../include/Animation.h"
+
+1558113430 source:/home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/src/Enemy.cpp
+	"../include/Enemy.h"
+	<math.h>
+
+1558365104 source:/home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/src/Game.cpp
+	"../include/Game.h"
+
+1558113430 source:/home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/src/Hud.cpp
+	"Hud.h"
+
+1558113430 source:/home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/src/Map.cpp
+	"Map.h"
+	"tinyxml.h"
+	"tinystr.h"
+	<iostream>
+	"SFML/System.hpp"
+	"SFML/Graphics.hpp"
+
+1558365311 source:/home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/src/Player.cpp
+	"../include/Player.h"
+
+1558113430 source:/home/fv/Documentos/GIT_ZENOTAFIO/Guns-Ducks/src/Menu.cpp
+	"Menu.h"
+
+>>>>>>> score-health

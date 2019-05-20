@@ -51,10 +51,17 @@ Player::Player(Texture &tex)
         txt_shield->setPosition(shield_box->getPosition().x + shield_box->getSize().x/2,shield_box->getPosition().y);
         txt_shield->setColor(Color::Black);
 
+<<<<<<< HEAD
         box = new RectangleShape({spr->getScale().x*spr->getTextureRect().width,spr->getScale().y*spr->getTextureRect().height/4});
         box->setFillColor(Color::Blue);
         box->setOrigin(box->getSize().x/2,box->getSize().y/2);
         box->setPosition(getPosition().x,getPosition().y+(spr->getTextureRect().height/2));
+=======
+        box = new RectangleShape({20,20});
+        box->setFillColor(Color::Blue);
+        box->setOrigin(box->getSize().x/2,box->getSize().y/2);
+        box->setPosition(0,0);
+>>>>>>> score-health
 
         /*circle = new CircleShape();
         circle->setOrigin(50,50);
@@ -301,7 +308,11 @@ FloatRect Player::getBoundsBox(){
 
 void Player::setPosition(Vector2f vec){
     spr->setPosition(vec);
+<<<<<<< HEAD
     box->setPosition(vec.x, vec.y);
+=======
+    box->setPosition(vec.x, vec.y+6);
+>>>>>>> score-health
 }
 
 
@@ -351,6 +362,13 @@ void Player::cogerMunicion(string n, int nbalas)
     }
 }
 
+<<<<<<< HEAD
+=======
+Vector2f Player::getPositionBox()
+{
+    return box->getPosition();
+}
+>>>>>>> score-health
 void Player::quitarBalaActiva()
 {
     armas[armaActiva].setMunicion(-1);

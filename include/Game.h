@@ -71,23 +71,40 @@ class Game
     private:
 
         RenderWindow *win;
+<<<<<<< HEAD
         Texture *tex_player,*tex_bloods, *tex_enemy, *tex_map, *tex_object, *tex_ammo, *tex_icon, *tex_balas, *tex_enemy_perro, *tex_menu;
         Sprite *spr_map, *spr_ammo;
         Player *player;
         Event e;
         int cont_oleadas, cont_rondas, cont_bajas, control_rondas, control_obj, state, selected; //contador de oleadas y rondas creadas
+=======
+        Texture *tex_player,*tex_bloods, *tex_enemy, *tex_map, *tex_object, *tex_ammo, *tex_icon, *tex_balas, *tex_enemy_perro;
+        Sprite *spr_map, *spr_ammo;
+        Player *player;
+        Event e;
+        int cont_oleadas, cont_rondas, cont_bajas, control_rondas, control_obj; //contador de oleadas y rondas creadas
+>>>>>>> score-health
         vector<Enemy> enemigos;
         vector<Blood> bloods;
         vector<Bullet*> balas;
         vector<Object*> objetos;
+<<<<<<< HEAD
         Sprite *items[3];
+=======
+>>>>>>> score-health
         Clock bullet_clock, general_clock, zone_clock,  enemy_clock,frame_clock,  modoPato_clock, animation_clock, game_clock;
         Time bullet_cooldown, enemy_timer, general_timer, zone_timer, modoPato_timer,animation_timer, game_timer_t;
         Vector2i winDim;
         bool primer, info, modoPato;
+<<<<<<< HEAD
         Text *txt_time, *txt_ronda, *txt_objetos, *txt_nrondas, *item_text[3], *pause_text;
         Font *font, *font_zombie;
         RectangleShape *life_zone, *filter;
+=======
+        Text *txt_time, *txt_ronda, *txt_objetos, *txt_nrondas;
+        Font *font, *font_zombie;
+        RectangleShape *life_zone;
+>>>>>>> score-health
         Hud *hud;
         float game_timer;
         View view, viewHud;
